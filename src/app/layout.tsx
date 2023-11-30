@@ -3,6 +3,10 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
+import Box from '@mui/material/Box';
+
+import { Header } from '@/widgets/header';
+
 import Providers from './Providers';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -16,7 +20,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              bgcolor: 'background.default',
+              p: 3,
+            }}
+          >
+            {children}
+          </Box>
+        </Providers>
       </body>
     </html>
   );
