@@ -1,8 +1,13 @@
 import { paths } from '@/shared/routing';
 
-export const items = [
-  { text: 'Главная', href: paths.home },
-  { text: 'Упражнения', href: paths.exercises },
-  { text: 'Статистика', href: paths.statistics },
-  { text: 'Тестирование', href: paths.testing },
+// TODO: подумать как не типизировать, а использовать messages
+type Item = { text: ItemText; href: string };
+
+type ItemText = 'home' | 'exercises' | 'statistics' | 'testing';
+
+export const items: Item[] = [
+  { text: 'home', href: paths.home },
+  { text: 'exercises', href: paths.exercises },
+  { text: 'statistics', href: paths.statistics },
+  { text: 'testing', href: paths.testing },
 ];

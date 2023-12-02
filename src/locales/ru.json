@@ -1,0 +1,22 @@
+{
+  "Exercises": {
+    "title": "Страница упражнений"
+  },
+  "Home": {
+    "title": "Главная"
+  },
+  "LocaleSwitcher": {
+    "label": "Изменить язык",
+    "locale": "{locale, select, de {German} en {English} ru {Русский} other {Unknown}}"
+  },
+  "LocaleLayout": {
+    "title": "keycap.pro ру",
+    "description": "Описание на русском"
+  },
+  "Navigation": {
+    "home": "Главная",
+    "exercises": "Упражнения",
+    "statistics": "Статистика",
+    "testing": "Тестирование"
+  }
+}
