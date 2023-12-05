@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { Session } from 'next-auth';
+import { getTranslations } from 'next-intl/server';
 
 import { Box } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
@@ -8,11 +9,18 @@ import Typography from '@mui/material/Typography';
 
 import { LocaleSwitcher } from '@/features/switch-locale';
 import { Logo } from '@/shared/icons';
+import { AuthNavigation } from '@/widgets/header/ui/authNavigation';
 import { UserMenu } from '@/widgets/header/ui/userMenu';
 
 import { Navigation } from './navigation';
 
-export function Header() {
+type Props = {
+  session: Session | null;
+};
+
+export async function Header({ session }: Props) {
+  const t = await getTranslations('Navigation');
+
   // TODO: LocalSwitcher сделать без обертки div в --turbo
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -41,7 +49,11 @@ export function Header() {
             <div>
               <LocaleSwitcher />
             </div>
-            <UserMenu />
+            {session ? (
+              <UserMenu userName={session.user?.name} />
+            ) : (
+              <AuthNavigation />
+            )}
           </Toolbar>
         </Container>
       </AppBar>

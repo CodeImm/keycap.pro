@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { useTranslations } from 'next-intl';
+
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -11,9 +13,15 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
+import { SignOut } from '@/features/sign-out';
+
 import { items } from '../config';
 
-export function UserMenu() {
+type Props = { userName?: string | null };
+
+export function UserMenu({ userName }: Props) {
+  const t = useTranslations('Navigation');
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -27,12 +35,16 @@ export function UserMenu() {
   };
 
   return (
-    <Box sx={{ flexGrow: 0 }}>
+    <Box
+      sx={{ display: 'flex', alignItems: 'center', flexGrow: 0, gap: 1, ml: 2 }}
+    >
+      <Typography variant="body1" component={'span'}>
+        {userName}
+      </Typography>
       <Tooltip title="Account settings">
         <IconButton
           onClick={handleClick}
           size="small"
-          sx={{ ml: 2 }}
           aria-controls={open ? 'account-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
@@ -66,14 +78,13 @@ export function UserMenu() {
 
         <Divider />
 
-        <MenuItem
-          onClick={() => {
-            console.log('Log out');
-            // signOut();
-          }}
-        >
-          <Typography textAlign="center">{'Выйти'}</Typography>
-        </MenuItem>
+        <SignOut>
+          {({ onClick }) => (
+            <MenuItem onClick={onClick}>
+              <Typography textAlign="center">{t('signOut')}</Typography>
+            </MenuItem>
+          )}
+        </SignOut>
       </Menu>
     </Box>
   );

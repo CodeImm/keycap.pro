@@ -17,6 +17,11 @@
     "home": "Home",
     "exercises": "Exercises",
     "statistics": "Statistics",
-    "testing": "Testing"
+    "testing": "Testing",
+    "logIn": "Log in",
+    "login": "Login",
+    "signup": "Signup",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out"
   }
 }

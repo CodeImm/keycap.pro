@@ -1,2 +1,1 @@
-export { UserMenu } from './ui/UserMenu';
 export { AuthNavigation } from './ui/AuthNavigation';
