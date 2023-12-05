@@ -50,7 +50,10 @@ export async function Header({ session }: Props) {
               <LocaleSwitcher />
             </div>
             {session ? (
-              <UserMenu userName={session.user?.name} />
+              <UserMenu
+                userName={session.user?.name}
+                userAvatarUrl={session.user?.image}
+              />
             ) : (
               <AuthNavigation />
             )}

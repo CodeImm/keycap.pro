@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -13,13 +12,14 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
+import { UserAvatar, UserName } from '@/entities/account';
 import { SignOut } from '@/features/sign-out';
 
 import { items } from '../config';
 
-type Props = { userName?: string | null };
+type Props = { userName?: string | null; userAvatarUrl?: string | null };
 
-export function UserMenu({ userName }: Props) {
+export function UserMenu({ userName, userAvatarUrl }: Props) {
   const t = useTranslations('Navigation');
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -38,9 +38,7 @@ export function UserMenu({ userName }: Props) {
     <Box
       sx={{ display: 'flex', alignItems: 'center', flexGrow: 0, gap: 1, ml: 2 }}
     >
-      <Typography variant="body1" component={'span'}>
-        {userName}
-      </Typography>
+      <UserName userName={userName} />
       <Tooltip title="Account settings">
         <IconButton
           onClick={handleClick}
@@ -49,9 +47,7 @@ export function UserMenu({ userName }: Props) {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar alt="Avatar" sx={{ width: 32, height: 32 }}>
-            M
-          </Avatar>
+          <UserAvatar userName={userName} userAvatarUrl={userAvatarUrl} />
         </IconButton>
       </Tooltip>
       <Menu
