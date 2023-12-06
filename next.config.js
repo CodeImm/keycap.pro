@@ -3,6 +3,14 @@ const withNextIntl = require('next-intl/plugin')(
 );
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: [
+      'mongoose',
+      '@typegoose/typegoose',
+      'bcryptjs',
+    ],
+  },
+};
 
 module.exports = withNextIntl(nextConfig);
