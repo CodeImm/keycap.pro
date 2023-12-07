@@ -52,7 +52,7 @@ export async function Header({ session }: Props) {
             {session ? (
               <UserMenu
                 userName={session.user?.name}
-                userAvatarUrl={session.user?.image}
+                userAvatarUrl={session.user?.imageURL}
               />
             ) : (
               <AuthNavigation />

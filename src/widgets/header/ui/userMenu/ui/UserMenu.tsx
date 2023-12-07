@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import { UserAvatar, UserName } from '@/entities/account';
+import { UserAvatar, UserName } from '@/entities/user';
 import { SignOut } from '@/features/sign-out';
 
 import { items } from '../config';
