@@ -23,5 +23,10 @@
     "signup": "Регистрация",
     "signUp": "Зарегистрироваться",
     "signOut": "Выйти"
+  },
+  "KeyboardConfigure": {
+    "layoutLanguage": "Язык",
+    "layoutId": "Раскладка",
+    "layoutType": "Тип"
   }
 }

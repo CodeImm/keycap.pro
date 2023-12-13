@@ -4,7 +4,9 @@ import { NextRequest } from 'next/server';
 
 import { localePrefix, locales } from '@/shared/config/next-intl/config';
 
-const publicPages = ['/', '/login', '/signup'];
+import { paths } from './shared/routing';
+
+const publicPages = [paths.home, paths.login, paths.signup, paths.exercises];
 
 const intlMiddleware = createMiddleware({
   defaultLocale: 'ru',

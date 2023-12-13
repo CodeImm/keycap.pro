@@ -23,5 +23,10 @@
     "signup": "Signup",
     "signUp": "Sign Up",
     "signOut": "Sign Out"
+  },
+  "KeyboardConfigure": {
+    "layoutLanguage": "Language",
+    "layoutId": "Layout",
+    "layoutType": "Type"
   }
 }
