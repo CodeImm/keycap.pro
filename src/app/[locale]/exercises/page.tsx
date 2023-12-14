@@ -1,7 +1,9 @@
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import { ConfigureKeyboardLayoutForm } from '@/features/configure-keyboard-layout';
+import { Container } from '@mui/material';
+
+import { InitialKeyboardSetup } from '@/widgets/initial-keyboard-setup';
 
 type Props = {
   params: { locale: string };
@@ -13,9 +15,8 @@ export default function ExercisesPage({ params: { locale } }: Props) {
   const t = useTranslations('Exercises');
 
   return (
-    <>
-      {t('title')}
-      <ConfigureKeyboardLayoutForm />
-    </>
+    <Container maxWidth="md">
+      <InitialKeyboardSetup />
+    </Container>
   );
 }

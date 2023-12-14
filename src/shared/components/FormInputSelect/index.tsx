@@ -32,12 +32,20 @@ export const FormInputSelect = <T extends string>({
   // TODO: выносить ли menuItems на уровень выше?
   return (
     <FormControl size="small">
-      <InputLabel id={`${name}-label`}>{label}</InputLabel>
+      <InputLabel id={`${name}-label`} shrink={true}>
+        {label}
+      </InputLabel>
       <Controller
         name={name}
         control={control}
         render={({ field }) => (
-          <Select {...field} labelId={`${name}-label`} label={label} {...props}>
+          <Select
+            {...field}
+            labelId={`${name}-label`}
+            label={label}
+            {...props}
+            notched={true}
+          >
             {menuItems}
           </Select>
         )}

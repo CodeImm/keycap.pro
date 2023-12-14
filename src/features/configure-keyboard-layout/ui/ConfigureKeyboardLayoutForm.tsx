@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -28,25 +29,33 @@ interface IFormInput {
   layoutId: ValueOfLayoutIdOption;
 }
 
-export function ConfigureKeyboardLayoutForm() {
+interface Props {
+  submitButtonText: string;
+  defaultValues: IFormInput;
+  onSubmit: (data: IFormInput) => void;
+}
+//TODO: submitButtonText по умолчанию с t
+export function ConfigureKeyboardLayoutForm({
+  submitButtonText,
+  defaultValues,
+  onSubmit,
+}: Props) {
   const t = useTranslations('KeyboardConfigure');
 
   const [keyboardLayoutOptions, setKeyboardLayoutOptions] = useState(
-    getOptionsForLanguage(keyboardLayoutLanguageOptions[0].value)
+    getOptionsForLanguage(defaultValues.layoutLanguage)
   );
 
-  const { control, handleSubmit, watch, setValue } = useForm({
-    defaultValues: {
-      layoutLanguage: keyboardLayoutLanguageOptions[0].value,
-      layoutType: keyboardLayoutTypeOptions[0].value,
-      layoutId: getOptionsForLanguage(keyboardLayoutLanguageOptions[0].value)[0]
-        .value,
-    },
-  });
+  const { control, handleSubmit, watch, setValue, reset } = useForm<IFormInput>(
+    {
+      defaultValues,
+    }
+  );
   const watchLayoutLanguage = watch('layoutLanguage');
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+  const _onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
+    onSubmit(data);
   };
 
   const onLanguageChange = useCallback(() => {
@@ -59,43 +68,54 @@ export function ConfigureKeyboardLayoutForm() {
     onLanguageChange();
   }, [onLanguageChange]);
 
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
+
   return (
     <Box
       component="form"
-      onSubmit={handleSubmit(onSubmit)}
       sx={{
-        marginTop: 8,
         display: 'flex',
+        flexDirection: 'column',
         gap: 2,
-        alignItems: 'center',
         flex: 1,
       }}
     >
-      <FormInputSelect
-        name="layoutLanguage"
-        label={t('layoutLanguage')}
-        control={control}
-        options={keyboardLayoutLanguageOptions}
-        size="small"
-        sx={{ minWidth: '150px' }}
-      />
-      <FormInputSelect
-        name="layoutId"
-        label={t('layoutId')}
-        control={control}
-        options={keyboardLayoutOptions}
-        size="small"
-        sx={{ minWidth: '150px' }}
-      />
-      <FormInputSelect
-        name="layoutType"
-        label={t('layoutType')}
-        control={control}
-        options={keyboardLayoutTypeOptions}
-        size="small"
-        sx={{ minWidth: '150px' }}
-      />
-      <input type="submit" />
+      <Box sx={{ display: 'flex', gap: 2 }}>
+        <FormInputSelect
+          name="layoutLanguage"
+          label={t('layoutLanguage')}
+          control={control}
+          options={keyboardLayoutLanguageOptions}
+          size="small"
+          sx={{ minWidth: '150px' }}
+        />
+        <FormInputSelect
+          name="layoutId"
+          label={t('layoutId')}
+          control={control}
+          options={keyboardLayoutOptions}
+          size="small"
+          sx={{ minWidth: '150px' }}
+        />
+        <FormInputSelect
+          name="layoutType"
+          label={t('layoutType')}
+          control={control}
+          options={keyboardLayoutTypeOptions}
+          size="small"
+          sx={{ minWidth: '150px' }}
+        />
+      </Box>
+
+      <Typography>Preview</Typography>
+
+      <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+        <Box sx={{ flex: '1 1 auto' }} />
+
+        <Button onClick={handleSubmit(_onSubmit)}>{submitButtonText}</Button>
+      </Box>
     </Box>
   );
 }

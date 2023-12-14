@@ -28,5 +28,13 @@
     "layoutLanguage": "Language",
     "layoutId": "Layout",
     "layoutType": "Type"
+  },
+  "InitialKeyboardSetup": {
+    "title": "Initial Keyboard Setup",
+    "step1": "Layout",
+    "step2": "Finger zones",
+    "continue": "Сontinue",
+    "back": "Back",
+    "submit": "Submit"
   }
 }

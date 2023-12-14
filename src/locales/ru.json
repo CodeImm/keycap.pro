@@ -28,5 +28,13 @@
     "layoutLanguage": "Язык",
     "layoutId": "Раскладка",
     "layoutType": "Тип"
+  },
+  "InitialKeyboardSetup": {
+    "title": "Начальная настройка клавиатуры",
+    "step1": "Раскладка",
+    "step2": "Пальцевые зоны",
+    "continue": "Продолжить",
+    "back": "Назад",
+    "submit": "Сохранить и продолжить"
   }
 }
