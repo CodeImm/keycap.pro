@@ -1,0 +1,1 @@
+export { getOptionsForLanguage } from './getOptionsForLanguage';

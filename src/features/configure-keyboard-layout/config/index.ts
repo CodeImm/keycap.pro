@@ -1,4 +1,4 @@
-import type { LayoutLanguage } from '@/entities/keyboard';
+import type { LayoutLanguage, LayoutType } from '@/entities/keyboard';
 import type { SelectOption } from '@/shared/components';
 
 export const keyboardLayoutLanguageOptions: SelectOption<LayoutLanguage>[] = [
@@ -6,7 +6,7 @@ export const keyboardLayoutLanguageOptions: SelectOption<LayoutLanguage>[] = [
   { value: 'english', label: 'English' },
 ];
 
-export const keyboardLayoutTypeOptions = [
+export const keyboardLayoutTypeOptions: SelectOption<LayoutType>[] = [
   { value: 'iso', label: 'ISO' },
   { value: 'ansi', label: 'ANSI' },
 ];

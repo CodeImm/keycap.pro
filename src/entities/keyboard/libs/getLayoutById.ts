@@ -1,10 +1,11 @@
-import { colemak } from './colemak';
-import { dvorak } from './dvorak';
-import { jcuken } from './jcuken';
-import { us_qwerty } from './us_qwerty';
-import { workman } from './workman';
-
-import type { LayoutId } from '..';
+import {
+  colemak,
+  dvorak,
+  jcuken,
+  us_qwerty,
+  workman,
+} from '../config/keyboardLayouts';
+import type { LayoutId } from '../model';
 
 export function getLayoutById(id: LayoutId) {
   switch (id) {
@@ -19,6 +20,7 @@ export function getLayoutById(id: LayoutId) {
     case 'jcuken':
       return jcuken;
     default:
-      throw new Error(`Unknown layout id: ${id}`);
+      const exhaustiveCheck: never = id;
+      throw new Error(`Unknown layout id: ${exhaustiveCheck}`);
   }
 }

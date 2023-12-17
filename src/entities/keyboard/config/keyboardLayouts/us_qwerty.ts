@@ -1,8 +1,9 @@
 /**
  * https://w3c.github.io/uievents-code/#code-value-tables
  */
+import type { Layout } from '../../model';
 
-export const us_qwerty = {
+export const us_qwerty: Layout = {
   default: {
     Backquote: {
       key: '`',

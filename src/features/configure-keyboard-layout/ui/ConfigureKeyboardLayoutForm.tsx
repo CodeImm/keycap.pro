@@ -8,14 +8,14 @@ import { Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { LayoutId } from '@/entities/keyboard';
+import { Keyboard, LayoutId } from '@/entities/keyboard';
 import { FormInputSelect } from '@/shared/components';
 
 import {
   keyboardLayoutLanguageOptions,
   keyboardLayoutTypeOptions,
 } from '../config';
-import { getOptionsForLanguage } from '../libs/getOptionsForLanguage';
+import { getOptionsForLanguage } from '../libs';
 
 type ValueOfLayoutLanguageOption =
   (typeof keyboardLayoutLanguageOptions)[number]['value'];
@@ -52,6 +52,8 @@ export function ConfigureKeyboardLayoutForm({
     }
   );
   const watchLayoutLanguage = watch('layoutLanguage');
+  const watchLayoutType = watch('layoutType');
+  const watchLayoutId = watch('layoutId');
 
   const _onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
@@ -109,9 +111,16 @@ export function ConfigureKeyboardLayoutForm({
         />
       </Box>
 
-      <Typography>Preview</Typography>
+      <Box
+        sx={{
+          px: '10%',
+        }}
+      >
+        <Typography>Preview</Typography>
+        <Keyboard layoutId={watchLayoutId} layoutType={watchLayoutType} />
+      </Box>
 
-      <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
         <Box sx={{ flex: '1 1 auto' }} />
 
         <Button onClick={handleSubmit(_onSubmit)}>{submitButtonText}</Button>
