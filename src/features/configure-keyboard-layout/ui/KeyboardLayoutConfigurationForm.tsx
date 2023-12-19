@@ -15,7 +15,7 @@ import {
   keyboardLayoutLanguageOptions,
   keyboardLayoutTypeOptions,
 } from '../config';
-import { getOptionsForLanguage } from '../libs';
+import { getOptionsForLanguage } from '../lib';
 
 type ValueOfLayoutLanguageOption =
   (typeof keyboardLayoutLanguageOptions)[number]['value'];
@@ -38,10 +38,13 @@ interface Props {
   actions({ getValues }: CallbackActions): JSX.Element;
 }
 //TODO: submitButtonText по умолчанию с t
-export function ConfigureKeyboardLayoutForm({ defaultValues, actions }: Props) {
+export function KeyboardLayoutConfigurationForm({
+  defaultValues,
+  actions,
+}: Props) {
   const t = useTranslations('KeyboardConfigure');
 
-  const [keyboardLayoutOptions, setKeyboardLayoutOptions] = useState(
+  const [keyboardLayoutIdOptions, setKeyboardLayoutIdOptions] = useState(
     getOptionsForLanguage(defaultValues.layoutLanguage)
   );
 
@@ -60,7 +63,7 @@ export function ConfigureKeyboardLayoutForm({ defaultValues, actions }: Props) {
   const onLanguageChange = useCallback(() => {
     setValue('layoutId', getOptionsForLanguage(watchLayoutLanguage)[0].value);
 
-    setKeyboardLayoutOptions(getOptionsForLanguage(watchLayoutLanguage));
+    setKeyboardLayoutIdOptions(getOptionsForLanguage(watchLayoutLanguage));
   }, [setValue, watchLayoutLanguage]);
 
   useEffect(() => {
@@ -94,7 +97,7 @@ export function ConfigureKeyboardLayoutForm({ defaultValues, actions }: Props) {
           name="layoutId"
           label={t('layoutId')}
           control={control}
-          options={keyboardLayoutOptions}
+          options={keyboardLayoutIdOptions}
           size="small"
           sx={{ minWidth: '150px' }}
         />

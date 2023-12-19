@@ -4,9 +4,12 @@ import { useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
-import { FingersZonesSchema, fingersZonesSchema } from '@/entities/keyboard';
-import { ConfigureFingersZonesForm } from '@/features/configure-finger-zones';
-import { ConfigureKeyboardLayoutForm } from '@/features/configure-keyboard-layout';
+import {
+  KeyFingerMapping,
+  keyFingerMapping as defaultKeyFingerMapping,
+} from '@/entities/keyboard';
+import { KeyFingerMappingForm } from '@/features/configure-finger-zones';
+import { KeyboardLayoutConfigurationForm } from '@/features/configure-keyboard-layout';
 import { StepControlPanel, StepperControls } from '@/shared/components';
 
 import { keyboardLayoutDefaultConfig } from '../config';
@@ -16,7 +19,7 @@ export function InitialKeyboardSetup() {
 
   const [keyboardConfig, setKeyboardConfig] = useState({
     layout: keyboardLayoutDefaultConfig,
-    fingersZones: fingersZonesSchema,
+    fingersZones: defaultKeyFingerMapping,
   });
 
   function handleConfigChange(
@@ -26,7 +29,7 @@ export function InitialKeyboardSetup() {
     setKeyboardConfig((prev) => ({ ...prev, [property]: data }));
   }
 
-  function handleSubmit(data: FingersZonesSchema) {
+  function handleSubmit(data: KeyFingerMapping) {
     console.log({ fingersZonesSchema: data, layout: keyboardConfig.layout });
 
     throw Error('error');
@@ -37,7 +40,7 @@ export function InitialKeyboardSetup() {
       {({ activeStep, handleNext, handleBack }) => (
         <>
           {activeStep === 0 && (
-            <ConfigureKeyboardLayoutForm
+            <KeyboardLayoutConfigurationForm
               defaultValues={keyboardConfig.layout}
               submitButtonText={t('continue')}
               actions={({ getValues }) => (
@@ -52,7 +55,7 @@ export function InitialKeyboardSetup() {
           )}
           {activeStep > 0 && (
             <>
-              <ConfigureFingersZonesForm
+              <KeyFingerMappingForm
                 defaultValues={keyboardConfig.fingersZones}
                 layoutId={keyboardConfig.layout.layoutId}
                 layoutType={keyboardConfig.layout.layoutType}

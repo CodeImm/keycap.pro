@@ -98,11 +98,11 @@ export enum Finger {
   RIGHT_PINKIE,
 }
 
-export type FingersZonesSchema = {
+export type KeyFingerMapping = {
   [key in LayoutKeyId | 'Space_Left' | 'Space_Right']?: Finger;
 };
 
-export type FingersColorsSchema = {
+export type FingerColorMapping = {
   [key in Finger]: string;
 };
 
@@ -121,45 +121,9 @@ export type LayoutId = (typeof layoutIds)[number];
 export const layoutTypes = ['iso', 'ansi'] as const;
 export type LayoutType = (typeof layoutTypes)[number];
 
-type LayoutProfiles = {
+export type LayoutProfiles = {
   id: LayoutId;
   name: string;
   language: LayoutLanguage;
   emulated: boolean;
 };
-
-export const layoutProfiles: LayoutProfiles[] = [
-  // English
-  {
-    id: 'us_qwerty',
-    name: 'QWERTY',
-    language: 'english',
-    emulated: true,
-  },
-  {
-    id: 'dvorak',
-    name: 'Dvorak',
-    language: 'english',
-    emulated: true,
-  },
-  {
-    id: 'colemak',
-    name: 'Colemak',
-    language: 'english',
-    emulated: true,
-  },
-  {
-    id: 'workman',
-    name: 'Workman',
-    language: 'english',
-    emulated: true,
-  },
-
-  // Russian
-  {
-    id: 'jcuken',
-    name: 'ЙЦУКЕН',
-    language: 'russian',
-    emulated: true,
-  },
-];

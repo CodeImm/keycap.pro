@@ -1,6 +1,6 @@
-export { ConfigureKeyboardLayoutForm } from './ui/ConfigureKeyboardLayoutForm';
+export { KeyboardLayoutConfigurationForm } from './ui/KeyboardLayoutConfigurationForm';
 export {
   keyboardLayoutLanguageOptions,
   keyboardLayoutTypeOptions,
 } from './config';
-export { getOptionsForLanguage } from './libs';
+export { getOptionsForLanguage } from './lib';

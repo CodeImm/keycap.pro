@@ -6,10 +6,10 @@ import Inner from './Inner';
 import KeyboardRow from './KeyboardRow';
 import Rect from './Rect';
 
-import { getLayoutById, getVirtualKeyboardLayoutById } from '../../libs';
+import { getLayoutById, getVirtualKeyboardLayoutById } from '../../lib';
 import type {
-  FingersColorsSchema,
-  FingersZonesSchema,
+  FingerColorMapping,
+  KeyFingerMapping,
   LayoutId,
   LayoutKeyId,
   LayoutType,
@@ -33,9 +33,9 @@ interface Props extends BoxProps {
   layoutType: LayoutType;
   excludedKeys?: LayoutKeyId[];
   homeKeys?: LayoutKeyId[];
-  fingersZonesSchema?: FingersZonesSchema;
-  fingersColorsSchema?: FingersColorsSchema;
-  onKeyColorChange?: (e: any) => void;
+  keyFingerMapping?: KeyFingerMapping;
+  fingerColorMapping?: FingerColorMapping;
+  onKeyFingerChange?: (e: any) => void;
 }
 
 export function Keyboard({
@@ -43,9 +43,9 @@ export function Keyboard({
   layoutType,
   excludedKeys = DEFAULT_EXCLUDED_KEYS,
   homeKeys = DEFAULT_HOME_KEYS,
-  fingersZonesSchema,
-  fingersColorsSchema,
-  onKeyColorChange,
+  keyFingerMapping,
+  fingerColorMapping,
+  onKeyFingerChange,
   sx,
   ...props
 }: Props) {
@@ -67,7 +67,7 @@ export function Keyboard({
         width: '100%',
         ...sx,
       }}
-      onClick={onKeyColorChange}
+      onClick={onKeyFingerChange}
       {...props}
     >
       <Rect x={0} y={0} rx={9} ry={9} width={639} height={226} fill="#cccccc" />
@@ -82,8 +82,8 @@ export function Keyboard({
               layoutType={layoutType}
               excludedKeys={excludedKeys}
               homeKeys={homeKeys}
-              fingersZonesSchema={fingersZonesSchema}
-              fingersColorsSchema={fingersColorsSchema}
+              keyFingerMapping={keyFingerMapping}
+              fingerColorMapping={fingerColorMapping}
             />
           )
         )}

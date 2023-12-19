@@ -1,1 +1,1 @@
-export { ConfigureFingersZonesForm } from './ui';
+export { KeyFingerMappingForm } from './ui';

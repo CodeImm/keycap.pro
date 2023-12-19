@@ -6,8 +6,8 @@ import SpaceDivider from './SpaceDivider';
 
 import type {
   Finger,
-  FingersColorsSchema,
-  FingersZonesSchema,
+  FingerColorMapping,
+  KeyFingerMapping,
   Layout,
   LayoutType,
   VirtualKeyboardLayout,
@@ -21,8 +21,8 @@ interface Props {
   layoutType: LayoutType;
   excludedKeys: string[];
   homeKeys: string[];
-  fingersZonesSchema?: FingersZonesSchema;
-  fingersColorsSchema?: FingersColorsSchema;
+  keyFingerMapping?: KeyFingerMapping;
+  fingerColorMapping?: FingerColorMapping;
 }
 
 const KeyboardRow = memo(function KeyboardRow({
@@ -32,8 +32,8 @@ const KeyboardRow = memo(function KeyboardRow({
   layoutType,
   excludedKeys,
   homeKeys,
-  fingersZonesSchema,
-  fingersColorsSchema,
+  keyFingerMapping,
+  fingerColorMapping,
 }: Props) {
   let widthAdder = 0;
 
@@ -53,8 +53,8 @@ const KeyboardRow = memo(function KeyboardRow({
         const sys = keyData.default?.[id]?.type === 'sys';
 
         const fill =
-          fingersColorsSchema && fingersZonesSchema
-            ? fingersColorsSchema[fingersZonesSchema[id] as Finger]
+          fingerColorMapping && keyFingerMapping
+            ? fingerColorMapping[keyFingerMapping[id] as Finger]
             : sys
             ? '#e3e3e1'
             : undefined;
@@ -69,10 +69,10 @@ const KeyboardRow = memo(function KeyboardRow({
             width={width}
             label={keyData.default?.[id]?.key}
             fill={fill}
-            rightHandMark={fingersZonesSchema?.[id]! > 4}
-            sx={{ cursor: fingersZonesSchema ? 'pointer' : 'default' }}
+            rightHandMark={keyFingerMapping?.[id]! > 4}
+            sx={{ cursor: keyFingerMapping ? 'pointer' : 'default' }}
           />
-        ) : fingersZonesSchema && id === 'Space' ? (
+        ) : keyFingerMapping && id === 'Space' ? (
           <Fragment key={id}>
             <Key
               id={`${id}_Left`}
@@ -81,8 +81,8 @@ const KeyboardRow = memo(function KeyboardRow({
               height={40}
               homing={false}
               width={(width - 1) / 2}
-              fill={fingersColorsSchema?.[fingersZonesSchema[`${id}_Left`]!]}
-              rightHandMark={fingersZonesSchema?.[`${id}_Left`]! > 4}
+              fill={fingerColorMapping?.[keyFingerMapping[`${id}_Left`]!]}
+              rightHandMark={keyFingerMapping?.[`${id}_Left`]! > 4}
               sx={{ cursor: 'pointer' }}
             />
             <SpaceDivider
@@ -97,8 +97,8 @@ const KeyboardRow = memo(function KeyboardRow({
               height={40}
               homing={false}
               width={(width - 1) / 2}
-              fill={fingersColorsSchema?.[fingersZonesSchema[`${id}_Right`]!]}
-              rightHandMark={fingersZonesSchema?.[`${id}_Right`]! > 4}
+              fill={fingerColorMapping?.[keyFingerMapping[`${id}_Right`]!]}
+              rightHandMark={keyFingerMapping?.[`${id}_Right`]! > 4}
               sx={{ cursor: 'pointer' }}
             />
           </Fragment>
@@ -120,8 +120,8 @@ const KeyboardRow = memo(function KeyboardRow({
             homing={homing}
             visible={visible}
             fill={fill}
-            rightHandMark={fingersZonesSchema?.[id]! > 4}
-            sx={{ cursor: fingersZonesSchema ? 'pointer' : 'default' }}
+            rightHandMark={keyFingerMapping?.[id]! > 4}
+            sx={{ cursor: keyFingerMapping ? 'pointer' : 'default' }}
           />
         );
       })}

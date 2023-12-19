@@ -1,3 +1,3 @@
 export * from './model';
 export { Keyboard } from './ui/svg-keyboard';
-export { fingersColorsSchema, fingersZonesSchema } from './config';
+export { fingerColorMapping, keyFingerMapping, layoutProfiles } from './config';

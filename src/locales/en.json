@@ -36,5 +36,12 @@
     "continue": "Сontinue",
     "back": "Back",
     "submit": "Submit"
+  },
+  "Fingers": {
+    "thumb": "Thumb",
+    "pinky": "Pinky finger",
+    "ring": "Ring finger",
+    "middle": "Middle finger",
+    "index": "Index finger"
   }
 }

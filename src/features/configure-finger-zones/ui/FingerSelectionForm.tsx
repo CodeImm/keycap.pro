@@ -1,11 +1,13 @@
 import { ChangeEvent } from 'react';
 
+import { useTranslations } from 'next-intl';
+
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 
-import { Finger, FingersColorsSchema } from '@/entities/keyboard';
+import { Finger, FingerColorMapping } from '@/entities/keyboard';
 
 import FingerFormControlLabel from './FingerFormControlLabel';
 import FingerRadio from './FingerRadio';
@@ -13,10 +15,16 @@ import FingerRadio from './FingerRadio';
 interface Props {
   value: number;
   onChange: (event: ChangeEvent<HTMLInputElement>, value: string) => void;
-  fingersColorSchema: FingersColorsSchema;
+  fingerColorMapping: FingerColorMapping;
 }
 
-const ActiveFingerForm = ({ value, onChange, fingersColorSchema }: Props) => {
+const FingerSelectionForm = ({
+  value,
+  onChange,
+  fingerColorMapping,
+}: Props) => {
+  const t = useTranslations('Fingers');
+
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', flex: '1' }}>
@@ -33,37 +41,37 @@ const ActiveFingerForm = ({ value, onChange, fingersColorSchema }: Props) => {
             <FingerFormControlLabel
               value={Finger.LEFT_THUMB}
               control={
-                <FingerRadio color={fingersColorSchema[Finger.LEFT_THUMB]} />
+                <FingerRadio color={fingerColorMapping[Finger.LEFT_THUMB]} />
               }
-              label="Большой палец"
+              label={t('thumb')}
             />
             <FingerFormControlLabel
               value={Finger.LEFT_INDEX}
               control={
-                <FingerRadio color={fingersColorSchema[Finger.LEFT_INDEX]} />
+                <FingerRadio color={fingerColorMapping[Finger.LEFT_INDEX]} />
               }
-              label="Указательный палец"
+              label={t('index')}
             />
             <FingerFormControlLabel
               value={Finger.LEFT_MIDDLE}
               control={
-                <FingerRadio color={fingersColorSchema[Finger.LEFT_MIDDLE]} />
+                <FingerRadio color={fingerColorMapping[Finger.LEFT_MIDDLE]} />
               }
-              label="Средний палец"
+              label={t('middle')}
             />
             <FingerFormControlLabel
               value={Finger.LEFT_RING}
               control={
-                <FingerRadio color={fingersColorSchema[Finger.LEFT_RING]} />
+                <FingerRadio color={fingerColorMapping[Finger.LEFT_RING]} />
               }
-              label="Безымянный палец"
+              label={t('ring')}
             />
             <FingerFormControlLabel
               value={Finger.LEFT_PINKIE}
               control={
-                <FingerRadio color={fingersColorSchema[Finger.LEFT_PINKIE]} />
+                <FingerRadio color={fingerColorMapping[Finger.LEFT_PINKIE]} />
               }
-              label="Мизинец"
+              label={t('pinky')}
             />
           </RadioGroup>
         </FormControl>
@@ -84,37 +92,37 @@ const ActiveFingerForm = ({ value, onChange, fingersColorSchema }: Props) => {
             <FingerFormControlLabel
               value={Finger.RIGHT_THUMB}
               control={
-                <FingerRadio color={fingersColorSchema[Finger.RIGHT_THUMB]} />
+                <FingerRadio color={fingerColorMapping[Finger.RIGHT_THUMB]} />
               }
-              label="Большой палец"
+              label={t('thumb')}
             />
             <FingerFormControlLabel
               value={Finger.RIGHT_INDEX}
               control={
-                <FingerRadio color={fingersColorSchema[Finger.RIGHT_INDEX]} />
+                <FingerRadio color={fingerColorMapping[Finger.RIGHT_INDEX]} />
               }
-              label="Указательный палец"
+              label={t('index')}
             />
             <FingerFormControlLabel
               value={Finger.RIGHT_MIDDLE}
               control={
-                <FingerRadio color={fingersColorSchema[Finger.RIGHT_MIDDLE]} />
+                <FingerRadio color={fingerColorMapping[Finger.RIGHT_MIDDLE]} />
               }
-              label="Средний палец"
+              label={t('middle')}
             />
             <FingerFormControlLabel
               value={Finger.RIGHT_RING}
               control={
-                <FingerRadio color={fingersColorSchema[Finger.RIGHT_RING]} />
+                <FingerRadio color={fingerColorMapping[Finger.RIGHT_RING]} />
               }
-              label="Безымянный палец"
+              label={t('ring')}
             />
             <FingerFormControlLabel
               value={Finger.RIGHT_PINKIE}
               control={
-                <FingerRadio color={fingersColorSchema[Finger.RIGHT_PINKIE]} />
+                <FingerRadio color={fingerColorMapping[Finger.RIGHT_PINKIE]} />
               }
-              label="Мизинец"
+              label={t('pinky')}
             />
           </RadioGroup>
         </FormControl>
@@ -123,4 +131,4 @@ const ActiveFingerForm = ({ value, onChange, fingersColorSchema }: Props) => {
   );
 };
 
-export default ActiveFingerForm;
+export default FingerSelectionForm;

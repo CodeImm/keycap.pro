@@ -1,0 +1,1 @@
+export { useSelectedFinger } from './useSelectedFinger';
