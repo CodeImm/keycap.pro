@@ -3,8 +3,9 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import { Stepper } from '@/shared/components';
 import { useStepper } from '@/shared/hooks';
+
+import { Stepper } from './Stepper';
 
 interface Callback {
   activeStep: number;
@@ -18,11 +19,7 @@ type Props = {
   stepTitles: string[];
 };
 
-export function InitialKeyboardSetupStepper({
-  children,
-  title,
-  stepTitles,
-}: Props) {
+export function StepControlPanel({ children, title, stepTitles }: Props) {
   const { activeStep, handleNext, handleBack } = useStepper();
 
   return (

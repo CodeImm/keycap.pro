@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import Box, { type BoxProps } from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 
 interface Props extends BoxProps {
   children: ReactNode;

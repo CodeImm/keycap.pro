@@ -85,6 +85,27 @@ export type VirtualKeyboardLayout = {
   }[];
 };
 
+export enum Finger {
+  LEFT_PINKIE,
+  LEFT_RING,
+  LEFT_MIDDLE,
+  LEFT_INDEX,
+  LEFT_THUMB,
+  RIGHT_THUMB,
+  RIGHT_INDEX,
+  RIGHT_MIDDLE,
+  RIGHT_RING,
+  RIGHT_PINKIE,
+}
+
+export type FingersZonesSchema = {
+  [key in LayoutKeyId | 'Space_Left' | 'Space_Right']?: Finger;
+};
+
+export type FingersColorsSchema = {
+  [key in Finger]: string;
+};
+
 export const layoutLanguages = ['english', 'russian'] as const;
 export type LayoutLanguage = (typeof layoutLanguages)[number];
 

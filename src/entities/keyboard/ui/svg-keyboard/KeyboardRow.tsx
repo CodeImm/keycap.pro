@@ -1,9 +1,13 @@
-import { memo } from 'react';
+import { Fragment, memo } from 'react';
 
 import IsoEnter from './IsoEnter';
 import Key from './Key';
+import SpaceDivider from './SpaceDivider';
 
 import type {
+  Finger,
+  FingersColorsSchema,
+  FingersZonesSchema,
   Layout,
   LayoutType,
   VirtualKeyboardLayout,
@@ -17,6 +21,8 @@ interface Props {
   layoutType: LayoutType;
   excludedKeys: string[];
   homeKeys: string[];
+  fingersZonesSchema?: FingersZonesSchema;
+  fingersColorsSchema?: FingersColorsSchema;
 }
 
 const KeyboardRow = memo(function KeyboardRow({
@@ -26,6 +32,8 @@ const KeyboardRow = memo(function KeyboardRow({
   layoutType,
   excludedKeys,
   homeKeys,
+  fingersZonesSchema,
+  fingersColorsSchema,
 }: Props) {
   let widthAdder = 0;
 
@@ -44,6 +52,13 @@ const KeyboardRow = memo(function KeyboardRow({
 
         const sys = keyData.default?.[id]?.type === 'sys';
 
+        const fill =
+          fingersColorsSchema && fingersZonesSchema
+            ? fingersColorsSchema[fingersZonesSchema[id] as Finger]
+            : sys
+            ? '#e3e3e1'
+            : undefined;
+
         return id === 'Enter' && layoutType === 'iso' ? (
           <IsoEnter
             id={id}
@@ -51,8 +66,42 @@ const KeyboardRow = memo(function KeyboardRow({
             x={widthAdder - width + 2 * index}
             y={y}
             height={40}
+            width={width}
             label={keyData.default?.[id]?.key}
+            fill={fill}
+            rightHandMark={fingersZonesSchema?.[id]! > 4}
+            sx={{ cursor: fingersZonesSchema ? 'pointer' : 'default' }}
           />
+        ) : fingersZonesSchema && id === 'Space' ? (
+          <Fragment key={id}>
+            <Key
+              id={`${id}_Left`}
+              x={widthAdder - width + 2 * index}
+              y={y}
+              height={40}
+              homing={false}
+              width={(width - 1) / 2}
+              fill={fingersColorsSchema?.[fingersZonesSchema[`${id}_Left`]!]}
+              rightHandMark={fingersZonesSchema?.[`${id}_Left`]! > 4}
+              sx={{ cursor: 'pointer' }}
+            />
+            <SpaceDivider
+              x={widthAdder - (width - 1) / 2 + 2 * index - 1}
+              y={y + 2}
+            />
+            )
+            <Key
+              id={`${id}_Right`}
+              x={widthAdder - (width - 1) / 2 + 2 * index}
+              y={y}
+              height={40}
+              homing={false}
+              width={(width - 1) / 2}
+              fill={fingersColorsSchema?.[fingersZonesSchema[`${id}_Right`]!]}
+              rightHandMark={fingersZonesSchema?.[`${id}_Right`]! > 4}
+              sx={{ cursor: 'pointer' }}
+            />
+          </Fragment>
         ) : (
           <Key
             id={id}
@@ -70,7 +119,9 @@ const KeyboardRow = memo(function KeyboardRow({
             centerLeftLabel={sys ? keyData.default?.[id]?.key : undefined}
             homing={homing}
             visible={visible}
-            fill={sys ? '#e3e3e1' : undefined}
+            fill={fill}
+            rightHandMark={fingersZonesSchema?.[id]! > 4}
+            sx={{ cursor: fingersZonesSchema ? 'pointer' : 'default' }}
           />
         );
       })}

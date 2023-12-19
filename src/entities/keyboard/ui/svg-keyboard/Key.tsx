@@ -1,8 +1,10 @@
 import { memo } from 'react';
 
-import Box, { type BoxProps } from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 
+import HomeMark from './HomeMark';
 import Rect from './Rect';
+import RightHandMark from './RightHandMark';
 import Text from './Text';
 
 interface KeyProps extends BoxProps {
@@ -20,6 +22,7 @@ interface KeyProps extends BoxProps {
   visible?: boolean;
   fill?: string;
   fontColor?: string;
+  rightHandMark?: boolean;
 }
 
 function Key({
@@ -37,6 +40,8 @@ function Key({
   visible = true,
   fill = '#efefee',
   fontColor = '#22211f',
+  rightHandMark,
+  sx,
   ...props
 }: KeyProps) {
   return (
@@ -45,7 +50,7 @@ function Key({
       component="svg"
       x={x}
       y={y}
-      sx={{ visibility: visible ? 'visible' : 'hidden' }}
+      sx={{ visibility: visible ? 'visible' : 'hidden', ...sx }}
       {...props}
     >
       <Rect x={0} y={0} width={width} height={height} fill={fill} />
@@ -58,7 +63,7 @@ function Key({
             textAnchor="middle"
             fill={fontColor}
             textRendering="optimizeLegibility"
-            sx={{ fontSize: '11px', cursor: 'default', userSelect: 'none' }}
+            sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
           >
             {centerLabel}
           </Text>
@@ -69,7 +74,7 @@ function Key({
             y={15}
             fill={fontColor}
             textRendering="optimizeLegibility"
-            sx={{ fontSize: '11px', cursor: 'default', userSelect: 'none' }}
+            sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
           >
             {topLeftLabel}
           </Text>
@@ -80,7 +85,7 @@ function Key({
             y={30}
             fill={fontColor}
             textRendering="optimizeLegibility"
-            sx={{ fontSize: '11px', cursor: 'default', userSelect: 'none' }}
+            sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
           >
             {bottomLeftLabel}
           </Text>
@@ -93,24 +98,15 @@ function Key({
               dominantBaseline="middle"
               fill={fontColor}
               textRendering="optimizeLegibility"
-              sx={{ fontSize: '10px', cursor: 'default', userSelect: 'none' }}
+              sx={{ fontSize: '10px', cursor: 'inherit', userSelect: 'none' }}
             >
               {centerLeftLabel}
             </Text>
           </>
         )}
       </>
-      {homing && (
-        <Rect
-          //   rx={2}
-          ry={2}
-          x={15}
-          y={35}
-          width={10}
-          height={2.5}
-          fill={'#cccccc'}
-        />
-      )}
+      {homing && <HomeMark />}
+      {rightHandMark && <RightHandMark width={width} height={height} />}
     </Box>
   );
 }

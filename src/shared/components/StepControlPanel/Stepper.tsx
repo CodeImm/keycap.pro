@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import MuiStepper, { StepperProps } from '@mui/material/Stepper';
+import MuiStepper, { type StepperProps } from '@mui/material/Stepper';
 
 interface Props extends StepperProps {
   activeStep: number;

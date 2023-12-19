@@ -1,18 +1,20 @@
 import { useMemo } from 'react';
 
-import Box, { type BoxProps } from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 
 import Inner from './Inner';
 import KeyboardRow from './KeyboardRow';
 import Rect from './Rect';
 
+import { getLayoutById, getVirtualKeyboardLayoutById } from '../../libs';
 import type {
+  FingersColorsSchema,
+  FingersZonesSchema,
   LayoutId,
   LayoutKeyId,
   LayoutType,
   VirtualKeyboardRowName,
-} from '../..';
-import { getLayoutById, getVirtualKeyboardLayoutById } from '../../libs';
+} from '../../model';
 
 const DEFAULT_EXCLUDED_KEYS: LayoutKeyId[] = [
   'MetaLeft',
@@ -31,6 +33,9 @@ interface Props extends BoxProps {
   layoutType: LayoutType;
   excludedKeys?: LayoutKeyId[];
   homeKeys?: LayoutKeyId[];
+  fingersZonesSchema?: FingersZonesSchema;
+  fingersColorsSchema?: FingersColorsSchema;
+  onKeyColorChange?: (e: any) => void;
 }
 
 export function Keyboard({
@@ -38,6 +43,9 @@ export function Keyboard({
   layoutType,
   excludedKeys = DEFAULT_EXCLUDED_KEYS,
   homeKeys = DEFAULT_HOME_KEYS,
+  fingersZonesSchema,
+  fingersColorsSchema,
+  onKeyColorChange,
   sx,
   ...props
 }: Props) {
@@ -59,6 +67,7 @@ export function Keyboard({
         width: '100%',
         ...sx,
       }}
+      onClick={onKeyColorChange}
       {...props}
     >
       <Rect x={0} y={0} rx={9} ry={9} width={639} height={226} fill="#cccccc" />
@@ -73,6 +82,8 @@ export function Keyboard({
               layoutType={layoutType}
               excludedKeys={excludedKeys}
               homeKeys={homeKeys}
+              fingersZonesSchema={fingersZonesSchema}
+              fingersColorsSchema={fingersColorsSchema}
             />
           )
         )}

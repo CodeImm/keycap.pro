@@ -4,9 +4,9 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
-import { Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import Typography from '@mui/material/Typography';
+import { useForm } from 'react-hook-form';
 
 import { Keyboard, LayoutId } from '@/entities/keyboard';
 import { FormInputSelect } from '@/shared/components';
@@ -28,37 +28,34 @@ interface IFormInput {
   layoutType: ValueOfLayoutTypeOption;
   layoutId: ValueOfLayoutIdOption;
 }
+interface CallbackActions {
+  getValues(): IFormInput;
+}
 
 interface Props {
   submitButtonText: string;
   defaultValues: IFormInput;
-  onSubmit: (data: IFormInput) => void;
+  actions({ getValues }: CallbackActions): JSX.Element;
 }
 //TODO: submitButtonText по умолчанию с t
-export function ConfigureKeyboardLayoutForm({
-  submitButtonText,
-  defaultValues,
-  onSubmit,
-}: Props) {
+export function ConfigureKeyboardLayoutForm({ defaultValues, actions }: Props) {
   const t = useTranslations('KeyboardConfigure');
 
   const [keyboardLayoutOptions, setKeyboardLayoutOptions] = useState(
     getOptionsForLanguage(defaultValues.layoutLanguage)
   );
 
-  const { control, handleSubmit, watch, setValue, reset } = useForm<IFormInput>(
-    {
-      defaultValues,
-    }
-  );
+  const { control, getValues, watch, setValue, reset } = useForm<IFormInput>({
+    defaultValues,
+  });
   const watchLayoutLanguage = watch('layoutLanguage');
   const watchLayoutType = watch('layoutType');
   const watchLayoutId = watch('layoutId');
 
-  const _onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
-    onSubmit(data);
-  };
+  // const _onSubmit: SubmitHandler<IFormInput> = (data) => {
+  //   console.log(data);
+  //   return data;
+  // };
 
   const onLanguageChange = useCallback(() => {
     setValue('layoutId', getOptionsForLanguage(watchLayoutLanguage)[0].value);
@@ -120,11 +117,9 @@ export function ConfigureKeyboardLayoutForm({
         <Keyboard layoutId={watchLayoutId} layoutType={watchLayoutType} />
       </Box>
 
-      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-        <Box sx={{ flex: '1 1 auto' }} />
-
-        <Button onClick={handleSubmit(_onSubmit)}>{submitButtonText}</Button>
-      </Box>
+      {actions({
+        getValues: () => getValues(),
+      })}
     </Box>
   );
 }

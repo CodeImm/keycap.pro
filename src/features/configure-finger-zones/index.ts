@@ -1,0 +1,1 @@
+export { ConfigureFingersZonesForm } from './ui';
