@@ -4,7 +4,7 @@ import {
   layoutTypes,
 } from '@/entities/keyboard';
 
-export const keyboardLayoutDefaultConfig = {
+export const defaultKeyboardLayoutConfig = {
   layoutLanguage: layoutLanguages[0],
   layoutType: layoutTypes[0],
   layoutId: layoutProfiles

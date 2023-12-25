@@ -12,14 +12,14 @@ import { KeyFingerMappingForm } from '@/features/configure-finger-zones';
 import { KeyboardLayoutConfigurationForm } from '@/features/configure-keyboard-layout';
 import { StepControlPanel, StepperControls } from '@/shared/components';
 
-import { keyboardLayoutDefaultConfig } from '../config';
+import { defaultKeyboardLayoutConfig } from '../config';
 
 export function InitialKeyboardSetup() {
   const t = useTranslations('InitialKeyboardSetup');
 
   const [keyboardConfig, setKeyboardConfig] = useState({
-    layout: keyboardLayoutDefaultConfig,
-    fingersZones: defaultKeyFingerMapping,
+    layoutConfig: defaultKeyboardLayoutConfig,
+    keyFingerMapping: defaultKeyFingerMapping,
   });
 
   function handleConfigChange(
@@ -30,7 +30,10 @@ export function InitialKeyboardSetup() {
   }
 
   function handleSubmit(data: KeyFingerMapping) {
-    console.log({ fingersZonesSchema: data, layout: keyboardConfig.layout });
+    console.log({
+      fingersZonesSchema: data,
+      layout: keyboardConfig.layoutConfig,
+    });
 
     throw Error('error');
   }
@@ -41,12 +44,11 @@ export function InitialKeyboardSetup() {
         <>
           {activeStep === 0 && (
             <KeyboardLayoutConfigurationForm
-              defaultValues={keyboardConfig.layout}
-              submitButtonText={t('continue')}
+              defaultValues={keyboardConfig.layoutConfig}
               actions={({ getValues }) => (
                 <StepperControls
                   onNext={() => {
-                    handleConfigChange(getValues(), 'layout');
+                    handleConfigChange(getValues(), 'layoutConfig');
                     handleNext();
                   }}
                 />
@@ -56,14 +58,14 @@ export function InitialKeyboardSetup() {
           {activeStep > 0 && (
             <>
               <KeyFingerMappingForm
-                defaultValues={keyboardConfig.fingersZones}
-                layoutId={keyboardConfig.layout.layoutId}
-                layoutType={keyboardConfig.layout.layoutType}
+                defaultValues={keyboardConfig.keyFingerMapping}
+                layoutId={keyboardConfig.layoutConfig.layoutId}
+                layoutType={keyboardConfig.layoutConfig.layoutType}
                 actions={({ getValues }) => (
                   <StepperControls
                     isFinalStep={true}
                     onBack={() => {
-                      handleConfigChange(getValues(), 'fingersZones');
+                      handleConfigChange(getValues(), 'keyFingerMapping');
                       handleBack();
                     }}
                     onNext={() => {

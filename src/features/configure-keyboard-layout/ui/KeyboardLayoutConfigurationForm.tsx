@@ -1,15 +1,19 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { useForm } from 'react-hook-form';
 
-import { Keyboard, LayoutId } from '@/entities/keyboard';
-import { FormInputSelect } from '@/shared/components';
+import {
+  Keyboard,
+  LayoutId,
+  LayoutLanguage,
+  LayoutType,
+} from '@/entities/keyboard';
+import { Select } from '@/shared/components';
 
 import {
   keyboardLayoutLanguageOptions,
@@ -33,7 +37,6 @@ interface CallbackActions {
 }
 
 interface Props {
-  submitButtonText: string;
   defaultValues: IFormInput;
   actions({ getValues }: CallbackActions): JSX.Element;
 }
@@ -48,31 +51,26 @@ export function KeyboardLayoutConfigurationForm({
     getOptionsForLanguage(defaultValues.layoutLanguage)
   );
 
-  const { control, getValues, watch, setValue, reset } = useForm<IFormInput>({
-    defaultValues,
-  });
-  const watchLayoutLanguage = watch('layoutLanguage');
-  const watchLayoutType = watch('layoutType');
-  const watchLayoutId = watch('layoutId');
+  const [layoutConfig, setLayoutConfig] = useState<IFormInput>(defaultValues);
 
-  // const _onSubmit: SubmitHandler<IFormInput> = (data) => {
-  //   console.log(data);
-  //   return data;
-  // };
+  const handleLayoutChange = useCallback(
+    (name: keyof IFormInput, value: LayoutId | LayoutLanguage | LayoutType) => {
+      setLayoutConfig((prev) => {
+        const newConfig = { ...prev, [name]: value };
 
-  const onLanguageChange = useCallback(() => {
-    setValue('layoutId', getOptionsForLanguage(watchLayoutLanguage)[0].value);
+        if (name === 'layoutLanguage') {
+          const layoutIdOptions = getOptionsForLanguage(
+            value as LayoutLanguage
+          );
+          setKeyboardLayoutIdOptions(layoutIdOptions);
+          newConfig.layoutId = layoutIdOptions[0].value;
+        }
 
-    setKeyboardLayoutIdOptions(getOptionsForLanguage(watchLayoutLanguage));
-  }, [setValue, watchLayoutLanguage]);
-
-  useEffect(() => {
-    onLanguageChange();
-  }, [onLanguageChange]);
-
-  useEffect(() => {
-    reset(defaultValues);
-  }, [defaultValues, reset]);
+        return newConfig;
+      });
+    },
+    []
+  );
 
   return (
     <Box
@@ -85,26 +83,38 @@ export function KeyboardLayoutConfigurationForm({
       }}
     >
       <Box sx={{ display: 'flex', gap: 2 }}>
-        <FormInputSelect
+        <Select
           name="layoutLanguage"
           label={t('layoutLanguage')}
-          control={control}
+          value={layoutConfig.layoutLanguage}
+          onChange={(e) =>
+            handleLayoutChange(
+              'layoutLanguage',
+              e.target.value as LayoutLanguage
+            )
+          }
           options={keyboardLayoutLanguageOptions}
           size="small"
           sx={{ minWidth: '150px' }}
         />
-        <FormInputSelect
+        <Select
           name="layoutId"
           label={t('layoutId')}
-          control={control}
+          value={layoutConfig.layoutId}
+          onChange={(e) =>
+            handleLayoutChange('layoutId', e.target.value as LayoutId)
+          }
           options={keyboardLayoutIdOptions}
           size="small"
           sx={{ minWidth: '150px' }}
         />
-        <FormInputSelect
+        <Select
           name="layoutType"
           label={t('layoutType')}
-          control={control}
+          value={layoutConfig.layoutType}
+          onChange={(e) =>
+            handleLayoutChange('layoutType', e.target.value as LayoutType)
+          }
           options={keyboardLayoutTypeOptions}
           size="small"
           sx={{ minWidth: '150px' }}
@@ -117,11 +127,14 @@ export function KeyboardLayoutConfigurationForm({
         }}
       >
         <Typography>Preview</Typography>
-        <Keyboard layoutId={watchLayoutId} layoutType={watchLayoutType} />
+        <Keyboard
+          layoutId={layoutConfig.layoutId}
+          layoutType={layoutConfig.layoutType}
+        />
       </Box>
 
       {actions({
-        getValues: () => getValues(),
+        getValues: () => layoutConfig,
       })}
     </Box>
   );
