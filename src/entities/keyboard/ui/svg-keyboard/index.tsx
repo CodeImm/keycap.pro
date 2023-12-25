@@ -6,6 +6,7 @@ import Inner from './Inner';
 import KeyboardRow from './KeyboardRow';
 import Rect from './Rect';
 
+import { DEFAULT_EXCLUDED_KEYS, DEFAULT_HOME_KEYS } from '../../config';
 import { getLayoutById, getVirtualKeyboardLayoutById } from '../../lib';
 import type {
   FingerColorMapping,
@@ -15,14 +16,6 @@ import type {
   LayoutType,
   VirtualKeyboardRowName,
 } from '../../model';
-
-const DEFAULT_EXCLUDED_KEYS: LayoutKeyId[] = [
-  'MetaLeft',
-  'Fn',
-  'MetaRight',
-  'ContextMenu',
-];
-const DEFAULT_HOME_KEYS: LayoutKeyId[] = ['KeyF', 'KeyJ'];
 
 const VIEW_BOX = [0, 0, 639, 226];
 const ROW_HEIGHT = 40;
@@ -35,7 +28,7 @@ interface Props extends BoxProps {
   homeKeys?: LayoutKeyId[];
   keyFingerMapping?: KeyFingerMapping;
   fingerColorMapping?: FingerColorMapping;
-  onKeyFingerChange?: (e: any) => void;
+  onClick?: (e: any) => void;
 }
 
 export function Keyboard({
@@ -45,7 +38,7 @@ export function Keyboard({
   homeKeys = DEFAULT_HOME_KEYS,
   keyFingerMapping,
   fingerColorMapping,
-  onKeyFingerChange,
+  onClick,
   sx,
   ...props
 }: Props) {
@@ -67,7 +60,7 @@ export function Keyboard({
         width: '100%',
         ...sx,
       }}
-      onClick={onKeyFingerChange}
+      onClick={onClick}
       {...props}
     >
       <Rect x={0} y={0} rx={9} ry={9} width={639} height={226} fill="#cccccc" />

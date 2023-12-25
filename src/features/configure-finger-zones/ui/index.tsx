@@ -1,28 +1,18 @@
 'use client';
 
-import { useState } from 'react';
-
 import Box from '@mui/material/Box';
 
 import {
   KeyFingerMapping,
   Keyboard,
   LayoutId,
-  LayoutKeyId,
   LayoutType,
   fingerColorMapping as defaultFingerColorMapping,
 } from '@/entities/keyboard';
 
 import FingerSelectionForm from './FingerSelectionForm';
 
-import { useSelectedFinger } from '../lib/hooks';
-
-const DEFAULT_EXCLUDED_KEYS: LayoutKeyId[] = [
-  'MetaLeft',
-  'Fn',
-  'MetaRight',
-  'ContextMenu',
-];
+import { useKeyFingerMapping, useSelectedFinger } from '../lib/hooks';
 
 interface CallbackActions {
   getValues(): KeyFingerMapping;
@@ -43,20 +33,10 @@ export function KeyFingerMappingForm({
 }: Props) {
   const { selectedFinger, handleSelectedFingerChange } = useSelectedFinger();
 
-  const [keyFingerMapping, setKeyFingerMapping] = useState(defaultValues);
-
-  const handleKeyFingerChange = (event: MouseEvent) => {
-    const { target } = event;
-
-    const id = (target as SVGElement)?.closest('svg')?.id as LayoutKeyId;
-
-    if (id && !DEFAULT_EXCLUDED_KEYS.includes(id)) {
-      setKeyFingerMapping((prevState) => ({
-        ...prevState,
-        [id]: selectedFinger,
-      }));
-    }
-  };
+  const { keyFingerMapping, handleKeyClick } = useKeyFingerMapping({
+    defaultValues,
+    selectedFinger,
+  });
 
   const _onSubmit = () => {
     return keyFingerMapping;
@@ -89,10 +69,9 @@ export function KeyFingerMappingForm({
         <Keyboard
           layoutId={layoutId}
           layoutType={layoutType}
-          excludedKeys={DEFAULT_EXCLUDED_KEYS}
           fingerColorMapping={defaultFingerColorMapping}
           keyFingerMapping={keyFingerMapping}
-          onKeyFingerChange={handleKeyFingerChange}
+          onClick={handleKeyClick}
         />
       </Box>
 
