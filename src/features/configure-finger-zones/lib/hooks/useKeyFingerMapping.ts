@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { keyFingerMapping as defaultKeyFingerMapping } from '@/entities/keyboard';
 import type {
   Finger,
   KeyFingerMapping,
@@ -13,6 +14,7 @@ import {
 interface UseKeyFingerMapping {
   keyFingerMapping: KeyFingerMapping;
   handleKeyClick: (event: MouseEvent) => void;
+  handleReset(): void;
 }
 
 interface Props {
@@ -36,6 +38,10 @@ export function useKeyFingerMapping({
     },
     []
   );
+
+  const handleReset = () => {
+    setKeyFingerMapping(defaultKeyFingerMapping);
+  };
 
   const handleKeyFingerChange = useCallback(
     (id: LayoutKeyId | undefined) => {
@@ -70,5 +76,5 @@ export function useKeyFingerMapping({
     };
   }, [handleKeyFingerChange]);
 
-  return { keyFingerMapping, handleKeyClick };
+  return { keyFingerMapping, handleKeyClick, handleReset };
 }

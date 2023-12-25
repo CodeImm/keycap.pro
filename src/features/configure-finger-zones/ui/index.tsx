@@ -1,6 +1,7 @@
 'use client';
 
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 import {
   KeyFingerMapping,
@@ -33,10 +34,12 @@ export function KeyFingerMappingForm({
 }: Props) {
   const { selectedFinger, handleSelectedFingerChange } = useSelectedFinger();
 
-  const { keyFingerMapping, handleKeyClick } = useKeyFingerMapping({
-    defaultValues,
-    selectedFinger,
-  });
+  const { keyFingerMapping, handleKeyClick, handleReset } = useKeyFingerMapping(
+    {
+      defaultValues,
+      selectedFinger,
+    }
+  );
 
   const _onSubmit = () => {
     return keyFingerMapping;
@@ -74,6 +77,7 @@ export function KeyFingerMappingForm({
           onClick={handleKeyClick}
         />
       </Box>
+      <Button onClick={() => handleReset()}>Сбросить</Button>
 
       {actions({
         getValues: () => _onSubmit(),
