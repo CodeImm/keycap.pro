@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import type { SelectProps } from '@mui/material/Select';
 import MuiSelect from '@mui/material/Select';
 
-interface SelectOption<T extends string> {
+export interface SelectOption<T extends string> {
   value: T;
   label: string;
 }

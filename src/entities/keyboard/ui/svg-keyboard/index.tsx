@@ -14,6 +14,7 @@ import type {
   LayoutId,
   LayoutKeyId,
   LayoutType,
+  System,
   VirtualKeyboardRowName,
 } from '../../model';
 
@@ -22,6 +23,7 @@ const ROW_HEIGHT = 40;
 const ROW_GAP = 2;
 
 interface Props extends BoxProps {
+  system: System;
   layoutId: LayoutId;
   layoutType: LayoutType;
   excludedKeys?: LayoutKeyId[];
@@ -32,6 +34,7 @@ interface Props extends BoxProps {
 }
 
 export function Keyboard({
+  system,
   layoutId,
   layoutType,
   excludedKeys = DEFAULT_EXCLUDED_KEYS,
@@ -47,7 +50,7 @@ export function Keyboard({
     () => getVirtualKeyboardLayoutById(layoutType),
     [layoutType]
   );
-
+  // TODO: заменить labels у системных клавиш для MacOS
   return (
     <Box
       component="svg"

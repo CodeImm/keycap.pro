@@ -118,6 +118,9 @@ export type FingerColorMapping = {
   [key in Finger]: string;
 };
 
+export const system = ['win_lin', 'macos'] as const;
+export type System = (typeof system)[number];
+
 export const layoutLanguages = ['english', 'russian'] as const;
 export type LayoutLanguage = (typeof layoutLanguages)[number];
 
@@ -137,5 +140,6 @@ export type LayoutProfiles = {
   id: LayoutId;
   name: string;
   language: LayoutLanguage;
+  system: System;
   emulated: boolean;
 };

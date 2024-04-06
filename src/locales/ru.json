@@ -25,6 +25,7 @@
     "signOut": "Выйти"
   },
   "KeyboardConfigure": {
+    "system": "Система",
     "layoutLanguage": "Язык",
     "layoutId": "Раскладка",
     "layoutType": "Тип"

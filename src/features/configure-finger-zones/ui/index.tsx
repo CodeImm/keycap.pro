@@ -8,6 +8,7 @@ import {
   Keyboard,
   LayoutId,
   LayoutType,
+  System,
   fingerColorMapping as defaultFingerColorMapping,
 } from '@/entities/keyboard';
 
@@ -21,6 +22,7 @@ interface CallbackActions {
 
 interface Props {
   defaultValues: KeyFingerMapping;
+  system: System;
   layoutType: LayoutType;
   layoutId: LayoutId;
   actions({ getValues }: CallbackActions): JSX.Element;
@@ -28,6 +30,7 @@ interface Props {
 //TODO: submitButtonText по умолчанию с t
 export function KeyFingerMappingForm({
   defaultValues,
+  system,
   layoutType,
   layoutId,
   actions,
@@ -70,6 +73,7 @@ export function KeyFingerMappingForm({
         }}
       >
         <Keyboard
+          system={system}
           layoutId={layoutId}
           layoutType={layoutType}
           fingerColorMapping={defaultFingerColorMapping}

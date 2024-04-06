@@ -58,6 +58,7 @@ export function InitialKeyboardSetup() {
           {activeStep > 0 && (
             <>
               <KeyFingerMappingForm
+                system={keyboardConfig.layoutConfig.system}
                 defaultValues={keyboardConfig.keyFingerMapping}
                 layoutId={keyboardConfig.layoutConfig.layoutId}
                 layoutType={keyboardConfig.layoutConfig.layoutType}

@@ -3,4 +3,4 @@ export {
   keyboardLayoutLanguageOptions,
   keyboardLayoutTypeOptions,
 } from './config';
-export { getOptionsForLanguage } from './lib';
+export { getLayoutIdOptions } from './lib';

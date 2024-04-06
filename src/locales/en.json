@@ -25,6 +25,7 @@
     "signOut": "Sign Out"
   },
   "KeyboardConfigure": {
+    "system": "System",
     "layoutLanguage": "Language",
     "layoutId": "Layout",
     "layoutType": "Type"

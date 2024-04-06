@@ -12,15 +12,18 @@ import {
   LayoutId,
   LayoutLanguage,
   LayoutType,
+  System,
 } from '@/entities/keyboard';
 import { Select } from '@/shared/components';
 
 import {
   keyboardLayoutLanguageOptions,
   keyboardLayoutTypeOptions,
+  systemOptions,
 } from '../config';
-import { getOptionsForLanguage } from '../lib';
+import { getLayoutIdOptions } from '../lib';
 
+type ValueOfSystemOption = (typeof systemOptions)[number]['value'];
 type ValueOfLayoutLanguageOption =
   (typeof keyboardLayoutLanguageOptions)[number]['value'];
 type ValueOfLayoutTypeOption =
@@ -28,6 +31,7 @@ type ValueOfLayoutTypeOption =
 type ValueOfLayoutIdOption = LayoutId;
 
 interface IFormInput {
+  system: ValueOfSystemOption;
   layoutLanguage: ValueOfLayoutLanguageOption;
   layoutType: ValueOfLayoutTypeOption;
   layoutId: ValueOfLayoutIdOption;
@@ -48,19 +52,23 @@ export function KeyboardLayoutConfigurationForm({
   const t = useTranslations('KeyboardConfigure');
 
   const [keyboardLayoutIdOptions, setKeyboardLayoutIdOptions] = useState(
-    getOptionsForLanguage(defaultValues.layoutLanguage)
+    getLayoutIdOptions(defaultValues.system, defaultValues.layoutLanguage)
   );
 
   const [layoutConfig, setLayoutConfig] = useState<IFormInput>(defaultValues);
 
   const handleLayoutChange = useCallback(
-    (name: keyof IFormInput, value: LayoutId | LayoutLanguage | LayoutType) => {
+    (
+      name: keyof IFormInput,
+      value: System | LayoutId | LayoutLanguage | LayoutType
+    ) => {
       setLayoutConfig((prev) => {
         const newConfig = { ...prev, [name]: value };
 
-        if (name === 'layoutLanguage') {
-          const layoutIdOptions = getOptionsForLanguage(
-            value as LayoutLanguage
+        if (name === 'system' || name === 'layoutLanguage') {
+          const layoutIdOptions = getLayoutIdOptions(
+            newConfig.system,
+            newConfig.layoutLanguage
           );
           setKeyboardLayoutIdOptions(layoutIdOptions);
           newConfig.layoutId = layoutIdOptions[0].value;
@@ -83,6 +91,17 @@ export function KeyboardLayoutConfigurationForm({
       }}
     >
       <Box sx={{ display: 'flex', gap: 2 }}>
+        <Select
+          name="system"
+          label={t('system')}
+          value={layoutConfig.system}
+          onChange={(e) =>
+            handleLayoutChange('system', e.target.value as System)
+          }
+          options={systemOptions}
+          size="small"
+          sx={{ minWidth: '150px' }}
+        />
         <Select
           name="layoutLanguage"
           label={t('layoutLanguage')}
@@ -128,6 +147,7 @@ export function KeyboardLayoutConfigurationForm({
       >
         <Typography>Preview</Typography>
         <Keyboard
+          system={layoutConfig.system}
           layoutId={layoutConfig.layoutId}
           layoutType={layoutConfig.layoutType}
         />

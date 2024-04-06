@@ -1,1 +1,1 @@
-export { getOptionsForLanguage } from './getOptionsForLanguage';
+export { getLayoutIdOptions } from './getLayoutIdOptions';
