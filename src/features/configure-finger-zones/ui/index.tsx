@@ -13,6 +13,7 @@ import {
 } from '@/entities/keyboard';
 
 import FingerSelectionForm from './FingerSelectionForm';
+import KeyFingerMappingSelector from './KeyFingerMappingSelector';
 
 import { useKeyFingerMapping, useSelectedFinger } from '../lib/hooks';
 
@@ -81,6 +82,16 @@ export function KeyFingerMappingForm({
           onClick={handleKeyClick}
         />
       </Box>
+      <KeyFingerMappingSelector
+        system={system}
+        layoutId={layoutId}
+        layoutType={layoutType}
+        fingerColorMapping={defaultFingerColorMapping}
+        defaultValue={'optimized'}
+        keyFingerMappingIdList={['optimized', 'logical']}
+        customKeyFingerMapping={keyFingerMapping}
+        onChange={handleReset}
+      />
       <Button onClick={() => handleReset()}>Сбросить</Button>
 
       {actions({

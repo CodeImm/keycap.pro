@@ -1,20 +1,21 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { keyFingerMapping as defaultKeyFingerMapping } from '@/entities/keyboard';
 import type {
   Finger,
   KeyFingerMapping,
+  KeyFingerMappingId,
   LayoutKeyId,
 } from '@/entities/keyboard';
 import {
   DEFAULT_EXCLUDED_KEYS,
   enhancedLayoutKeyIds,
 } from '@/entities/keyboard';
+import { getKeyFingerMappingById } from '@/entities/keyboard/lib';
 
 interface UseKeyFingerMapping {
   keyFingerMapping: KeyFingerMapping;
   handleKeyClick: (event: MouseEvent) => void;
-  handleReset(): void;
+  handleReset(id?: KeyFingerMappingId): void;
 }
 
 interface Props {
@@ -39,8 +40,10 @@ export function useKeyFingerMapping({
     []
   );
 
-  const handleReset = () => {
-    setKeyFingerMapping(defaultKeyFingerMapping);
+  const handleReset = (
+    id: Exclude<KeyFingerMappingId, 'custom'> = 'optimized'
+  ) => {
+    setKeyFingerMapping(getKeyFingerMappingById(id));
   };
 
   const handleKeyFingerChange = useCallback(

@@ -4,10 +4,8 @@ import { useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
-import {
-  KeyFingerMapping,
-  keyFingerMapping as defaultKeyFingerMapping,
-} from '@/entities/keyboard';
+import { KeyFingerMapping } from '@/entities/keyboard';
+import { getKeyFingerMappingById } from '@/entities/keyboard/lib';
 import { KeyFingerMappingForm } from '@/features/configure-finger-zones';
 import { KeyboardLayoutConfigurationForm } from '@/features/configure-keyboard-layout';
 import { StepControlPanel, StepperControls } from '@/shared/components';
@@ -19,7 +17,7 @@ export function InitialKeyboardSetup() {
 
   const [keyboardConfig, setKeyboardConfig] = useState({
     layoutConfig: defaultKeyboardLayoutConfig,
-    keyFingerMapping: defaultKeyFingerMapping,
+    keyFingerMapping: getKeyFingerMappingById('optimized'),
   });
 
   function handleConfigChange(

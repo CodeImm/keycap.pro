@@ -1,7 +1,7 @@
 import { LayoutKeyId } from '../model';
 
 export { layoutProfiles } from './layoutProfiles';
-export { keyFingerMapping, fingerColorMapping } from './keyboardMappings';
+export { fingerColorMapping } from './fingerColorMapping';
 
 export const DEFAULT_EXCLUDED_KEYS: LayoutKeyId[] = [
   'MetaLeft',

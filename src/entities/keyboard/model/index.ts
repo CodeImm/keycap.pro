@@ -133,6 +133,9 @@ export const layoutIds = [
 ] as const;
 export type LayoutId = (typeof layoutIds)[number];
 
+export const keyFingerMappingIds = ['optimized', 'logical', 'custom'] as const;
+export type KeyFingerMappingId = (typeof keyFingerMappingIds)[number];
+
 export const layoutTypes = ['iso', 'ansi'] as const;
 export type LayoutType = (typeof layoutTypes)[number];
 
