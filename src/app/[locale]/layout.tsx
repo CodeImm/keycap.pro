@@ -50,9 +50,9 @@ export default async function RootLayout({
   unstable_setRequestLocale(locale);
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
-        <Providers params={{ locale }}>
+    <Providers params={{ locale }}>
+      <html lang={locale}>
+        <body className={inter.className}>
           <Header session={session} />
           <Box
             component="main"
@@ -64,8 +64,8 @@ export default async function RootLayout({
           >
             {children}
           </Box>
-        </Providers>
-      </body>
-    </html>
+        </body>
+      </html>
+    </Providers>
   );
 }
