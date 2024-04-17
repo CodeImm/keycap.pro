@@ -1,7 +1,10 @@
 {
   "extends": [
-    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:boundaries/recommended",
+    "plugin:jsx-a11y/recommended",
+    "next/core-web-vitals",
     "prettier"
   ],
   "settings": {
@@ -13,7 +16,10 @@
       { "type": "entities", "pattern": "src/entities/*" },
       { "type": "shared", "pattern": "src/shared/*" }
     ],
-    "boundaries/ignore": ["**/*.test.*"]
+    "boundaries/ignore": ["**/*.test.*"],
+    "react": {
+      "version": "detect"
+    }
   },
   "rules": {
     "no-restricted-imports": [
