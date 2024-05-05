@@ -21,9 +21,8 @@ import {
   keyboardLayoutTypeOptions,
   systemOptions,
 } from '../config';
-import { getLayoutIdOptions } from '../lib';
+import { getDefaultLayoutConfig, getLayoutIdOptions } from '../lib';
 
-type ValueOfSystemOption = (typeof systemOptions)[number]['value'];
 type ValueOfLayoutLanguageOption =
   (typeof keyboardLayoutLanguageOptions)[number]['value'];
 type ValueOfLayoutTypeOption =
@@ -31,7 +30,7 @@ type ValueOfLayoutTypeOption =
 type ValueOfLayoutIdOption = LayoutId;
 
 interface IFormInput {
-  system: ValueOfSystemOption;
+  system: System;
   layoutLanguage: ValueOfLayoutLanguageOption;
   layoutType: ValueOfLayoutTypeOption;
   layoutId: ValueOfLayoutIdOption;
@@ -52,7 +51,7 @@ export function KeyboardLayoutConfigurationForm({
   const t = useTranslations('KeyboardConfigure');
 
   const [keyboardLayoutIdOptions, setKeyboardLayoutIdOptions] = useState(
-    getLayoutIdOptions(defaultValues.system, defaultValues.layoutLanguage)
+    getLayoutIdOptions(defaultValues.system, defaultValues.layoutLanguage)!
   );
 
   const [layoutConfig, setLayoutConfig] = useState<IFormInput>(defaultValues);
@@ -70,8 +69,22 @@ export function KeyboardLayoutConfigurationForm({
             newConfig.system,
             newConfig.layoutLanguage
           );
-          setKeyboardLayoutIdOptions(layoutIdOptions);
-          newConfig.layoutId = layoutIdOptions[0].value;
+
+          if (layoutIdOptions) {
+            setKeyboardLayoutIdOptions(layoutIdOptions);
+            newConfig.layoutId = layoutIdOptions[0].value;
+          } else {
+            const [system, layoutLanguage, layoutId] = getDefaultLayoutConfig(
+              newConfig.system
+            );
+
+            const layoutIdOptions = getLayoutIdOptions(system, layoutLanguage)!;
+
+            setKeyboardLayoutIdOptions(layoutIdOptions);
+
+            newConfig.layoutLanguage = layoutLanguage;
+            newConfig.layoutId = layoutId;
+          }
         }
 
         return newConfig;

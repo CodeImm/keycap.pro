@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export const layoutKeyIds = [
   'Backquote',
   'Digit1',
@@ -72,7 +74,7 @@ export const enhancedLayoutKeyIds = [
 
 export type LayoutKeyId = (typeof layoutKeyIds)[number];
 
-export type LayoutKeyType = 'letter' | 'symbol' | 'sys' | 'digit';
+export type LayoutKeyType = 'letter' | 'symbol' | 'special' | 'digit';
 
 export type LayoutKeyInfo = {
   [key in LayoutKeyId]?: {
@@ -86,12 +88,22 @@ export type ShiftState = 'shift' | 'default';
 
 export type Layout = { [key in ShiftState]: LayoutKeyInfo };
 
+type KeyLabelPosition = 'center' | 'bottom' | 'center-left' | 'center-right';
+
 export type VirtualKeyboardRowName = 'row1' | 'row2' | 'row3' | 'row4' | 'row5';
+export interface Key {
+  id: LayoutKeyId;
+  width: number;
+  type?: LayoutKeyType;
+  label?: string;
+  labelPosition?: KeyLabelPosition;
+  icon?: ReactNode;
+  iconPosition?: KeyLabelPosition;
+  indicator?: ReactNode;
+  indicatorPosition?: KeyLabelPosition;
+}
 export type VirtualKeyboardLayout = {
-  [key in VirtualKeyboardRowName]: {
-    id: LayoutKeyId;
-    width: number;
-  }[];
+  [key in VirtualKeyboardRowName]: Key[];
 };
 
 export enum Finger {
@@ -118,8 +130,11 @@ export type FingerColorMapping = {
   [key in Finger]: string;
 };
 
-export const system = ['win_lin', 'macos'] as const;
-export type System = (typeof system)[number];
+export enum System {
+  macos = 'macos',
+  windows = 'windows',
+  linux = 'linux',
+}
 
 export const layoutLanguages = ['english', 'russian'] as const;
 export type LayoutLanguage = (typeof layoutLanguages)[number];

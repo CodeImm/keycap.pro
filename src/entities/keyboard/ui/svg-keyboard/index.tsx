@@ -7,7 +7,7 @@ import KeyboardRow from './KeyboardRow';
 import Rect from './Rect';
 
 import { DEFAULT_EXCLUDED_KEYS, DEFAULT_HOME_KEYS } from '../../config';
-import { getLayoutById, getVirtualKeyboardLayoutById } from '../../lib';
+import { getLayoutById, getVirtualKeyboardLayout } from '../../lib';
 import type {
   FingerColorMapping,
   KeyFingerMapping,
@@ -45,12 +45,13 @@ export function Keyboard({
   sx,
   ...props
 }: Props) {
-  const layout = useMemo(() => getLayoutById(layoutId), [layoutId]);
   const virtualKeyboardLayout = useMemo(
-    () => getVirtualKeyboardLayoutById(layoutType),
-    [layoutType]
+    () => getVirtualKeyboardLayout(layoutType, system),
+    [layoutType, system]
   );
-  // TODO: заменить labels у системных клавиш для MacOS
+
+  const layout = useMemo(() => getLayoutById(layoutId), [layoutId]);
+
   return (
     <Box
       component="svg"
@@ -74,7 +75,7 @@ export function Keyboard({
               key={rowName as string}
               y={(ROW_HEIGHT + ROW_GAP) * index}
               rowKeys={virtualKeyboardLayout[rowName]}
-              keyData={layout}
+              layout={layout}
               layoutType={layoutType}
               excludedKeys={excludedKeys}
               homeKeys={homeKeys}

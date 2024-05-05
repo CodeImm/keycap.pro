@@ -1,3 +1,3 @@
 export { getLayoutById } from './getLayoutById';
-export { getVirtualKeyboardLayoutById } from './getVirtualKeyboardLayoutById';
+export { getVirtualKeyboardLayout } from './getVirtualKeyboardLayout';
 export { getKeyFingerMappingById } from './getKeyFingerMappingById';

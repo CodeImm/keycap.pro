@@ -39,7 +39,7 @@ function IsoEnter({
         // textAnchor="middle"
         fill={fontColor}
         textRendering="optimizeLegibility"
-        sx={{ fontSize: '10px', cursor: 'inherit', userSelect: 'none' }}
+        sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
       >
         {label}
       </Text>

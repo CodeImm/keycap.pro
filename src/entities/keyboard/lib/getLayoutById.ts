@@ -19,8 +19,9 @@ export function getLayoutById(id: LayoutId) {
       return workman;
     case 'jcuken':
       return jcuken;
-    default:
+    default: {
       const exhaustiveCheck: never = id;
       throw new Error(`Unknown layout id: ${exhaustiveCheck}`);
+    }
   }
 }
