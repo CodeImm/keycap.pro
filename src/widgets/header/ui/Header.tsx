@@ -1,6 +1,6 @@
 import { Session } from 'next-auth';
-import { getTranslations } from 'next-intl/server';
 
+// import { getTranslations } from 'next-intl/server';
 import { Box } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export async function Header({ session }: Props) {
-  const t = await getTranslations('Navigation');
+  // const t = await getTranslations('Navigation');
 
   // TODO: LocalSwitcher сделать без обертки div в --turbo
   return (
@@ -50,10 +50,7 @@ export async function Header({ session }: Props) {
               <LocaleSwitcher />
             </div>
             {session ? (
-              <UserMenu
-                userName={session.user?.name}
-                userAvatarUrl={session.user?.imageURL}
-              />
+              <UserMenu userName={session.user?.name} userAvatarUrl={session.user?.imageURL} />
             ) : (
               <AuthNavigation />
             )}

@@ -11,6 +11,7 @@ const nextConfig = {
       'mongoose',
       '@typegoose/typegoose',
       'bcryptjs',
+      'crypto'
     ],
   },
 };

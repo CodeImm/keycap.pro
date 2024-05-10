@@ -10,3 +10,8 @@ export const paths = {
   statistics: '/statistics',
   settings: '/profile/settings',
 };
+
+export const publicPages = [paths.home, paths.exercises];
+export const protectedPages = [paths.testing, paths.profile, paths.statistics, paths.settings];
+
+export const authPages = [paths.login, paths.signup];

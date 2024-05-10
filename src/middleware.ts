@@ -1,51 +1,50 @@
-import withAuth from 'next-auth/middleware';
+import NextAuth from 'next-auth';
 import createMiddleware from 'next-intl/middleware';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-import { localePrefix, locales } from '@/shared/config/next-intl/config';
+import { localePrefix, locales, testPathnameRegex } from '@/shared/config/next-intl/config';
 
-import { paths } from './shared/routing';
+import authConfig from './shared/config/next-auth/auth.config';
+import { authPages, paths, publicPages } from './shared/routing';
 
-const publicPages = [paths.home, paths.login, paths.signup, paths.exercises];
+export const { auth } = NextAuth(authConfig);
 
-const intlMiddleware = createMiddleware({
+export const intlMiddleware = createMiddleware({
   defaultLocale: 'ru',
   locales,
   localePrefix,
 });
 
-const authMiddleware = withAuth(
-  // Note that this callback is only invoked if
-  // the `authorized` callback has returned `true`
-  // and not for pages listed in `pages`.
-  function onSuccess(req) {
-    return intlMiddleware(req);
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => token != null,
-    },
-    pages: {
-      signIn: '/login',
-    },
-  }
-);
+const authMiddleware = auth((req) => {
+  const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
+  const session = req.auth;
 
-export default function middleware(req: NextRequest) {
-  const publicPathnameRegex = RegExp(
-    `^(/(${locales.join('|')}))?(${publicPages
-      .flatMap((p) => (p === '/' ? ['', '/'] : p))
-      .join('|')})/?$`,
-    'i'
-  );
-  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+  if (!session && !isAuthPage) {
+    return NextResponse.redirect(new URL(paths.login, req.nextUrl));
+  }
+
+  // Redirect to home page if authenticated and trying to access auth pages
+  if (session && isAuthPage) {
+    return NextResponse.redirect(new URL(paths.home, req.nextUrl));
+  }
+
+  return intlMiddleware(req);
+});
+
+const middleware = (req: NextRequest) => {
+  const isPublicPage = testPathnameRegex(publicPages, req.nextUrl.pathname);
+  const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
+
+  if (isAuthPage) {
+    return (authMiddleware as any)(req);
+  }
 
   if (isPublicPage) {
     return intlMiddleware(req);
   } else {
     return (authMiddleware as any)(req);
   }
-}
+};
 
 export const config = {
   matcher: [
@@ -57,3 +56,5 @@ export const config = {
     // '/(.+)?/users/(.+)',
   ],
 };
+
+export default middleware;

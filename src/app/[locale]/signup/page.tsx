@@ -1,11 +1,9 @@
-import { getServerSession } from 'next-auth';
-
-import authOptions from '@/shared/config/next-auth/auth';
+import { auth } from '@/shared/config/next-auth/auth';
 import { redirect } from '@/shared/navigation';
 import { paths } from '@/shared/routing';
 
 export default async function SignUpPage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (session) {
     redirect(paths.exercises);

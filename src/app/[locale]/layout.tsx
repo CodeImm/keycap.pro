@@ -1,13 +1,12 @@
 import { ReactNode } from 'react';
 
-import { getServerSession } from 'next-auth';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 
-import auth from '@/shared/config/next-auth/auth';
+import { auth } from '@/shared/config/next-auth/auth';
 import { locales } from '@/shared/config/next-intl/config';
 import { Header } from '@/widgets/header';
 
@@ -24,9 +23,7 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params: { locale },
-}: Omit<Props, 'children'>) {
+export async function generateMetadata({ params: { locale } }: Omit<Props, 'children'>) {
   const t = await getTranslations({ locale, namespace: 'LocaleLayout' });
 
   return {
@@ -35,11 +32,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: Props) {
-  const session = await getServerSession(auth);
+export default async function RootLayout({ children, params: { locale } }: Props) {
+  const session = await auth();
 
   // Validate that the incoming `locale` parameter is valid
   if (!locales.includes(locale as any)) {
@@ -50,9 +44,9 @@ export default async function RootLayout({
   unstable_setRequestLocale(locale);
 
   return (
-    <Providers params={{ locale }}>
-      <html lang={locale}>
-        <body className={inter.className}>
+    <html lang={locale}>
+      <body className={inter.className}>
+        <Providers params={{ locale }}>
           <Header session={session} />
           <Box
             component="main"
@@ -64,8 +58,8 @@ export default async function RootLayout({
           >
             {children}
           </Box>
-        </body>
-      </html>
-    </Providers>
+        </Providers>
+      </body>
+    </html>
   );
 }

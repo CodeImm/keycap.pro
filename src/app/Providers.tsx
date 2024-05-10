@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-import { Session } from 'next-auth';
-import { SessionProvider } from 'next-auth/react';
+// import { Session } from 'next-auth';
+// import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 
 import ThemeRegistry from './ThemeRegistry';
@@ -17,9 +17,7 @@ export default function Providers({ children, params: { locale } }: Props) {
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <ThemeRegistry options={{ key: 'mui', prepend: true }}>
-        {children}
-      </ThemeRegistry>
+      <ThemeRegistry options={{ key: 'mui', prepend: true }}>{children}</ThemeRegistry>
     </NextIntlClientProvider>
   );
 }

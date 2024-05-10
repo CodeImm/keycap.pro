@@ -1,7 +1,4 @@
-import NextAuth from 'next-auth';
+import { handlers } from '@/shared/config/next-auth/auth';
 
-import authOptions from '@/shared/config/next-auth/auth';
-
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
+export const { GET, POST } = handlers;
+// export const runtime = 'edge';

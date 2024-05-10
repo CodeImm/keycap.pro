@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,7 +13,7 @@
     "lint:fixall": "npm run lint:fix && npm run prettier:fix"
   },
   "dependencies": {
-    "@auth/mongodb-adapter": "^2.0.7",
+    "@auth/mongodb-adapter": "^2.6.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -23,9 +23,9 @@
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
     "lodash.isequal": "^4.5.0",
-    "mongodb": "^6.3.0",
+    "mongodb": "^6.6.1",
     "next": "^14.2.1",
-    "next-auth": "^4.24.5",
+    "next-auth": "^5.0.0-beta.17",
     "next-intl": "^3.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

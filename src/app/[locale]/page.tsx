@@ -1,9 +1,7 @@
-import { getServerSession } from 'next-auth';
-import { getTranslations } from 'next-intl/server';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-import authOptions from '@/shared/config/next-auth/auth';
+import { auth } from '@/shared/config/next-auth/auth';
 import { locales } from '@/shared/config/next-intl/config';
 
 type Props = {
@@ -11,7 +9,7 @@ type Props = {
 };
 
 export default async function HomePage({ params: { locale } }: Props) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   // Validate that the incoming `locale` parameter is valid
   const isValidLocale = locales.some((cur) => cur === locale);
   if (!isValidLocale) notFound();
