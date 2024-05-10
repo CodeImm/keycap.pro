@@ -1,6 +1,6 @@
-import { Key, System, VirtualKeyboardLayout } from '../../model';
+import { KeyCap, System, VirtualKeyboardLayout } from '../../model';
 
-const specialKeysWindows: { [key: string]: Key } = {
+const specialKeysWindows: { [key: string]: KeyCap } = {
   Backspace: { id: 'Backspace', width: 83, type: 'special', label: 'BackSpace', labelPosition: 'center-right' },
   Tab: { id: 'Tab', width: 63, type: 'special', label: 'Tab', labelPosition: 'center-left' },
   CapsLock: { id: 'CapsLock', width: 70, type: 'special', label: 'CapsLock', labelPosition: 'center-left' },
@@ -18,7 +18,7 @@ const specialKeysWindows: { [key: string]: Key } = {
   ControlRight: { id: 'ControlRight', width: 63, type: 'special', label: 'Ctrl', labelPosition: 'center' },
 };
 
-const specialKeysLinux: { [key: string]: Key } = {
+const specialKeysLinux: { [key: string]: KeyCap } = {
   Backspace: { id: 'Backspace', width: 83, type: 'special', label: 'BackSpace', labelPosition: 'center-right' },
   Tab: { id: 'Tab', width: 63, type: 'special', label: 'Tab', labelPosition: 'center-left' },
   CapsLock: { id: 'CapsLock', width: 70, type: 'special', label: 'CapsLock', labelPosition: 'center-left' },
@@ -36,7 +36,7 @@ const specialKeysLinux: { [key: string]: Key } = {
   ControlRight: { id: 'ControlRight', width: 63, type: 'special', label: 'Ctrl', labelPosition: 'center' },
 };
 
-const specialKeysMacOS: { [key: string]: Key } = {
+const specialKeysMacOS: { [key: string]: KeyCap } = {
   Backspace: { id: 'Backspace', width: 83, type: 'special', label: 'BackSpace', labelPosition: 'center-right' },
   Tab: { id: 'Tab', width: 63, type: 'special', label: 'Tab', labelPosition: 'center-left' },
   CapsLock: { id: 'CapsLock', width: 70, type: 'special', label: 'CapsLock', labelPosition: 'center-left' },

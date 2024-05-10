@@ -66,11 +66,7 @@ export const layoutKeyIds = [
   'ControlRight',
 ] as const;
 
-export const enhancedLayoutKeyIds = [
-  ...layoutKeyIds,
-  'Space_Left',
-  'Space_Right',
-];
+export const enhancedLayoutKeyIds = [...layoutKeyIds, 'Space_Left', 'Space_Right'];
 
 export type LayoutKeyId = (typeof layoutKeyIds)[number];
 
@@ -91,10 +87,10 @@ export type Layout = { [key in ShiftState]: LayoutKeyInfo };
 type KeyLabelPosition = 'center' | 'bottom' | 'center-left' | 'center-right';
 
 export type VirtualKeyboardRowName = 'row1' | 'row2' | 'row3' | 'row4' | 'row5';
-export interface Key {
+export interface KeyCap {
   id: LayoutKeyId;
   width: number;
-  type?: LayoutKeyType;
+  type?: 'special';
   label?: string;
   labelPosition?: KeyLabelPosition;
   icon?: ReactNode;
@@ -103,7 +99,7 @@ export interface Key {
   indicatorPosition?: KeyLabelPosition;
 }
 export type VirtualKeyboardLayout = {
-  [key in VirtualKeyboardRowName]: Key[];
+  [key in VirtualKeyboardRowName]: KeyCap[];
 };
 
 export enum Finger {
@@ -120,10 +116,7 @@ export enum Finger {
 }
 
 export type KeyFingerMapping = {
-  [key in
-    | Exclude<LayoutKeyId, 'Space'>
-    | 'Space_Left'
-    | 'Space_Right']?: Finger;
+  [key in Exclude<LayoutKeyId, 'Space'> | 'Space_Left' | 'Space_Right']?: Finger;
 };
 
 export type FingerColorMapping = {
@@ -139,13 +132,7 @@ export enum System {
 export const layoutLanguages = ['english', 'russian'] as const;
 export type LayoutLanguage = (typeof layoutLanguages)[number];
 
-export const layoutIds = [
-  'us_qwerty',
-  'dvorak',
-  'colemak',
-  'workman',
-  'jcuken',
-] as const;
+export const layoutIds = ['us_qwerty', 'dvorak', 'colemak', 'workman', 'jcuken'] as const;
 export type LayoutId = (typeof layoutIds)[number];
 
 export const keyFingerMappingIds = ['optimized', 'logical', 'custom'] as const;

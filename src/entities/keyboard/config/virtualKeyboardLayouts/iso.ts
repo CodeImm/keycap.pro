@@ -1,6 +1,6 @@
-import { Key, System, VirtualKeyboardLayout } from '../../model';
+import { KeyCap, System, VirtualKeyboardLayout } from '../../model';
 
-export const specialKeysWindows: { [key: string]: Key } = {
+export const specialKeysWindows: { [key: string]: KeyCap } = {
   Backspace: { id: 'Backspace', width: 83, type: 'special', label: 'BackSpace', labelPosition: 'center-right' },
   Tab: { id: 'Tab', width: 63, type: 'special', label: 'Tab', labelPosition: 'center-left' },
   Enter: { id: 'Enter', width: 95, type: 'special', label: 'Return', labelPosition: 'center-right' },
@@ -18,7 +18,7 @@ export const specialKeysWindows: { [key: string]: Key } = {
   ContextMenu: { id: 'ContextMenu', width: 40, type: 'special' },
 };
 
-export const specialKeysLinux: { [key: string]: Key } = {
+export const specialKeysLinux: { [key: string]: KeyCap } = {
   Backspace: { id: 'Backspace', width: 83, type: 'special', label: 'BackSpace', labelPosition: 'center-right' },
   Tab: { id: 'Tab', width: 63, type: 'special', label: 'Tab', labelPosition: 'center-left' },
   Enter: { id: 'Enter', width: 95, type: 'special', label: 'Return', labelPosition: 'center-right' },
@@ -36,7 +36,7 @@ export const specialKeysLinux: { [key: string]: Key } = {
   ContextMenu: { id: 'ContextMenu', width: 40, type: 'special' },
 };
 
-export const specialKeysMacOS: { [key: string]: Key } = {
+export const specialKeysMacOS: { [key: string]: KeyCap } = {
   Backspace: { id: 'Backspace', width: 83, type: 'special', label: 'BackSpace', labelPosition: 'center-right' },
   Tab: { id: 'Tab', width: 63, type: 'special', label: 'Tab', labelPosition: 'center-left' },
   Enter: { id: 'Enter', width: 95, type: 'special', label: 'Return', labelPosition: 'center-right' },
