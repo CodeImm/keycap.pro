@@ -1,23 +1,28 @@
-import { ReactNode } from 'react';
+'use client';
+
+import { ReactNode, useState } from 'react';
 
 // import { Session } from 'next-auth';
 // import { SessionProvider } from 'next-auth/react';
-import { NextIntlClientProvider, useMessages } from 'next-intl';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import ThemeRegistry from './ThemeRegistry';
 
-type Props = {
+interface Props {
   children: ReactNode;
   params: { locale: string };
-};
+}
 
-export default function Providers({ children, params: { locale } }: Props) {
-  // Receive messages provided in `i18n.ts`
-  const messages = useMessages();
+export default function Providers({ children }: Props) {
+  const [queryClient] = useState(new QueryClient());
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <ThemeRegistry options={{ key: 'mui', prepend: true }}>{children}</ThemeRegistry>
-    </NextIntlClientProvider>
+    <ThemeRegistry options={{ key: 'mui', prepend: true }}>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </ThemeRegistry>
   );
 }

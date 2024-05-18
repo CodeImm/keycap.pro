@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
@@ -43,22 +44,27 @@ export default async function RootLayout({ children, params: { locale } }: Props
   // Enable static rendering
   unstable_setRequestLocale(locale);
 
+  // Receive messages provided in `i18n.ts`
+  const messages = await getMessages();
+
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <Providers params={{ locale }}>
-          <Header session={session} />
-          <Box
-            component="main"
-            sx={{
-              flexGrow: 1,
-              bgcolor: 'background.default',
-              p: 3,
-            }}
-          >
-            {children}
-          </Box>
-        </Providers>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Providers params={{ locale }}>
+            <Header session={session} />
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                bgcolor: 'background.default',
+                p: 3,
+              }}
+            >
+              {children}
+            </Box>
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
