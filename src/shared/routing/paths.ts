@@ -1,7 +1,7 @@
 export const paths = {
   home: '/',
   exercises: '/exercises',
-  login: '/login',
+  signin: '/login',
   signup: '/signup',
   testing: '/testing',
   policy: '/policy',
@@ -14,4 +14,4 @@ export const paths = {
 export const publicPages = [paths.home, paths.exercises];
 export const protectedPages = [paths.testing, paths.profile, paths.statistics, paths.settings];
 
-export const authPages = [paths.login, paths.signup];
+export const authPages = [paths.signin, paths.signup];

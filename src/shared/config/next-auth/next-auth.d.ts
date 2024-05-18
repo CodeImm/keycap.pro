@@ -1,6 +1,6 @@
 import { DefaultSession } from 'next-auth';
 
-import type { UserRole } from '@/entities/user';
+import type { Role } from '@/entities/user';
 
 declare module 'next-auth' {
   /**
@@ -9,9 +9,11 @@ declare module 'next-auth' {
    */
   interface User {
     id: string;
-    name: string | null;
-    email: string;
-    role: UserRole;
+    firstName?: string | null;
+    lastName?: string | null;
+    email?: string | null;
+    emailVerified: Date | null;
+    role: Role;
     imageURL?: string;
     createdAt: Date;
     updatedAt: Date;
@@ -21,11 +23,11 @@ declare module 'next-auth' {
     id: string;
     name: string | null;
     email: string;
-    role: UserRole;
+    role: Role;
     imageURL?: string;
   }
 
   interface Session extends DefaultSession {
-    user: Partial<User>;
+    user: User;
   }
 }

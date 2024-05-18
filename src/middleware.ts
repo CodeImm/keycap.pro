@@ -20,7 +20,7 @@ const authMiddleware = auth((req) => {
   const session = req.auth;
 
   if (!session && !isAuthPage) {
-    return NextResponse.redirect(new URL(paths.login, req.nextUrl));
+    return NextResponse.redirect(new URL(paths.signin, req.nextUrl));
   }
 
   // Redirect to home page if authenticated and trying to access auth pages
@@ -35,15 +35,11 @@ const middleware = (req: NextRequest) => {
   const isPublicPage = testPathnameRegex(publicPages, req.nextUrl.pathname);
   const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
 
-  if (isAuthPage) {
-    return (authMiddleware as any)(req);
+  if (isAuthPage || !isPublicPage) {
+    return authMiddleware(req, {});
   }
 
-  if (isPublicPage) {
-    return intlMiddleware(req);
-  } else {
-    return (authMiddleware as any)(req);
-  }
+  return intlMiddleware(req);
 };
 
 export const config = {

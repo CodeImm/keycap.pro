@@ -2,8 +2,24 @@ import type { NextAuthConfig } from 'next-auth';
 import GitHub, { GitHubEmail, GitHubProfile } from 'next-auth/providers/github';
 import Google, { GoogleProfile } from 'next-auth/providers/google';
 
-import { UserRole } from '@/entities/user';
+import { Role } from '@/entities/user';
 import { paths } from '@/shared/routing';
+
+const fetchGitHubEmails = async (accessToken: string): Promise<GitHubEmail[]> => {
+  const res = await fetch('https://api.github.com/user/emails', {
+    headers: { Authorization: `token ${accessToken}` },
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch GitHub user emails');
+  }
+
+  return res.json();
+};
+
+const getPrimaryEmail = (emails: GitHubEmail[]): GitHubEmail | undefined => {
+  return emails.find((email) => email.primary && email.verified);
+};
 
 export default {
   providers: [
@@ -11,21 +27,21 @@ export default {
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
       async profile(profile: GitHubProfile, tokens) {
-        const res = await fetch('https://api.github.com/user/emails', {
-          headers: { Authorization: `token ${tokens.access_token}` },
-        });
+        if (!tokens.access_token) {
+          throw new Error('No access token available');
+        }
 
-        const emails: GitHubEmail[] = await res.json();
+        const emails = await fetchGitHubEmails(tokens.access_token);
+        const primaryEmail = getPrimaryEmail(emails);
 
-        const primaryEmail = emails.find((email) => email.primary && email.verified);
-        // TODO: нужно ли "__v: 0" в записи
         return {
           id: profile.id.toString(),
           email: primaryEmail?.email ?? emails[0]?.email,
-          emailVerified: false,
-          name: profile.name ?? profile.login,
+          emailVerified: null,
+          firstName: profile.name,
+          lastName: null,
           imageURL: profile.avatar_url,
-          role: UserRole.USER,
+          role: Role.User,
           createdAt: new Date(),
           updatedAt: new Date(),
           __v: 0,
@@ -39,10 +55,11 @@ export default {
         return {
           id: profile.sub,
           email: profile.email,
-          emailVerified: false,
-          name: profile.name,
+          emailVerified: null,
+          firstName: profile.given_name,
+          lastName: profile.family_name,
           imageURL: profile.picture,
-          role: UserRole.USER,
+          role: Role.User,
           createdAt: new Date(),
           updatedAt: new Date(),
           __v: 0,
@@ -69,8 +86,8 @@ export default {
     },
   },
   pages: {
-    signIn: paths.login,
-    signUp: paths.signup,
+    signIn: paths.signin,
+    newUser: paths.signup,
   },
   debug: process.env.NODE_ENV === 'development',
 } satisfies NextAuthConfig;

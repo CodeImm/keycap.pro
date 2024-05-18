@@ -35,9 +35,7 @@ export function UserMenu({ userName, userAvatarUrl }: Props) {
   };
 
   return (
-    <Box
-      sx={{ display: 'flex', alignItems: 'center', flexGrow: 0, gap: 1, ml: 2 }}
-    >
+    <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 0, gap: 1, ml: 2 }}>
       <UserName userName={userName} />
       <Tooltip title="Account settings">
         <IconButton
