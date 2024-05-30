@@ -13,6 +13,7 @@ declare module 'next-auth' {
     lastName?: string | null;
     email?: string | null;
     emailVerified: Date | null;
+    registrationCompleted: null;
     role: Role;
     imageURL?: string;
     createdAt: Date;

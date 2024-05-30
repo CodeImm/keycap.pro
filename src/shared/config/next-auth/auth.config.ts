@@ -41,6 +41,7 @@ export default {
           firstName: profile.name,
           lastName: null,
           imageURL: profile.avatar_url,
+          registrationCompleted: null,
           role: Role.User,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -58,6 +59,7 @@ export default {
           emailVerified: null,
           firstName: profile.given_name,
           lastName: profile.family_name,
+          registrationCompleted: null,
           imageURL: profile.picture,
           role: Role.User,
           createdAt: new Date(),
@@ -69,18 +71,22 @@ export default {
   ],
   callbacks: {
     jwt: ({ token, user }) => {
+      // console.log({ token });
       if (user) {
         token.role = user.role;
         token.userId = user.id;
         token.imageURL = user.imageURL;
+        token.registrationCompleted = user.registrationCompleted;
       }
 
       return token;
     },
     session: ({ session, token }) => {
+      // console.log({ token, session });
       session.user.id = token.userId;
       session.user.imageURL = token.imageURL;
       session.user.role = token.role;
+      session.user.registrationCompleted = token.registrationCompleted;
 
       return session;
     },

@@ -93,8 +93,8 @@ class User {
   @prop()
   public locale?: string;
 
-  @prop({ required: true, default: false })
-  public registrationCompleted!: boolean;
+  @prop({ required: false })
+  public registrationCompleted!: Date;
 
   @prop({ _id: false })
   public keyboardSettings?: KeyboardSettings;

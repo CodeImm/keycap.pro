@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { localePrefix, locales, testPathnameRegex } from '@/shared/config/next-intl/config';
 
 import authConfig from './shared/config/next-auth/auth.config';
-import { authPages, paths, publicPages } from './shared/routing';
+import { authPages, paths, protectedPages, publicPages } from './shared/routing';
 
 export const { auth } = NextAuth(authConfig);
 
@@ -17,15 +17,22 @@ export const intlMiddleware = createMiddleware({
 
 const authMiddleware = auth((req) => {
   const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
+  const isProtectedPage = testPathnameRegex(protectedPages, req.nextUrl.pathname);
+  const isAuthCompletePage = testPathnameRegex([paths.complete], req.nextUrl.pathname);
   const session = req.auth;
 
-  if (!session && !isAuthPage) {
+  if (!session && isAuthCompletePage) {
     return NextResponse.redirect(new URL(paths.signin, req.nextUrl));
   }
 
-  // Redirect to home page if authenticated and trying to access auth pages
-  if (session && isAuthPage) {
+  if (session && session.user.registrationCompleted === null && !isAuthCompletePage && isProtectedPage) {
+    return NextResponse.redirect(new URL(paths.complete, req.nextUrl));
+  } else if (session && isAuthPage && !isAuthCompletePage) {
     return NextResponse.redirect(new URL(paths.home, req.nextUrl));
+  }
+
+  if (!session && !isAuthPage) {
+    return NextResponse.redirect(new URL(paths.signin, req.nextUrl));
   }
 
   return intlMiddleware(req);
