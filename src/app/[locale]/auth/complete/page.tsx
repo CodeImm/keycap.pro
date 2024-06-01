@@ -1,3 +1,4 @@
+import { CompleteRegistrationForm } from '@/features/complete-registration';
 import { auth } from '@/shared/config/next-auth/auth';
 
 export default async function AuthCompletePage() {
@@ -7,5 +8,10 @@ export default async function AuthCompletePage() {
     console.log({ session });
   }
 
-  return <>Complete Registration</>;
+  return (
+    <>
+      Complete Registration Page
+      <CompleteRegistrationForm />
+    </>
+  );
 }
