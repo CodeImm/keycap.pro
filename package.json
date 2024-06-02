@@ -17,6 +17,7 @@
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@hookform/resolvers": "^3.4.2",
     "@mui/material": "^5.15.18",
     "@mui/material-nextjs": "^5.15.11",
     "@tanstack/react-query": "^5.35.5",
@@ -24,6 +25,7 @@
     "@typegoose/typegoose": "^12.4.0",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
+    "dayjs": "^1.11.11",
     "ky": "^1.2.4",
     "lodash.isequal": "^4.5.0",
     "mongodb": "^6.6.1",
@@ -33,7 +35,8 @@
     "next-intl": "^3.11.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-hook-form": "^7.49.0"
+    "react-hook-form": "^7.51.5",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.32.1",
