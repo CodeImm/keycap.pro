@@ -3,6 +3,7 @@ import ky from 'ky';
 // import { ServerError } from './types';
 
 const client = ky.extend({
+  prefixUrl: 'http://localhost:3000/api',
   hooks: {
     beforeRequest: [
       (request) => {

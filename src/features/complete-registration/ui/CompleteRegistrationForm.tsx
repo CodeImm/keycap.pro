@@ -7,6 +7,9 @@ import { Box, BoxProps, Button, FormControl, InputLabel, MenuItem, Select, TextF
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { TimeZone } from '@/entities/timeZone/model/types';
+import dayjs from '@/shared/config/dayjs';
+
 import DateSelector from './DateSelector';
 import TimezoneTextField from './TimezoneTextField';
 import UsernameTextField from './UsernameTextField';
@@ -17,9 +20,10 @@ export type CompleteRegistrationFormData = z.infer<typeof CompleteRegistrationFo
 
 interface Props extends BoxProps<'form'> {
   defaultValues: CompleteRegistrationFormData;
+  timeZones: TimeZone[];
 }
 
-const CompleteRegistrationForm = ({ defaultValues, ...props }: Props) => {
+const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props) => {
   const {
     control,
     handleSubmit,
@@ -37,11 +41,11 @@ const CompleteRegistrationForm = ({ defaultValues, ...props }: Props) => {
       gender: '',
       username: '',
       locale: '',
-      timeZone: '',
+      timeZone: timeZones.find((timeZone) => timeZone.timeZone === dayjs.tz.guess())?.timeZone ?? '',
     },
     resolver: zodResolver(CompleteRegistrationFormSchema),
   });
-  console.log(errors);
+
   const onSubmit = (data) => {
     console.log('parse: ', CompleteRegistrationFormSchema.parse(data));
   };
@@ -101,7 +105,7 @@ const CompleteRegistrationForm = ({ defaultValues, ...props }: Props) => {
 
       <UsernameTextField control={control} errors={errors} />
 
-      <TimezoneTextField control={control} errors={errors} />
+      <TimezoneTextField control={control} errors={errors} options={timeZones} />
 
       <DateSelector control={control} errors={errors} />
 
