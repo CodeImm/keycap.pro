@@ -1,36 +1,41 @@
 'use client';
 
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { Control, Controller, FieldErrors } from 'react-hook-form';
+import { useState } from 'react';
 
-import { TimeZone } from '@/entities/timeZone/model/types';
+import { Autocomplete, TextField } from '@mui/material';
+import { Control, Controller, FieldErrors } from 'react-hook-form';
 
 import { CompleteRegistrationFormData } from './CompleteRegistrationForm';
 
 interface Props {
   control: Control<CompleteRegistrationFormData, any>;
   errors: FieldErrors<CompleteRegistrationFormData>;
-  options: TimeZone[];
+  options: string[];
 }
 
-const TimezoneTextField = ({ control, errors, options, ...props }: Props) => {
-  //TODO: автокомплит, виртуализация опций
+const TimezoneTextField = ({ control, errors, options }: Props) => {
+  const [inputValue, setInputValue] = useState('');
+
   return (
     <Controller
       name="timeZone"
       control={control}
-      defaultValue=""
-      render={({ field }) => (
-        <FormControl fullWidth margin="normal">
-          <InputLabel id="time-zone-label">Time Zone</InputLabel>
-          <Select {...field} labelId="time-zone-label" label="Time Zone" error={!!errors.timeZone}>
-            {options.map((option) => (
-              <MenuItem key={option.timeZone} value={option.timeZone}>
-                ({option.timeZoneName}) {option.timeZone}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+      render={({ field: { value, onChange, ...otherFieldProps } }) => (
+        <Autocomplete
+          value={value}
+          onChange={(event: any, newValue: string | null) => {
+            onChange(newValue);
+          }}
+          inputValue={inputValue}
+          onInputChange={(_event, newInputValue) => {
+            setInputValue(newInputValue);
+          }}
+          disableClearable
+          options={options}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextField {...params} label="Time Zone" error={!!errors.timeZone} />}
+          {...otherFieldProps}
+        />
       )}
     />
   );
