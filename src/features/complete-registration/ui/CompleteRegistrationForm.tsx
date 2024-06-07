@@ -1,9 +1,7 @@
 'use client';
 
-import React from 'react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, BoxProps, Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Box, BoxProps, Button, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -11,6 +9,7 @@ import { TimeZone } from '@/entities/timeZone/model/types';
 import dayjs from '@/shared/config/dayjs';
 
 import DateSelector from './DateSelector';
+import GenderRadioButtonGroup from './GenderRadioButtonGroup';
 import TimezoneTextField from './TimezoneTextField';
 import UsernameTextField from './UsernameTextField';
 
@@ -39,7 +38,7 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
         month: '',
         year: '',
       },
-      gender: '',
+      gender: 'female',
       username: '',
       locale: '',
       timeZone: guessTimeZone ? `${guessTimeZone.timeZone} (${guessTimeZone.timeZoneName})` : '',
@@ -114,23 +113,8 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
 
       <DateSelector control={control} errors={errors} />
 
-      <Controller
-        name="gender"
-        control={control}
-        defaultValue=""
-        rules={{ required: 'Gender required' }}
-        render={({ field }) => (
-          <FormControl fullWidth margin="normal">
-            <InputLabel id="gender-label">Gender</InputLabel>
-            <Select {...field} labelId="gender-label" label="Gender" error={!!errors.gender}>
-              <MenuItem value="male">Male</MenuItem>
-              <MenuItem value="female">Female</MenuItem>
-              <MenuItem value="other">Other</MenuItem>
-            </Select>
-          </FormControl>
-        )}
-      />
-      {/* ... */}
+      <GenderRadioButtonGroup control={control} />
+
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         Submit
       </Button>
