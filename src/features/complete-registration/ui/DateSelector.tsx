@@ -25,12 +25,14 @@ const DateSelector = ({ control, errors, trigger }: Props) => {
           <Controller
             name="dateOfBirth.day"
             control={control}
-            render={({ field: { onChange, ...otherFieldProps } }) => (
+            render={({ field: { onChange, ...otherFieldProps }, formState: { isSubmitted } }) => (
               <Select
                 {...otherFieldProps}
                 onChange={(e) => {
                   onChange(e);
-                  trigger('dateOfBirth');
+                  if (isSubmitted) {
+                    trigger('dateOfBirth');
+                  }
                 }}
                 labelId="day-label"
                 label="День"

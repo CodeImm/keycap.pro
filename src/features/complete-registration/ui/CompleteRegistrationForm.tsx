@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { TimeZone } from '@/entities/timeZone/model/types';
+import { Gender } from '@/entities/user';
 import dayjs from '@/shared/config/dayjs';
 
 import DateSelector from './DateSelector';
@@ -40,7 +41,7 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
         month: '',
         year: '',
       },
-      gender: 'female',
+      gender: Gender.Female,
       username: '',
       locale: '',
       timeZone: `${defaultTimeZone.timeZone} (${defaultTimeZone.timeZoneName})`,

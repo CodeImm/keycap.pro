@@ -5,6 +5,8 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { Control, Controller } from 'react-hook-form';
 
+import { Gender } from '@/entities/user';
+
 import { CompleteRegistrationFormData } from './CompleteRegistrationForm';
 
 interface Props {
@@ -20,8 +22,8 @@ export default function GenderRadioButtonGroup({ control }: Props) {
         <FormControl>
           <FormLabel id="gender-radio-buttons-group-label">Gender</FormLabel>
           <RadioGroup aria-labelledby="gender-radio-buttons-group-label" {...field} row>
-            <FormControlLabel value="female" control={<Radio />} label="Female" />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
+            <FormControlLabel value={Gender.Female} control={<Radio />} label="Female" />
+            <FormControlLabel value={Gender.Male} control={<Radio />} label="Male" />
           </RadioGroup>
         </FormControl>
       )}
