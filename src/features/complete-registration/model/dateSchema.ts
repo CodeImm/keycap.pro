@@ -28,6 +28,7 @@ export const DateSchema = z
       return true;
     },
     {
+      path: undefined,
       message: 'Invalid date',
     }
   );

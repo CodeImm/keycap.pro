@@ -2,7 +2,7 @@
 
 import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 import dayjs from 'dayjs';
-import { Control, Controller, FieldErrors } from 'react-hook-form';
+import { Control, Controller, FieldErrors, UseFormTrigger } from 'react-hook-form';
 
 import { CompleteRegistrationFormData } from './CompleteRegistrationForm';
 
@@ -13,9 +13,10 @@ const years = Array.from({ length: 124 }, (_, i) => new Date().getFullYear() - i
 interface Props {
   control: Control<CompleteRegistrationFormData, any>;
   errors: FieldErrors<CompleteRegistrationFormData>;
+  trigger: UseFormTrigger<CompleteRegistrationFormData>;
 }
 
-const DateSelector = ({ control, errors }: Props) => {
+const DateSelector = ({ control, errors, trigger }: Props) => {
   return (
     <>
       <Box sx={{ display: 'inline-flex', gap: 4, width: '100%' }}>
@@ -24,8 +25,17 @@ const DateSelector = ({ control, errors }: Props) => {
           <Controller
             name="dateOfBirth.day"
             control={control}
-            render={({ field }) => (
-              <Select {...field} labelId="day-label" label="День" error={!!errors.dateOfBirth?.day}>
+            render={({ field: { onChange, ...otherFieldProps } }) => (
+              <Select
+                {...otherFieldProps}
+                onChange={(e) => {
+                  onChange(e);
+                  trigger('dateOfBirth');
+                }}
+                labelId="day-label"
+                label="День"
+                error={!!errors.dateOfBirth?.day}
+              >
                 {days.map((day) => (
                   <MenuItem key={day} value={day}>
                     {day}
@@ -79,7 +89,7 @@ const DateSelector = ({ control, errors }: Props) => {
           )}
         </FormControl>
       </Box>
-      <FormHelperText error={!!errors.dateOfBirth}>{errors.dateOfBirth?.root?.message}</FormHelperText>
+      <FormHelperText error={!!errors.dateOfBirth}>{errors.dateOfBirth?.message}</FormHelperText>
     </>
   );
 };
