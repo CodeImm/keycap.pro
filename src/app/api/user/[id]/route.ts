@@ -3,8 +3,8 @@ import dbConnect from '@/shared/config/mongodb/dbConnect';
 import { auth } from '@/shared/config/next-auth/auth';
 
 export async function PATCH(req: Request) {
-  await dbConnect();
   try {
+    await dbConnect();
     const session = await auth();
 
     if (!session?.user) {

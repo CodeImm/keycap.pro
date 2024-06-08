@@ -51,7 +51,11 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
     mode: 'onChange',
   });
 
-  const updateUserProfile = api.useUpdateUserProfile();
+  const updateUserProfile = api.useUpdateUserProfile({
+    onSuccess: () => {
+      console.log('sucsess');
+    },
+  });
 
   const onSubmit = (data: CompleteRegistrationFormData) => {
     updateUserProfile.mutate(mapUserDataToApi(data));

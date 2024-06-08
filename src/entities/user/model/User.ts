@@ -54,8 +54,8 @@ class Permissions {
 }
 
 class User {
-  @prop({ required: true, unique: true })
-  public email!: string;
+  @prop({ required: true, unique: true, sparse: true, validate: { validator: (value: unknown) => !!value } })
+  public email?: string;
 
   @prop({ default: false })
   public emailVerified?: Date;
@@ -75,7 +75,7 @@ class User {
   @prop({ _id: false })
   public profile?: Profile;
 
-  @prop()
+  @prop({ type: String })
   public firstName?: string;
 
   @prop()
@@ -87,7 +87,7 @@ class User {
   @prop({ enum: Gender })
   public gender?: string;
 
-  @prop({ unique: true })
+  @prop({ unique: true, sparse: true })
   public username?: string;
 
   @prop()
