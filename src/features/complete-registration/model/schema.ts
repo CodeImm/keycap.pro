@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { Gender } from '@/entities/user';
 
 import { DateSchema } from './dateSchema';
+import { UsernameSchema } from './usernameSchema';
 
 const GenderSchema = z.nativeEnum(Gender);
 
@@ -12,7 +13,7 @@ export const CompleteRegistrationFormSchema = z.object({
   lastName: z.string().max(50).optional(),
   dateOfBirth: DateSchema,
   gender: GenderSchema,
-  username: z.string(),
+  username: UsernameSchema,
   locale: z.string(),
   timeZone: z.string(),
 });

@@ -1,27 +1,59 @@
 'use client';
 
+import { useDeferredValue, useEffect, useState } from 'react';
+
 import { TextField } from '@mui/material';
-import { Controller } from 'react-hook-form';
+import { Control, Controller, FieldErrors } from 'react-hook-form';
+
+import { CompleteRegistrationFormData } from './CompleteRegistrationForm';
+
+import api from '../api';
+import { UsernameSchema } from '../model/usernameSchema';
 
 interface Props {
-  control: any;
-  errors: any;
+  control: Control<CompleteRegistrationFormData, any>;
+  errors: FieldErrors<CompleteRegistrationFormData>;
 }
 
-const UsernameTextField = ({ control, errors, ...props }: Props) => {
+const UsernameTextField = ({ control, errors }: Props) => {
+  const [username, setUsername] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const deferredValue = useDeferredValue(username);
+
+  const { data, status } = api.useCheckUsernameUnique(username, {
+    enabled: UsernameSchema.safeParse(deferredValue).success,
+  });
+
+  useEffect(() => {
+    if (status === 'success' && data && !data.isUnique) {
+      setError('Username is not unique');
+    }
+
+    if (status === 'success' && data && data.isUnique) {
+      setError(null);
+    }
+
+    if (status === 'pending') {
+      setError(null);
+    }
+  }, [data, setError, status]);
+
   return (
     <Controller
       name="username"
       control={control}
-      defaultValue=""
-      render={({ field }) => (
+      render={({ field: { onChange, ...otherFieldProps } }) => (
         <TextField
-          {...field}
+          onChange={(e) => {
+            onChange(e);
+            setUsername(e.target.value);
+          }}
+          {...otherFieldProps}
           label="Username"
           fullWidth
           margin="normal"
-          error={!!errors.username}
-          helperText={errors.username ? errors.username.message : ''}
+          error={!!errors.username || !!error}
+          helperText={errors.username?.message || error || (data?.isUnique ? 'This username is available.' : ' ')}
         />
       )}
     />

@@ -14,6 +14,8 @@ import GenderRadioButtonGroup from './GenderRadioButtonGroup';
 import TimezoneTextField from './TimezoneTextField';
 import UsernameTextField from './UsernameTextField';
 
+import api from '../api';
+import { mapUserDataToApi } from '../api/mappers/mapUserDataToApi';
 import { CompleteRegistrationFormSchema } from '../model/schema';
 
 export type CompleteRegistrationFormData = z.infer<typeof CompleteRegistrationFormSchema>;
@@ -30,7 +32,7 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
     control,
     trigger,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitted },
   } = useForm<CompleteRegistrationFormData>({
     defaultValues: {
       email: '',
@@ -43,14 +45,16 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
       },
       gender: Gender.Female,
       username: '',
-      locale: '',
       timeZone: `${defaultTimeZone.timeZone} (${defaultTimeZone.timeZoneName})`,
     },
     resolver: zodResolver(CompleteRegistrationFormSchema),
+    mode: 'onChange',
   });
 
-  const onSubmit = (data) => {
-    console.log('parse: ', CompleteRegistrationFormSchema.parse(data));
+  const updateUserProfile = api.useUpdateUserProfile();
+
+  const onSubmit = (data: CompleteRegistrationFormData) => {
+    updateUserProfile.mutate(mapUserDataToApi(data));
   };
 
   return (
@@ -58,7 +62,6 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
       <Controller
         name="email"
         control={control}
-        defaultValue=""
         render={({ field }) => (
           <TextField
             {...field}
@@ -66,8 +69,8 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
             required
             fullWidth
             margin="normal"
-            error={!!errors.email}
-            helperText={errors.email ? errors.email.message : ''}
+            error={!!errors.email && isSubmitted}
+            helperText={!!errors.email && isSubmitted ? errors.email.message : ''}
           />
         )}
       />
@@ -83,8 +86,8 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
               label="First Name"
               fullWidth
               margin="normal"
-              error={!!errors.firstName}
-              helperText={errors.firstName ? errors.firstName.message : ''}
+              error={!!errors.firstName && isSubmitted}
+              helperText={errors.firstName && isSubmitted ? errors.firstName.message : ''}
             />
           )}
         />
@@ -99,8 +102,8 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
               label="Last Name"
               fullWidth
               margin="normal"
-              error={!!errors.lastName}
-              helperText={errors.lastName ? errors.lastName.message : ''}
+              error={!!errors.lastName && isSubmitted}
+              helperText={errors.lastName && isSubmitted ? errors.lastName.message : ''}
             />
           )}
         />
