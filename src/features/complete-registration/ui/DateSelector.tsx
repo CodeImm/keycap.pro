@@ -56,8 +56,19 @@ const DateSelector = ({ control, errors, trigger }: Props) => {
           <Controller
             name="dateOfBirth.month"
             control={control}
-            render={({ field }) => (
-              <Select {...field} labelId="month-label" label="Месяц" error={!!errors.dateOfBirth?.month}>
+            render={({ field: { onChange, ...otherFieldProps }, formState: { isSubmitted } }) => (
+              <Select
+                {...otherFieldProps}
+                onChange={(e) => {
+                  onChange(e);
+                  if (isSubmitted) {
+                    trigger('dateOfBirth');
+                  }
+                }}
+                labelId="month-label"
+                label="Месяц"
+                error={!!errors.dateOfBirth?.month}
+              >
                 {months.map((month, index) => (
                   <MenuItem key={index} value={index}>
                     {month}
@@ -76,8 +87,19 @@ const DateSelector = ({ control, errors, trigger }: Props) => {
           <Controller
             name="dateOfBirth.year"
             control={control}
-            render={({ field }) => (
-              <Select {...field} labelId="year-label" label="Год" error={!!errors.dateOfBirth?.year}>
+            render={({ field: { onChange, ...otherFieldProps }, formState: { isSubmitted } }) => (
+              <Select
+                {...otherFieldProps}
+                onChange={(e) => {
+                  onChange(e);
+                  if (isSubmitted) {
+                    trigger('dateOfBirth');
+                  }
+                }}
+                labelId="year-label"
+                label="Год"
+                error={!!errors.dateOfBirth?.year}
+              >
                 {years.map((year) => (
                   <MenuItem key={year} value={year}>
                     {year}
@@ -91,7 +113,9 @@ const DateSelector = ({ control, errors, trigger }: Props) => {
           )}
         </FormControl>
       </Box>
-      <FormHelperText error={!!errors.dateOfBirth}>{errors.dateOfBirth?.message}</FormHelperText>
+      <FormHelperText error={!!errors.dateOfBirth?.root || !!errors.dateOfBirth}>
+        {errors.dateOfBirth?.root?.message ?? errors.dateOfBirth?.message}
+      </FormHelperText>
     </>
   );
 };
