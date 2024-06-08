@@ -23,7 +23,7 @@ interface Props extends BoxProps<'form'> {
 }
 
 const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props) => {
-  const guessTimeZone = timeZones.find((timeZone) => timeZone.timeZone === dayjs.tz.guess());
+  const defaultTimeZone = timeZones.find((timeZone) => timeZone.timeZone === dayjs.tz.guess()) ?? timeZones[0];
 
   const {
     control,
@@ -43,7 +43,7 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
       gender: 'female',
       username: '',
       locale: '',
-      timeZone: guessTimeZone ? `${guessTimeZone.timeZone} (${guessTimeZone.timeZoneName})` : '',
+      timeZone: `${defaultTimeZone.timeZone} (${defaultTimeZone.timeZoneName})`,
     },
     resolver: zodResolver(CompleteRegistrationFormSchema),
   });
