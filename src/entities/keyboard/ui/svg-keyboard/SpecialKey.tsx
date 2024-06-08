@@ -54,6 +54,9 @@ function SpecialKey({
         width={width}
         label={label}
         fill={fill}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         rightHandMark={keyFingerMapping?.[id]! > 4}
         sx={{ cursor: keyFingerMapping ? 'pointer' : 'default' }}
       />
@@ -63,7 +66,11 @@ function SpecialKey({
   if (isSpaceKey && keyFingerMapping) {
     const leftId = `${id}_Left`;
     const rightId = `${id}_Right`;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const leftFill = fingerColorMapping?.[keyFingerMapping[leftId]!];
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const rightFill = fingerColorMapping?.[keyFingerMapping[rightId]!];
 
     return (
@@ -76,13 +83,13 @@ function SpecialKey({
           homing={false}
           width={(width - 1) / 2}
           fill={leftFill}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
           rightHandMark={keyFingerMapping?.[leftId]! > 4}
           sx={{ cursor: 'pointer' }}
         />
-        <SpaceDivider
-          x={widthAdder - (width - 1) / 2 + 2 * index - 1}
-          y={y + 2}
-        />
+        <SpaceDivider x={widthAdder - (width - 1) / 2 + 2 * index - 1} y={y + 2} />
         <Key
           id={rightId}
           x={widthAdder - (width - 1) / 2 + 2 * index}
@@ -91,6 +98,9 @@ function SpecialKey({
           homing={false}
           width={(width - 1) / 2}
           fill={rightFill}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
           rightHandMark={keyFingerMapping?.[rightId]! > 4}
           sx={{ cursor: 'pointer' }}
         />
@@ -111,6 +121,9 @@ function SpecialKey({
       homing={homing}
       visible={visible}
       fill={fill}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       rightHandMark={keyFingerMapping?.[id]! > 4}
       sx={{ cursor: keyFingerMapping ? 'pointer' : 'default' }}
     />

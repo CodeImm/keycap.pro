@@ -34,6 +34,7 @@ function Key({
   centerLabel,
   topLeftLabel,
   bottomLeftLabel,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   bottomRightLabel,
   centerLeftLabel,
   homing = false,
@@ -45,14 +46,7 @@ function Key({
   ...props
 }: KeyProps) {
   return (
-    <Box
-      id={id}
-      component="svg"
-      x={x}
-      y={y}
-      sx={{ visibility: visible ? 'visible' : 'hidden', ...sx }}
-      {...props}
-    >
+    <Box id={id} component="svg" x={x} y={y} sx={{ visibility: visible ? 'visible' : 'hidden', ...sx }} {...props}>
       <Rect x={0} y={0} width={width} height={height} fill={fill} />
       <>
         {centerLabel && (

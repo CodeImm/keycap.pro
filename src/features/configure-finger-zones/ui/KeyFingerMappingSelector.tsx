@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
@@ -43,10 +44,7 @@ const KeyFingerMappingSelector = ({
 
   const [id, setId] = useState(defaultValue);
 
-  const handleChange = (
-    _event: ChangeEvent<HTMLInputElement>,
-    value: string
-  ) => {
+  const handleChange = (_event: ChangeEvent<HTMLInputElement>, value: string) => {
     onChange(value as KeyFingerMappingId);
     setId(value as KeyFingerMappingId);
   };
@@ -54,9 +52,7 @@ const KeyFingerMappingSelector = ({
   useEffect(() => {
     if (isEqual(customKeyFingerMapping, getKeyFingerMappingById('logical'))) {
       setId('logical');
-    } else if (
-      isEqual(customKeyFingerMapping, getKeyFingerMappingById('optimized'))
-    ) {
+    } else if (isEqual(customKeyFingerMapping, getKeyFingerMappingById('optimized'))) {
       setId('optimized');
     } else {
       setId('custom');

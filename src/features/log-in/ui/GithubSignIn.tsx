@@ -1,27 +1,12 @@
-'use client';
+// 'use client';
+import Link from 'next/link';
 
-import { signIn } from 'next-auth/react';
-import { useSearchParams } from 'next/navigation';
-
-import Button from '@mui/material/Button';
-
-import { paths } from '@/shared/routing';
+// import { useSearchParams } from 'next/navigation';
 
 export const GithubSignIn = () => {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
-  const callbackUrl = searchParams.get('callbackUrl');
-
-  return (
-    <Button
-      variant="contained"
-      onClick={() =>
-        signIn('github', {
-          callbackUrl: callbackUrl ?? paths.exercises,
-        })
-      }
-    >
-      Sign in with Github
-    </Button>
-  );
+  // const callbackUrl = searchParams.get('callbackUrl');
+  // ?callbackUrl=${callbackUrl}
+  return <Link href={`/api/login/github`}>Sign in with Github</Link>;
 };

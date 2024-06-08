@@ -5,11 +5,11 @@ import { useTranslations } from 'next-intl';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-interface Callback {
-  activeStep: number;
-  handleNext(): void;
-  handleBack(): void;
-}
+// interface Callback {
+//   activeStep: number;
+//   handleNext(): void;
+//   handleBack(): void;
+// }
 
 type Props = {
   isFinalStep?: boolean;
@@ -17,11 +17,7 @@ type Props = {
   onBack?(): void;
 };
 
-export function StepperControls({
-  isFinalStep = false,
-  onBack,
-  onNext,
-}: Props) {
+export function StepperControls({ isFinalStep = false, onBack, onNext }: Props) {
   const t = useTranslations('InitialKeyboardSetup');
 
   return (
@@ -38,9 +34,7 @@ export function StepperControls({
       )}
       <Box sx={{ flex: '1 1 auto' }} />
 
-      <Button onClick={onNext}>
-        {isFinalStep ? t('submit') : t('continue')}
-      </Button>
+      <Button onClick={onNext}>{isFinalStep ? t('submit') : t('continue')}</Button>
     </Box>
   );
 }

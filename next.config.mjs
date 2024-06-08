@@ -7,6 +7,7 @@ const withNextIntl = createNextIntlPlugin(
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    // esmExternals: "loose",
     serverComponentsExternalPackages: [
       'mongoose',
       '@typegoose/typegoose',
@@ -14,6 +15,12 @@ const nextConfig = {
       'crypto'
     ],
   },
+  // webpack: (config) => {
+  //   config.experiments = {
+  //     topLevelAwait: true
+  //   };
+  //   return config;
+  // },
 };
 
 export default withNextIntl(nextConfig);

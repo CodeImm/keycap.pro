@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 
-import { useTranslations } from 'next-intl';
-
+// import { useTranslations } from 'next-intl';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -13,14 +12,14 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 import { UserAvatar, UserName } from '@/entities/user';
-import { SignOut } from '@/features/sign-out';
 
+// import { SignOut } from '@/features/sign-out';
 import { items } from '../config';
 
 type Props = { userName?: string | null; userAvatarUrl?: string | null };
 
 export function UserMenu({ userName, userAvatarUrl }: Props) {
-  const t = useTranslations('Navigation');
+  // const t = useTranslations('Navigation');
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -72,13 +71,13 @@ export function UserMenu({ userName, userAvatarUrl }: Props) {
 
         <Divider />
 
-        <SignOut>
+        {/* <SignOut>
           {({ onClick }) => (
             <MenuItem onClick={onClick}>
               <Typography textAlign="center">{t('signOut')}</Typography>
             </MenuItem>
           )}
-        </SignOut>
+        </SignOut> */}
       </Menu>
     </Box>
   );

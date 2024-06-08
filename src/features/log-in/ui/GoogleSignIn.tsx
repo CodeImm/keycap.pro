@@ -1,27 +1,11 @@
-'use client';
+import Link from 'next/link';
 
-import { signIn } from 'next-auth/react';
-import { useSearchParams } from 'next/navigation';
-
-import Button from '@mui/material/Button';
-
-import { paths } from '@/shared/routing';
+// import { useSearchParams } from 'next/navigation';
 
 export const GoogleSignIn = () => {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
-  const callbackUrl = searchParams.get('callbackUrl');
+  // const callbackUrl = searchParams.get('callbackUrl');
 
-  return (
-    <Button
-      variant="contained"
-      onClick={() =>
-        signIn('google', {
-          callbackUrl: callbackUrl ?? paths.exercises,
-        })
-      }
-    >
-      Sign in with Google
-    </Button>
-  );
+  return <Link href={`/login/google`}>Sign in with Google</Link>;
 };

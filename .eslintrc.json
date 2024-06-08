@@ -24,6 +24,7 @@
   },
   "rules": {
     "@typescript-eslint/no-explicit-any": "warn",
+    "no-case-declarations": "off",
     "no-restricted-imports": [
       "error",
       {

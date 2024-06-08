@@ -1,8 +1,12 @@
 import { CompleteRegistrationForm } from '@/features/complete-registration';
 import { fetchTimeZones } from '@/shared/api/timeZones';
-import { auth } from '@/shared/config/next-auth/auth';
+import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 
-async function getTimeZonesData() {
+interface TimeZonesResponse {
+  data: Array<{ timeZone: string; timeZoneName: string }>;
+}
+
+async function getTimeZonesData(): Promise<TimeZonesResponse> {
   const res = await fetchTimeZones();
 
   if (!res.ok) {
@@ -13,13 +17,13 @@ async function getTimeZonesData() {
 }
 
 export default async function AuthCompletePage() {
-  const session = await auth();
-
-  const timeZones = await getTimeZonesData();
+  const { session } = await validateRequest();
 
   if (session) {
     console.log({ session });
   }
+
+  const timeZones = await getTimeZonesData();
 
   return (
     <>

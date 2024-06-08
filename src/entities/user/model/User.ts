@@ -54,10 +54,16 @@ class Permissions {
 }
 
 class User {
+  @prop({ unique: true })
+  github_id!: number;
+
+  @prop({ unique: true })
+  google_id!: number;
+
   @prop({ required: true, unique: true, sparse: true, validate: { validator: (value: unknown) => !!value } })
   public email?: string;
 
-  @prop({ default: false })
+  @prop({ required: false, default: null })
   public emailVerified?: Date;
 
   @prop()
@@ -66,22 +72,22 @@ class User {
   @prop({ required: true, enum: Role, default: Role.User })
   public role!: string;
 
-  @prop({ required: true, _id: false })
-  public settings!: Settings;
+  @prop({ required: false, _id: false })
+  public settings?: Settings;
 
   @prop()
   public lastLogin?: Date;
 
-  @prop({ _id: false })
-  public profile?: Profile;
+  // @prop({ _id: false })
+  // public profile?: Profile;
 
   @prop({ type: String })
   public firstName?: string;
 
-  @prop()
-  public lastName?: string;
+  @prop({ type: String, default: null })
+  public lastName!: string | null;
 
-  @prop()
+  @prop({ type: Date })
   public dateOfBirth?: Date;
 
   @prop({ enum: Gender })
@@ -93,25 +99,19 @@ class User {
   @prop()
   public locale?: string;
 
-  @prop({ required: false })
-  public registrationCompleted!: Date;
+  @prop({ required: false, default: null })
+  public registrationCompleted?: Date;
 
-  @prop({ _id: false })
-  public keyboardSettings?: KeyboardSettings;
+  // @prop({ _id: false })
+  // public keyboardSettings?: KeyboardSettings;
 
-  @prop()
-  public timeZone?: string;
+  // @prop()
+  // public timeZone?: string;
 
-  @prop({ required: true, _id: false })
-  public permissions!: Permissions;
-
-  @prop({ required: true })
-  public createdAt!: Date;
-
-  @prop({ required: true })
-  public updatedAt!: Date;
+  // @prop({ required: true, _id: false })
+  // public permissions!: Permissions;
 }
 
-const UserModel = getModelForClass(User, { schemaOptions: { timestamps: true, versionKey: '__v' } });
+const UserModel = getModelForClass(User, { schemaOptions: { timestamps: true } });
 
 export default UserModel;

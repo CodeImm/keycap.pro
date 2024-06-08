@@ -36,7 +36,7 @@ const KeyboardRow = memo(function KeyboardRow({
 }: Props) {
   let widthAdder = 0;
 
-  const getFill = (id: string) => {
+  const getFill = (id: keyof KeyFingerMapping) => {
     if (!fingerColorMapping || !keyFingerMapping) return undefined;
 
     const finger = keyFingerMapping[id] as Finger;
@@ -44,9 +44,9 @@ const KeyboardRow = memo(function KeyboardRow({
     return fingerColorMapping[finger];
   };
 
-  const isLetter = (id: string) =>
-    layout.default?.[id]?.type === 'letter' &&
-    layout.shift?.[id]?.type === 'letter';
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const isLetter = (id: any) => layout.default?.[id]?.type === 'letter' && layout.shift?.[id]?.type === 'letter';
 
   const isVisible = (id: string) => !excludedKeys.includes(id);
 
@@ -57,9 +57,9 @@ const KeyboardRow = memo(function KeyboardRow({
       {rowKeys.map((key, index) => {
         const { id, width, type, label } = key;
         widthAdder += width;
-
-        const fill =
-          getFill(id) || (type === 'special' ? '#e3e3e1' : undefined);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const fill = getFill(id) || (type === 'special' ? '#e3e3e1' : undefined);
 
         return type === 'special' ? (
           <SpecialKey
@@ -88,13 +88,13 @@ const KeyboardRow = memo(function KeyboardRow({
             width={width}
             centerLabel={isLetter(id) ? layout.shift?.[id]?.key : undefined}
             topLeftLabel={isLetter(id) ? undefined : layout.shift?.[id]?.key}
-            bottomLeftLabel={
-              isLetter(id) ? undefined : layout.default?.[id]?.key
-            }
+            bottomLeftLabel={isLetter(id) ? undefined : layout.default?.[id]?.key}
             bottomRightLabel={undefined}
             homing={isHoming(id)}
             visible={isVisible(id)}
             fill={fill}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             rightHandMark={keyFingerMapping?.[id] && keyFingerMapping?.[id] > 4}
             sx={{ cursor: keyFingerMapping ? 'pointer' : 'default' }}
           />

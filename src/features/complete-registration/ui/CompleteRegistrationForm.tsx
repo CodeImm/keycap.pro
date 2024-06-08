@@ -1,5 +1,6 @@
 'use client';
 
+// import { useSession } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, BoxProps, Button, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
@@ -21,11 +22,12 @@ import { CompleteRegistrationFormSchema } from '../model/schema';
 export type CompleteRegistrationFormData = z.infer<typeof CompleteRegistrationFormSchema>;
 
 interface Props extends BoxProps<'form'> {
-  defaultValues: CompleteRegistrationFormData;
+  // defaultValues: CompleteRegistrationFormData;
   timeZones: TimeZone[];
 }
 
-const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props) => {
+const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
+  // const { update, data } = useSession();
   const defaultTimeZone = timeZones.find((timeZone) => timeZone.timeZone === dayjs.tz.guess()) ?? timeZones[0];
 
   const {
@@ -53,10 +55,11 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
 
   const updateUserProfile = api.useUpdateUserProfile({
     onSuccess: () => {
-      console.log('sucsess');
+      // console.log('sucsess', data);
+      // update();
     },
   });
-
+  // console.log('sucsess', data);
   const onSubmit = (data: CompleteRegistrationFormData) => {
     updateUserProfile.mutate(mapUserDataToApi(data));
   };

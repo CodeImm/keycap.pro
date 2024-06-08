@@ -1,12 +1,15 @@
-import { Session } from 'next-auth';
+'use server';
 
-// import { getTranslations } from 'next-intl/server';
-import { Box } from '@mui/material';
+import { getTranslations } from 'next-intl/server';
+
+import { Box, MenuItem } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { User } from 'lucia';
 
+import { SignOut } from '@/features/sign-out';
 import { LocaleSwitcher } from '@/features/switch-locale';
 import { Logo } from '@/shared/icons';
 import { AuthNavigation } from '@/widgets/header/ui/authNavigation';
@@ -15,11 +18,12 @@ import { UserMenu } from '@/widgets/header/ui/userMenu';
 import { Navigation } from './navigation';
 
 type Props = {
-  session: Session | null;
+  user: User | null;
 };
 
-export async function Header({ session }: Props) {
+export async function Header({ user }: Props) {
   // const t = await getTranslations('Navigation');
+  const t = await getTranslations('Navigation');
 
   // TODO: LocalSwitcher сделать без обертки div в --turbo
   return (
@@ -49,8 +53,17 @@ export async function Header({ session }: Props) {
             <div>
               <LocaleSwitcher />
             </div>
-            {session ? (
-              <UserMenu userName={session.user?.name} userAvatarUrl={session.user?.imageURL} />
+            {user ? (
+              <>
+                <UserMenu userName={user?.firstName} userAvatarUrl={user?.imageURL} />
+                <SignOut>
+                  {({ onClick }) => (
+                    <MenuItem onClick={onClick}>
+                      <Typography textAlign="center">{t('signOut')}</Typography>
+                    </MenuItem>
+                  )}
+                </SignOut>
+              </>
             ) : (
               <AuthNavigation />
             )}

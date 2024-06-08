@@ -1,6 +1,6 @@
 import UserModel from '@/entities/user/model/User';
+import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import dbConnect from '@/shared/config/mongodb/dbConnect';
-import { auth } from '@/shared/config/next-auth/auth';
 
 export async function GET(_req: Request, { params }: { params: { username: string } }) {
   const username = params.username;
@@ -11,9 +11,9 @@ export async function GET(_req: Request, { params }: { params: { username: strin
 
   try {
     await dbConnect();
-    const session = await auth();
+    const { session } = await validateRequest();
 
-    if (!session?.user) {
+    if (!session) {
       return new Response('Unauthorized', { status: 401 });
     }
 

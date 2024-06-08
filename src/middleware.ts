@@ -1,13 +1,11 @@
-import NextAuth from 'next-auth';
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 
-import { localePrefix, locales, testPathnameRegex } from '@/shared/config/next-intl/config';
+import { verifyRequestOrigin } from 'lucia';
 
-import authConfig from './shared/config/next-auth/auth.config';
-import { authPages, paths, protectedPages, publicPages } from './shared/routing';
+import { localePrefix, locales } from '@/shared/config/next-intl/config';
 
-export const { auth } = NextAuth(authConfig);
+// import { validateRequest } from './shared/config/lucia-auth/validateRequest';
 
 export const intlMiddleware = createMiddleware({
   defaultLocale: 'ru',
@@ -15,39 +13,60 @@ export const intlMiddleware = createMiddleware({
   localePrefix,
 });
 
-const authMiddleware = auth((req) => {
-  const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
-  const isProtectedPage = testPathnameRegex(protectedPages, req.nextUrl.pathname);
-  const isAuthCompletePage = testPathnameRegex([paths.complete], req.nextUrl.pathname);
-  const session = req.auth;
-
-  if (!session && isAuthCompletePage) {
-    return NextResponse.redirect(new URL(paths.signin, req.nextUrl));
+export async function middleware(request: NextRequest): Promise<NextResponse> {
+  if (request.method === 'GET') {
+    return intlMiddleware(request);
+  }
+  const originHeader = request.headers.get('Origin');
+  // NOTE: You may need to use `X-Forwarded-Host` instead
+  const hostHeader = request.headers.get('Host');
+  if (!originHeader || !hostHeader || !verifyRequestOrigin(originHeader, [hostHeader])) {
+    return new NextResponse(null, {
+      status: 403,
+    });
   }
 
-  if (session && session.user.registrationCompleted === null && !isAuthCompletePage && isProtectedPage) {
-    return NextResponse.redirect(new URL(paths.complete, req.nextUrl));
-  } else if (session && isAuthPage && !isAuthCompletePage) {
-    return NextResponse.redirect(new URL(paths.home, req.nextUrl));
-  }
+  return intlMiddleware(request);
+}
 
-  if (!session && !isAuthPage) {
-    return NextResponse.redirect(new URL(paths.signin, req.nextUrl));
-  }
+// const authMiddleware = async (req: NextRequest) => {
+//   // const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
+//   // const isProtectedPage = testPathnameRegex(protectedPages, req.nextUrl.pathname);
+//   // const isAuthCompletePage = testPathnameRegex([paths.complete], req.nextUrl.pathname);
+//   // // await dbConnect();
+//   // // const { user, session } = await validateRequest();
 
-  return intlMiddleware(req);
-});
+//   // // session проверкаа что истекла или нет
+//   // if (!session && isAuthCompletePage) {
+//   //   return NextResponse.redirect(new URL(paths.signin, req.nextUrl));
+//   // }
+//   // // console.log(
+//   // //   user && user.registrationCompleted,
+//   // //   user && user.registrationCompleted === null && !isAuthCompletePage && isProtectedPage
+//   // // );
+//   // if (user && user.registrationCompleted === null && !isAuthCompletePage && isProtectedPage) {
+//   //   return NextResponse.redirect(new URL(paths.complete, req.nextUrl));
+//   // } else if (user && isAuthPage && !isAuthCompletePage) {
+//   //   return NextResponse.redirect(new URL(paths.home, req.nextUrl));
+//   // }
 
-const middleware = (req: NextRequest) => {
-  const isPublicPage = testPathnameRegex(publicPages, req.nextUrl.pathname);
-  const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
+//   // if (!user && !isAuthPage) {
+//   //   return NextResponse.redirect(new URL(paths.signin, req.nextUrl));
+//   // }
 
-  if (isAuthPage || !isPublicPage) {
-    return authMiddleware(req, {});
-  }
+//   return intlMiddleware(req);
+// };
 
-  return intlMiddleware(req);
-};
+// const middleware = (req: NextRequest) => {
+//   // const isPublicPage = testPathnameRegex(publicPages, req.nextUrl.pathname);
+//   // const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
+
+//   // if (isAuthPage || !isPublicPage) {
+//   //   return authMiddleware(req, {});
+//   // }
+
+//   return intlMiddleware(req);
+// };
 
 export const config = {
   matcher: [

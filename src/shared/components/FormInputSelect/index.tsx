@@ -9,7 +9,8 @@ interface SelectOption<T extends string> {
   value: T;
   label: string;
 }
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 interface FormInputProps<T extends string> extends SelectProps {
   name: string;
   control: Control<any>;
@@ -17,13 +18,7 @@ interface FormInputProps<T extends string> extends SelectProps {
   options: Array<SelectOption<T>>;
 }
 
-export const FormInputSelect = <T extends string>({
-  name,
-  control,
-  label,
-  options,
-  ...props
-}: FormInputProps<T>) => {
+export const FormInputSelect = <T extends string>({ name, control, label, options, ...props }: FormInputProps<T>) => {
   const menuItems = options.map((option) => (
     <MenuItem key={option.value} value={option.value}>
       {option.label}
@@ -39,13 +34,7 @@ export const FormInputSelect = <T extends string>({
         name={name}
         control={control}
         render={({ field }) => (
-          <Select
-            {...field}
-            labelId={`${name}-label`}
-            label={label}
-            {...props}
-            notched={true}
-          >
+          <Select {...field} labelId={`${name}-label`} label={label} {...props} notched={true}>
             {menuItems}
           </Select>
         )}

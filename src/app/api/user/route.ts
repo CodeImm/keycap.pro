@@ -2,30 +2,31 @@ import UserModel from '@/entities/user/model/User';
 import { UpdateUserProfileRequest } from '@/features/complete-registration/api';
 import { CompleteRegistrationFormRequestSchema } from '@/features/complete-registration/model/schema';
 import dayjs from '@/shared/config/dayjs';
+import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import dbConnect from '@/shared/config/mongodb/dbConnect';
-import { auth } from '@/shared/config/next-auth/auth';
 
 export async function POST(req: Request) {
   try {
     await dbConnect();
-    const session = await auth();
+    const { user, session } = await validateRequest();
 
-    if (!session?.user) {
+    if (!session) {
       return new Response('Unauthorized', { status: 401 });
     }
     const body = (await req.json()) as UpdateUserProfileRequest;
 
-    if (!CompleteRegistrationFormRequestSchema.safeParse(body).success) {
-      return new Response('Invalid data', { status: 404 });
+    const validation = CompleteRegistrationFormRequestSchema.safeParse(body);
+    if (!validation.success) {
+      return new Response('Invalid data', { status: 400 });
     }
 
-    const user = await UserModel.findOne({ username: body.username });
+    const foundUser = await UserModel.findOne({ username: body.username });
 
-    if (user) {
+    if (foundUser) {
       return new Response(JSON.stringify({ isUnique: false }), { status: 200 });
     }
 
-    const userId = session.user.id;
+    const userId = user.id;
     console.log({ userId });
     const result = await UserModel.findOneAndUpdate(
       { _id: userId },
@@ -35,8 +36,47 @@ export async function POST(req: Request) {
     if (!result) {
       return new Response('User not found', { status: 404 });
     }
+    // unstable_update({ user: result });
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: 'Профиль пользователя успешно обновлен',
+        data: result,
+      }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
+    return new Response('Internal Server Error', { status: 500 });
+  }
+}
 
-    return Response.json({ success: true, message: 'Профиль пользователя успешно обновлен', data: body });
+export async function PATCH(req: Request) {
+  try {
+    await dbConnect();
+    const { user } = await validateRequest();
+
+    if (!user) {
+      return new Response('Unauthorized', { status: 401 });
+    }
+    const body = await req.json();
+
+    const userId = user.id;
+
+    const result = await UserModel.findOneAndUpdate({ _id: userId }, { keyboardSettings: body });
+
+    if (!result) {
+      return new Response('User not found', { status: 404 });
+    }
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: 'Профиль пользователя успешно обновлен',
+        data: body,
+      }),
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error);
     return new Response('Internal Server Error', { status: 500 });

@@ -1,6 +1,6 @@
 import dayjs from '@/shared/config/dayjs';
 
-export async function GET() {
+export async function GET(): Promise<Response> {
   const timeZones = Intl.supportedValuesOf('timeZone');
 
   function getTimeZoneOffset(timeZone: string) {

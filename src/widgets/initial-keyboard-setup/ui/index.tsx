@@ -9,14 +9,15 @@ import { getKeyFingerMappingById } from '@/entities/keyboard/lib';
 import { KeyFingerMappingForm } from '@/features/configure-finger-zones';
 import { KeyboardLayoutConfigurationForm } from '@/features/configure-keyboard-layout';
 import { StepControlPanel, StepperControls } from '@/shared/components';
-import { useUpdateProfile } from '@/widgets/initial-keyboard-setup/hooks';
 
 import { defaultKeyboardLayoutConfig } from '../config';
 
+interface InitialKeyboardSetupProps {
+  onSubmit: ({ data, layout }: { data: KeyFingerMapping; layout: any }) => void;
+}
+
 export function InitialKeyboardSetup() {
   const t = useTranslations('InitialKeyboardSetup');
-
-  const { mutate } = useUpdateProfile();
 
   const [keyboardConfig, setKeyboardConfig] = useState({
     layoutConfig: defaultKeyboardLayoutConfig,
@@ -28,24 +29,7 @@ export function InitialKeyboardSetup() {
   }
 
   function handleSubmit(data: KeyFingerMapping) {
-    mutate(
-      {
-        fingersZonesSchema: data,
-        layout: keyboardConfig.layoutConfig,
-      },
-      {
-        onError: (error) => {
-          console.error('Ошибка при обновлении конфигурации клавиатуры:', error);
-        },
-        onSuccess: (response) => {
-          if (response.success) {
-            console.log('Профиль пользователя успешно обновлен:', response.data);
-          } else {
-            console.warn('Не удалось обновить профиль пользователя:', response.message);
-          }
-        },
-      }
-    );
+    // onSubmit({ data, layout: keyboardConfig.layoutConfig });
   }
 
   return (

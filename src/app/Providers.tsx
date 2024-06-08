@@ -2,8 +2,6 @@
 
 import { ReactNode, useState } from 'react';
 
-// import { Session } from 'next-auth';
-// import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
