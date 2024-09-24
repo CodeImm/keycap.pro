@@ -8,7 +8,9 @@ interface Callback {
   onClick(): void;
 }
 
-type Props = { children({ onClick }: Callback): JSX.Element };
+interface Props {
+  children: ({ onClick }: Callback) => JSX.Element;
+}
 
 export const SignOut = ({ children }: Props) => {
   return (
@@ -33,6 +35,7 @@ async function logout(): Promise<ActionResult> {
 
   const sessionCookie = lucia.createBlankSessionCookie();
   cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+
   return redirect('/login');
 }
 

@@ -16,7 +16,7 @@ async function getTimeZonesData(): Promise<TimeZonesResponse> {
   return res.json();
 }
 
-export default async function AuthCompletePage() {
+export default async function ProfileSetupPage() {
   const { session } = await validateRequest();
 
   if (session) {
@@ -27,7 +27,7 @@ export default async function AuthCompletePage() {
 
   return (
     <>
-      Complete Registration Page
+      Profile Setup Page
       <CompleteRegistrationForm timeZones={timeZones?.data ?? []} />
     </>
   );

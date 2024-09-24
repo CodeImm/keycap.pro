@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import { locales } from '@/shared/config/next-intl/config';
+import { isValidLocale } from '@/shared/lib';
 import { Header } from '@/widgets/header';
 
 import Providers from '../Providers';
@@ -38,7 +39,7 @@ export default async function RootLayout({ children, params: { locale } }: Props
   const sessionData = await validateRequest();
 
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) {
+  if (!isValidLocale(locale)) {
     notFound();
   }
 

@@ -40,7 +40,7 @@ export default async function ExercisesPage({ params: { locale } }: Props) {
   const { user } = await validateRequest();
 
   if (user && !user.registrationCompleted) {
-    redirect(paths.complete);
+    redirect(paths.profile.setup);
   }
 
   return (

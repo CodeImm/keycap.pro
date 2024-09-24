@@ -4,6 +4,7 @@ import { paths } from '@/shared/routing';
 
 export default async function SignUpPage() {
   const { session } = await validateRequest();
+  
   if (session) {
     redirect(paths.exercises);
   }

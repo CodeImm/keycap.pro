@@ -5,8 +5,6 @@ import { verifyRequestOrigin } from 'lucia';
 
 import { localePrefix, locales } from '@/shared/config/next-intl/config';
 
-// import { validateRequest } from './shared/config/lucia-auth/validateRequest';
-
 export const intlMiddleware = createMiddleware({
   defaultLocale: 'ru',
   locales,
@@ -28,45 +26,6 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
   return intlMiddleware(request);
 }
-
-// const authMiddleware = async (req: NextRequest) => {
-//   // const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
-//   // const isProtectedPage = testPathnameRegex(protectedPages, req.nextUrl.pathname);
-//   // const isAuthCompletePage = testPathnameRegex([paths.complete], req.nextUrl.pathname);
-//   // // await dbConnect();
-//   // // const { user, session } = await validateRequest();
-
-//   // // session проверкаа что истекла или нет
-//   // if (!session && isAuthCompletePage) {
-//   //   return NextResponse.redirect(new URL(paths.signin, req.nextUrl));
-//   // }
-//   // // console.log(
-//   // //   user && user.registrationCompleted,
-//   // //   user && user.registrationCompleted === null && !isAuthCompletePage && isProtectedPage
-//   // // );
-//   // if (user && user.registrationCompleted === null && !isAuthCompletePage && isProtectedPage) {
-//   //   return NextResponse.redirect(new URL(paths.complete, req.nextUrl));
-//   // } else if (user && isAuthPage && !isAuthCompletePage) {
-//   //   return NextResponse.redirect(new URL(paths.home, req.nextUrl));
-//   // }
-
-//   // if (!user && !isAuthPage) {
-//   //   return NextResponse.redirect(new URL(paths.signin, req.nextUrl));
-//   // }
-
-//   return intlMiddleware(req);
-// };
-
-// const middleware = (req: NextRequest) => {
-//   // const isPublicPage = testPathnameRegex(publicPages, req.nextUrl.pathname);
-//   // const isAuthPage = testPathnameRegex(authPages, req.nextUrl.pathname);
-
-//   // if (isAuthPage || !isPublicPage) {
-//   //   return authMiddleware(req, {});
-//   // }
-
-//   return intlMiddleware(req);
-// };
 
 export const config = {
   matcher: [

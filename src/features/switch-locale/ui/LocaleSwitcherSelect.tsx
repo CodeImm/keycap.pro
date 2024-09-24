@@ -6,12 +6,13 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
+import { Locale } from '@/shared/config/next-intl/config';
 import { usePathname, useRouter } from '@/shared/navigation';
 
-type Props = {
+interface Props {
   defaultValue: string;
   label: string;
-};
+}
 
 export default function LocaleSwitcherSelect({ children, defaultValue, label }: PropsWithChildren<Props>) {
   const router = useRouter();
@@ -21,9 +22,7 @@ export default function LocaleSwitcherSelect({ children, defaultValue, label }: 
   function handleChange(event: SelectChangeEvent) {
     const nextLocale = event.target.value;
     startTransition(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      router.replace(pathname, { locale: nextLocale });
+      router.replace(pathname, { locale: nextLocale as Locale });
     });
   }
 

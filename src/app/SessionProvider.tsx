@@ -4,14 +4,19 @@ import React, { ReactNode, createContext, useContext } from 'react';
 
 import { Session, User } from 'lucia';
 
-interface SessionProviderProps {
+interface SessionContext {
   user: User | null;
   session: Session | null;
 }
 
-const SessionContext = createContext<SessionProviderProps>({ user: null, session: null });
+const SessionContext = createContext<SessionContext>({ user: null, session: null });
 
-const SessionProvider = ({ children, value }: { children: ReactNode; value: SessionProviderProps }) => {
+interface SessionProviderProps {
+  children: ReactNode;
+  value: SessionContext;
+}
+
+const SessionProvider = ({ children, value }: SessionProviderProps) => {
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>;
 };
 

@@ -2,11 +2,9 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
-import { locales } from '@/shared/config/next-intl/config';
+import { isValidLocale } from '@/shared/lib';
 import { redirect } from '@/shared/navigation';
 import { paths } from '@/shared/routing';
-
-const isValidLocale = (locale: string): boolean => locales.includes(locale);
 
 type Props = {
   params: { locale: string };
@@ -17,16 +15,16 @@ export default async function HomePage({ params: { locale } }: Props) {
 
   // Validate that the incoming `locale` parameter is valid
   if (!isValidLocale(locale)) {
-    return notFound();
+    notFound();
   }
-  if (!isValidLocale) notFound();
+
   // Enable static rendering
   unstable_setRequestLocale(locale);
 
   const t = await getTranslations('Home');
 
   if (!user) {
-    redirect(paths.signin);
+    redirect(paths.auth.login);
   }
 
   return (
