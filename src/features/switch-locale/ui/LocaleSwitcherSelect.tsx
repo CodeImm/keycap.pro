@@ -2,23 +2,19 @@
 
 import { PropsWithChildren, useTransition } from 'react';
 
-import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
+import { Locale } from '@/shared/config/next-intl/config';
 import { usePathname, useRouter } from '@/shared/navigation';
 
-type Props = {
+interface Props {
   defaultValue: string;
   label: string;
-};
+}
 
-export default function LocaleSwitcherSelect({
-  children,
-  defaultValue,
-  label,
-}: PropsWithChildren<Props>) {
+export default function LocaleSwitcherSelect({ children, defaultValue, label }: PropsWithChildren<Props>) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const pathname = usePathname();
@@ -26,7 +22,7 @@ export default function LocaleSwitcherSelect({
   function handleChange(event: SelectChangeEvent) {
     const nextLocale = event.target.value;
     startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
+      router.replace(pathname, { locale: nextLocale as Locale });
     });
   }
 

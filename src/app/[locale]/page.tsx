@@ -1,26 +1,35 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-import { auth } from '@/shared/config/next-auth/auth';
-import { locales } from '@/shared/config/next-intl/config';
+import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
+import { isValidLocale } from '@/shared/lib';
+import { redirect } from '@/shared/navigation';
+import { paths } from '@/shared/routing';
 
 type Props = {
   params: { locale: string };
 };
 
 export default async function HomePage({ params: { locale } }: Props) {
-  const session = await auth();
+  const { user } = await validateRequest();
+
   // Validate that the incoming `locale` parameter is valid
-  const isValidLocale = locales.some((cur) => cur === locale);
-  if (!isValidLocale) notFound();
+  if (!isValidLocale(locale)) {
+    notFound();
+  }
+
   // Enable static rendering
   unstable_setRequestLocale(locale);
 
   const t = await getTranslations('Home');
 
+  if (!user) {
+    redirect(paths.auth.login);
+  }
+
   return (
     <>
-      {t('title')} {session ? session.user?.name : 'No'}
+      {t('title')} {user ? user.id.toString() : 'No'}
     </>
   );
 }

@@ -8,6 +8,8 @@ import { z } from 'zod';
 import { TimeZone } from '@/entities/timeZone/model/types';
 import { Gender } from '@/entities/user';
 import dayjs from '@/shared/config/dayjs';
+import { redirect } from '@/shared/navigation';
+import { paths } from '@/shared/routing';
 
 import DateSelector from './DateSelector';
 import GenderRadioButtonGroup from './GenderRadioButtonGroup';
@@ -21,11 +23,10 @@ import { CompleteRegistrationFormSchema } from '../model/schema';
 export type CompleteRegistrationFormData = z.infer<typeof CompleteRegistrationFormSchema>;
 
 interface Props extends BoxProps<'form'> {
-  defaultValues: CompleteRegistrationFormData;
   timeZones: TimeZone[];
 }
 
-const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props) => {
+const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
   const defaultTimeZone = timeZones.find((timeZone) => timeZone.timeZone === dayjs.tz.guess()) ?? timeZones[0];
 
   const {
@@ -53,7 +54,7 @@ const CompleteRegistrationForm = ({ defaultValues, timeZones, ...props }: Props)
 
   const updateUserProfile = api.useUpdateUserProfile({
     onSuccess: () => {
-      console.log('sucsess');
+      redirect(paths.exercises);
     },
   });
 

@@ -1,18 +1,32 @@
 export const paths = {
   home: '/',
   exercises: '/exercises',
-  signin: '/auth/login',
-  signup: '/auth/signup',
-  complete: '/auth/complete',
+
+  auth: {
+    login: '/auth/login',
+    signup: '/auth/signup',
+  },
+
   testing: '/testing',
   policy: '/policy',
-  profile: '/profile',
+
+  profile: {
+    main: '/profile',
+    setup: '/profile/setup',
+    settings: '/profile/settings',
+  },
+
   account: '/account',
   statistics: '/statistics',
-  settings: '/profile/settings',
 };
 
 export const publicPages = [paths.home, paths.exercises];
-export const protectedPages = [paths.testing, paths.profile, paths.statistics, paths.settings];
+export const protectedPages = [
+  paths.testing,
+  paths.statistics,
+  paths.profile.main,
+  paths.profile.setup,
+  paths.profile.settings,
+];
 
-export const authPages = [paths.signin, paths.signup, paths.complete];
+export const authPages = [paths.auth.login, paths.auth.signup];

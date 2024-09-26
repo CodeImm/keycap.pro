@@ -7,11 +7,13 @@ import { notFound } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 
-import { auth } from '@/shared/config/next-auth/auth';
+import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import { locales } from '@/shared/config/next-intl/config';
+import { isValidLocale } from '@/shared/lib';
 import { Header } from '@/widgets/header';
 
 import Providers from '../Providers';
+import SessionProvider from '../SessionProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -34,10 +36,10 @@ export async function generateMetadata({ params: { locale } }: Omit<Props, 'chil
 }
 
 export default async function RootLayout({ children, params: { locale } }: Props) {
-  const session = await auth();
+  const sessionData = await validateRequest();
 
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) {
+  if (!isValidLocale(locale)) {
     notFound();
   }
 
@@ -50,21 +52,23 @@ export default async function RootLayout({ children, params: { locale } }: Props
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Providers params={{ locale }}>
-            <Header session={session} />
-            <Box
-              component="main"
-              sx={{
-                flexGrow: 1,
-                bgcolor: 'background.default',
-                p: 3,
-              }}
-            >
-              {children}
-            </Box>
-          </Providers>
-        </NextIntlClientProvider>
+        <SessionProvider value={sessionData}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Providers params={{ locale }}>
+              <Header user={sessionData.user} />
+              <Box
+                component="main"
+                sx={{
+                  flexGrow: 1,
+                  bgcolor: 'background.default',
+                  p: 3,
+                }}
+              >
+                {children}
+              </Box>
+            </Providers>
+          </NextIntlClientProvider>
+        </SessionProvider>
       </body>
     </html>
   );
