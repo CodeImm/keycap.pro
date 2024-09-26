@@ -8,7 +8,7 @@ import { UsernameSchema } from './usernameSchema';
 
 const GenderSchema = z.nativeEnum(Gender);
 
-export const CompleteRegistrationFormSchema = z.object({
+export const SetupProfileFormSchema = z.object({
   email: z.string().email(),
   firstName: z.string().max(50).optional(),
   lastName: z.string().max(50).optional(),
@@ -18,7 +18,7 @@ export const CompleteRegistrationFormSchema = z.object({
   timeZone: z.string(),
 });
 
-export const CompleteRegistrationFormRequestSchema = z.object({
+export const SetupProfileFormRequestSchema = z.object({
   email: z.string().email(),
   firstName: z.string().max(50).optional(),
   lastName: z.string().max(50).optional(),

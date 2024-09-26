@@ -18,15 +18,15 @@ import UsernameTextField from './UsernameTextField';
 
 import api from '../api';
 import { mapUserDataToApi } from '../api/mappers/mapUserDataToApi';
-import { CompleteRegistrationFormSchema } from '../model/schema';
+import { SetupProfileFormSchema } from '../model/schema';
 
-export type CompleteRegistrationFormData = z.infer<typeof CompleteRegistrationFormSchema>;
+export type SetupProfileFormData = z.infer<typeof SetupProfileFormSchema>;
 
 interface Props extends BoxProps<'form'> {
   timeZones: TimeZone[];
 }
 
-const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
+const SetupProfileForm = ({ timeZones, ...props }: Props) => {
   const defaultTimeZone = timeZones.find((timeZone) => timeZone.timeZone === dayjs.tz.guess()) ?? timeZones[0];
 
   const {
@@ -34,7 +34,7 @@ const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
     trigger,
     handleSubmit,
     formState: { errors, isSubmitted },
-  } = useForm<CompleteRegistrationFormData>({
+  } = useForm<SetupProfileFormData>({
     defaultValues: {
       email: '',
       firstName: '',
@@ -48,7 +48,7 @@ const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
       username: '',
       timeZone: `${defaultTimeZone.timeZone} (${defaultTimeZone.timeZoneName})`,
     },
-    resolver: zodResolver(CompleteRegistrationFormSchema),
+    resolver: zodResolver(SetupProfileFormSchema),
     mode: 'onChange',
   });
 
@@ -58,7 +58,7 @@ const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
     },
   });
 
-  const onSubmit = (data: CompleteRegistrationFormData) => {
+  const onSubmit = (data: SetupProfileFormData) => {
     updateUserProfile.mutate(mapUserDataToApi(data));
   };
 
@@ -133,4 +133,4 @@ const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
   );
 };
 
-export default CompleteRegistrationForm;
+export default SetupProfileForm;

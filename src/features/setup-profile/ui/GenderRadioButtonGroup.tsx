@@ -7,10 +7,10 @@ import { Control, Controller } from 'react-hook-form';
 
 import { Gender } from '@/entities/user';
 
-import { CompleteRegistrationFormData } from './CompleteRegistrationForm';
+import { SetupProfileFormData } from './SetupProfileForm';
 
 interface Props {
-  control: Control<CompleteRegistrationFormData, any>;
+  control: Control<SetupProfileFormData, any>;
 }
 
 export default function GenderRadioButtonGroup({ control }: Props) {

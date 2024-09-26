@@ -1,4 +1,4 @@
-import { CompleteRegistrationForm } from '@/features/setup-profile';
+import { SetupProfileForm } from '@/features/setup-profile';
 import { fetchTimeZones } from '@/shared/api/timeZones';
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import { redirect } from '@/shared/navigation';
@@ -34,7 +34,7 @@ export default async function ProfileSetupPage() {
   return (
     <>
       Profile Setup Page
-      <CompleteRegistrationForm timeZones={timeZones?.data ?? []} />
+      <SetupProfileForm timeZones={timeZones?.data ?? []} />
     </>
   );
 }

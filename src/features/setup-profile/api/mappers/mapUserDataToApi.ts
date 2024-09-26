@@ -1,8 +1,8 @@
-import { CompleteRegistrationFormData } from '../../ui/CompleteRegistrationForm';
+import { SetupProfileFormData } from '../../ui/SetupProfileForm';
 
 const regex = /([^\\(]*)/;
 
-export const mapUserDataToApi = (data: CompleteRegistrationFormData) => {
+export const mapUserDataToApi = (data: SetupProfileFormData) => {
   const mappedData = {
     ...data,
     dateOfBirth: `${data.dateOfBirth.year}-${+data.dateOfBirth.month + 1}-${data.dateOfBirth.day}`,

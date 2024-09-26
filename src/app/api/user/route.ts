@@ -1,6 +1,6 @@
 import UserModel from '@/entities/user/model/User';
 import { UpdateUserProfileRequest } from '@/features/setup-profile/api';
-import { CompleteRegistrationFormRequestSchema } from '@/features/setup-profile/model/schema';
+import { SetupProfileFormRequestSchema } from '@/features/setup-profile/model/schema';
 import dayjs from '@/shared/config/dayjs';
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import dbConnect from '@/shared/config/mongodb/dbConnect';
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     }
     const body = (await req.json()) as UpdateUserProfileRequest;
 
-    const validation = CompleteRegistrationFormRequestSchema.safeParse(body);
+    const validation = SetupProfileFormRequestSchema.safeParse(body);
     if (!validation.success) {
       return new Response('Invalid data', { status: 400 });
     }

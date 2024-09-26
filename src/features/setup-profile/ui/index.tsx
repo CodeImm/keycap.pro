@@ -1,1 +1,1 @@
-export { default as CompleteRegistrationForm } from './CompleteRegistrationForm';
+export { default as SetupProfileForm } from './SetupProfileForm';
