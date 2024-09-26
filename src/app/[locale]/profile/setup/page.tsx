@@ -1,6 +1,8 @@
-import { CompleteRegistrationForm } from '@/features/complete-registration';
+import { CompleteRegistrationForm } from '@/features/setup-profile';
 import { fetchTimeZones } from '@/shared/api/timeZones';
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
+import { redirect } from '@/shared/navigation';
+import { paths } from '@/shared/routing';
 
 interface TimeZonesResponse {
   data: Array<{ timeZone: string; timeZoneName: string }>;
@@ -17,10 +19,14 @@ async function getTimeZonesData(): Promise<TimeZonesResponse> {
 }
 
 export default async function ProfileSetupPage() {
-  const { session } = await validateRequest();
+  const { session, user } = await validateRequest();
 
-  if (session) {
-    console.log({ session });
+  if (!session) {
+    redirect(paths.auth.login);
+  }
+
+  if (user?.registrationCompleted) {
+    redirect(paths.exercises);
   }
 
   const timeZones = await getTimeZonesData();
