@@ -59,11 +59,11 @@ export const us_qwerty: Layout = {
     },
     Backspace: {
       key: 'Backspace',
-      type: 'sys',
+      type: 'special',
     },
     Tab: {
       key: 'Tab',
-      type: 'sys',
+      type: 'special',
     },
     KeyQ: {
       key: 'q',
@@ -119,7 +119,7 @@ export const us_qwerty: Layout = {
     },
     CapsLock: {
       key: 'CapsLock',
-      type: 'sys',
+      type: 'special',
     },
     KeyA: {
       key: 'a',
@@ -167,11 +167,11 @@ export const us_qwerty: Layout = {
     },
     Enter: {
       key: 'Enter',
-      type: 'sys',
+      type: 'special',
     },
     ShiftLeft: {
       key: 'Shift',
-      type: 'sys',
+      type: 'special',
     },
     IntlBackslash: {
       key: '\\',
@@ -219,43 +219,43 @@ export const us_qwerty: Layout = {
     },
     ShiftRight: {
       key: 'Shift',
-      type: 'sys',
+      type: 'special',
     },
     ControlLeft: {
       key: 'Ctrl',
-      type: 'sys',
+      type: 'special',
     },
     Fn: {
       key: '',
-      type: 'sys',
+      type: 'special',
     },
     MetaLeft: {
       key: '',
-      type: 'sys',
+      type: 'special',
     },
     AltLeft: {
       key: 'Alt',
-      type: 'sys',
+      type: 'special',
     },
     Space: {
       key: '',
-      type: 'sys',
+      type: 'special',
     },
     AltRight: {
       key: 'Alt',
-      type: 'sys',
+      type: 'special',
     },
     MetaRight: {
       key: '',
-      type: 'sys',
+      type: 'special',
     },
     ContextMenu: {
       key: '',
-      type: 'sys',
+      type: 'special',
     },
     ControlRight: {
       key: 'Ctrl',
-      type: 'sys',
+      type: 'special',
     },
   },
   shift: {

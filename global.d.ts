@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 import { MongoClient } from 'mongodb';
 import _mongoose, { connect } from 'mongoose';
 

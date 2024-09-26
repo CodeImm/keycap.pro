@@ -17,10 +17,7 @@ export function LoginForm() {
       <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
         Sign in
       </Typography>
-      <Box
-        component="form"
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
-      >
+      <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <GoogleSignIn />
         <GithubSignIn />
       </Box>

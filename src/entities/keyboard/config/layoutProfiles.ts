@@ -1,34 +1,34 @@
-import { LayoutProfiles } from '../model';
+import { LayoutProfiles, System } from '../model';
 
 export const layoutProfiles: LayoutProfiles[] = [
-  /** Windows/Linux */
+  /** Windows */
   // English
   {
     id: 'us_qwerty',
     name: 'QWERTY',
     language: 'english',
-    system: 'win_lin',
+    system: System.windows,
     emulated: true,
   },
   {
     id: 'dvorak',
     name: 'Dvorak',
     language: 'english',
-    system: 'win_lin',
+    system: System.windows,
     emulated: true,
   },
   {
     id: 'colemak',
     name: 'Colemak',
     language: 'english',
-    system: 'win_lin',
+    system: System.windows,
     emulated: true,
   },
   {
     id: 'workman',
     name: 'Workman',
     language: 'english',
-    system: 'win_lin',
+    system: System.windows,
     emulated: true,
   },
 
@@ -37,7 +37,47 @@ export const layoutProfiles: LayoutProfiles[] = [
     id: 'jcuken',
     name: 'ЙЦУКЕН',
     language: 'russian',
-    system: 'win_lin',
+    system: System.windows,
+    emulated: true,
+  },
+
+  /** Linux */
+  // English
+  {
+    id: 'us_qwerty',
+    name: 'QWERTY',
+    language: 'english',
+    system: System.linux,
+    emulated: true,
+  },
+  {
+    id: 'dvorak',
+    name: 'Dvorak',
+    language: 'english',
+    system: System.linux,
+    emulated: true,
+  },
+  {
+    id: 'colemak',
+    name: 'Colemak',
+    language: 'english',
+    system: System.linux,
+    emulated: true,
+  },
+  {
+    id: 'workman',
+    name: 'Workman',
+    language: 'english',
+    system: System.linux,
+    emulated: true,
+  },
+
+  // Russian
+  {
+    id: 'jcuken',
+    name: 'ЙЦУКЕН',
+    language: 'russian',
+    system: System.linux,
     emulated: true,
   },
 
@@ -47,28 +87,28 @@ export const layoutProfiles: LayoutProfiles[] = [
     id: 'us_qwerty',
     name: 'QWERTY',
     language: 'english',
-    system: 'macos',
+    system: System.macos,
     emulated: true,
   },
   {
     id: 'dvorak',
     name: 'Dvorak',
     language: 'english',
-    system: 'macos',
+    system: System.macos,
     emulated: true,
   },
   {
     id: 'colemak',
     name: 'Colemak',
     language: 'english',
-    system: 'macos',
+    system: System.macos,
     emulated: true,
   },
   {
     id: 'workman',
     name: 'Workman',
     language: 'english',
-    system: 'macos',
+    system: System.macos,
     emulated: true,
   },
 
@@ -77,7 +117,7 @@ export const layoutProfiles: LayoutProfiles[] = [
     id: 'jcuken',
     name: 'Русская — ПК',
     language: 'russian',
-    system: 'macos',
+    system: System.macos,
     emulated: true,
   },
 ];

@@ -12,6 +12,10 @@ import { StepControlPanel, StepperControls } from '@/shared/components';
 
 import { defaultKeyboardLayoutConfig } from '../config';
 
+interface InitialKeyboardSetupProps {
+  onSubmit: ({ data, layout }: { data: KeyFingerMapping; layout: any }) => void;
+}
+
 export function InitialKeyboardSetup() {
   const t = useTranslations('InitialKeyboardSetup');
 
@@ -20,20 +24,12 @@ export function InitialKeyboardSetup() {
     keyFingerMapping: getKeyFingerMappingById('optimized'),
   });
 
-  function handleConfigChange(
-    data: any,
-    property: keyof typeof keyboardConfig
-  ) {
+  function handleConfigChange(data: any, property: keyof typeof keyboardConfig) {
     setKeyboardConfig((prev) => ({ ...prev, [property]: data }));
   }
 
   function handleSubmit(data: KeyFingerMapping) {
-    console.log({
-      fingersZonesSchema: data,
-      layout: keyboardConfig.layoutConfig,
-    });
-
-    throw Error('error');
+    // onSubmit({ data, layout: keyboardConfig.layoutConfig });
   }
 
   return (

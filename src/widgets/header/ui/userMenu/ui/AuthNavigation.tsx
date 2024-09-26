@@ -12,10 +12,10 @@ export function AuthNavigation() {
 
   return (
     <Box sx={{ display: 'flex', gap: 2 }}>
-      <Button component={Link} variant="contained" href={paths.login}>
+      <Button component={Link} variant="contained" href={paths.auth.login}>
         {t('logIn')}
       </Button>
-      <Button component={Link} variant="contained" href={paths.signup}>
+      <Button component={Link} variant="contained" href={paths.auth.signup}>
         {t('logIn')}
       </Button>
     </Box>

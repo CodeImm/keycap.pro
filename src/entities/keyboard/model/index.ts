@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export const layoutKeyIds = [
   'Backquote',
   'Digit1',
@@ -64,15 +66,11 @@ export const layoutKeyIds = [
   'ControlRight',
 ] as const;
 
-export const enhancedLayoutKeyIds = [
-  ...layoutKeyIds,
-  'Space_Left',
-  'Space_Right',
-];
+export const enhancedLayoutKeyIds = [...layoutKeyIds, 'Space_Left', 'Space_Right'];
 
 export type LayoutKeyId = (typeof layoutKeyIds)[number];
 
-export type LayoutKeyType = 'letter' | 'symbol' | 'sys' | 'digit';
+export type LayoutKeyType = 'letter' | 'symbol' | 'special' | 'digit';
 
 export type LayoutKeyInfo = {
   [key in LayoutKeyId]?: {
@@ -86,12 +84,22 @@ export type ShiftState = 'shift' | 'default';
 
 export type Layout = { [key in ShiftState]: LayoutKeyInfo };
 
+type KeyLabelPosition = 'center' | 'bottom' | 'center-left' | 'center-right';
+
 export type VirtualKeyboardRowName = 'row1' | 'row2' | 'row3' | 'row4' | 'row5';
+export interface KeyCap {
+  id: LayoutKeyId;
+  width: number;
+  type?: 'special';
+  label?: string;
+  labelPosition?: KeyLabelPosition;
+  icon?: ReactNode;
+  iconPosition?: KeyLabelPosition;
+  indicator?: ReactNode;
+  indicatorPosition?: KeyLabelPosition;
+}
 export type VirtualKeyboardLayout = {
-  [key in VirtualKeyboardRowName]: {
-    id: LayoutKeyId;
-    width: number;
-  }[];
+  [key in VirtualKeyboardRowName]: KeyCap[];
 };
 
 export enum Finger {
@@ -108,29 +116,23 @@ export enum Finger {
 }
 
 export type KeyFingerMapping = {
-  [key in
-    | Exclude<LayoutKeyId, 'Space'>
-    | 'Space_Left'
-    | 'Space_Right']?: Finger;
+  [key in Exclude<LayoutKeyId, 'Space'> | 'Space_Left' | 'Space_Right']?: Finger;
 };
 
 export type FingerColorMapping = {
   [key in Finger]: string;
 };
 
-export const system = ['win_lin', 'macos'] as const;
-export type System = (typeof system)[number];
+export enum System {
+  macos = 'macos',
+  windows = 'windows',
+  linux = 'linux',
+}
 
 export const layoutLanguages = ['english', 'russian'] as const;
 export type LayoutLanguage = (typeof layoutLanguages)[number];
 
-export const layoutIds = [
-  'us_qwerty',
-  'dvorak',
-  'colemak',
-  'workman',
-  'jcuken',
-] as const;
+export const layoutIds = ['us_qwerty', 'dvorak', 'colemak', 'workman', 'jcuken'] as const;
 export type LayoutId = (typeof layoutIds)[number];
 
 export const keyFingerMappingIds = ['optimized', 'logical', 'custom'] as const;

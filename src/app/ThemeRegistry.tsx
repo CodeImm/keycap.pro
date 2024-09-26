@@ -7,13 +7,7 @@ import { ThemeProvider } from '@mui/material/styles';
 
 import { theme } from '@/shared/styles';
 
-export default function ThemeRegistry({
-  options,
-  children,
-}: {
-  options: Options;
-  children: ReactNode;
-}) {
+export default function ThemeRegistry({ options, children }: { options: Options; children: ReactNode }) {
   return (
     <AppRouterCacheProvider options={options}>
       <ThemeProvider theme={theme}>

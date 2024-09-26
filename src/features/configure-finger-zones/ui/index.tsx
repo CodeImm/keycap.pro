@@ -1,7 +1,6 @@
 'use client';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 
 import {
   KeyFingerMapping,
@@ -29,21 +28,13 @@ interface Props {
   actions({ getValues }: CallbackActions): JSX.Element;
 }
 //TODO: submitButtonText по умолчанию с t
-export function KeyFingerMappingForm({
-  defaultValues,
-  system,
-  layoutType,
-  layoutId,
-  actions,
-}: Props) {
+export function KeyFingerMappingForm({ defaultValues, system, layoutType, layoutId, actions }: Props) {
   const { selectedFinger, handleSelectedFingerChange } = useSelectedFinger();
 
-  const { keyFingerMapping, handleKeyClick, handleReset } = useKeyFingerMapping(
-    {
-      defaultValues,
-      selectedFinger,
-    }
-  );
+  const { keyFingerMapping, handleKeyClick, handleReset } = useKeyFingerMapping({
+    defaultValues,
+    selectedFinger,
+  });
 
   const _onSubmit = () => {
     return keyFingerMapping;
@@ -92,7 +83,6 @@ export function KeyFingerMappingForm({
         customKeyFingerMapping={keyFingerMapping}
         onChange={handleReset}
       />
-      <Button onClick={() => handleReset()}>Сбросить</Button>
 
       {actions({
         getValues: () => _onSubmit(),
