@@ -9,7 +9,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { User } from 'lucia';
 
-import { SignOut } from '@/features/sign-out';
+import { SignOut, SignOutButton } from '@/features/sign-out';
 import { LocaleSwitcher } from '@/features/switch-locale';
 import { Logo } from '@/shared/icons';
 import { AuthNavigation } from '@/widgets/header/ui/authNavigation';
@@ -56,13 +56,7 @@ export async function Header({ user }: Props) {
             {user ? (
               <>
                 <UserMenu userName={user?.firstName} userAvatarUrl={user?.imageURL} />
-                <SignOut>
-                  {({ onClick }) => (
-                    <MenuItem onClick={onClick}>
-                      <Typography textAlign="center">{t('signOut')}</Typography>
-                    </MenuItem>
-                  )}
-                </SignOut>
+                <SignOutButton />
               </>
             ) : (
               <AuthNavigation />

@@ -4,9 +4,9 @@ import { useTranslations } from 'next-intl';
 
 import { MenuItem, Typography } from '@mui/material';
 
-import { signOut } from './actions/signOut';
+import { signOut } from '../actions/signOut';
 
-export const SignOut = () => {
+export const SignOutButton = () => {
   const t = useTranslations('Navigation');
 
   const handleSignOut = () => {
