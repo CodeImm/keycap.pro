@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { TimeZone } from '@/entities/timeZone/model/types';
 import { Gender } from '@/entities/user';
 import dayjs from '@/shared/config/dayjs';
-import { redirect } from '@/shared/navigation';
+import { useRouter } from '@/shared/navigation';
 import { paths } from '@/shared/routing';
 
 import DateSelector from './DateSelector';
@@ -18,15 +18,17 @@ import UsernameTextField from './UsernameTextField';
 
 import api from '../api';
 import { mapUserDataToApi } from '../api/mappers/mapUserDataToApi';
-import { SetupProfileFormSchema } from '../model/schema';
+import { CompleteRegistrationFormSchema } from '../model/schema';
 
-export type SetupProfileFormData = z.infer<typeof SetupProfileFormSchema>;
+export type CompleteRegistrationFormData = z.infer<typeof CompleteRegistrationFormSchema>;
 
 interface Props extends BoxProps<'form'> {
   timeZones: TimeZone[];
 }
 
-const SetupProfileForm = ({ timeZones, ...props }: Props) => {
+const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
+  const router = useRouter();
+
   const defaultTimeZone = timeZones.find((timeZone) => timeZone.timeZone === dayjs.tz.guess()) ?? timeZones[0];
 
   const {
@@ -34,7 +36,7 @@ const SetupProfileForm = ({ timeZones, ...props }: Props) => {
     trigger,
     handleSubmit,
     formState: { errors, isSubmitted },
-  } = useForm<SetupProfileFormData>({
+  } = useForm<CompleteRegistrationFormData>({
     defaultValues: {
       email: '',
       firstName: '',
@@ -48,17 +50,17 @@ const SetupProfileForm = ({ timeZones, ...props }: Props) => {
       username: '',
       timeZone: `${defaultTimeZone.timeZone} (${defaultTimeZone.timeZoneName})`,
     },
-    resolver: zodResolver(SetupProfileFormSchema),
+    resolver: zodResolver(CompleteRegistrationFormSchema),
     mode: 'onChange',
   });
 
   const updateUserProfile = api.useUpdateUserProfile({
     onSuccess: () => {
-      redirect(paths.exercises);
+      router.replace(paths.exercises);
     },
   });
 
-  const onSubmit = (data: SetupProfileFormData) => {
+  const onSubmit = (data: CompleteRegistrationFormData) => {
     updateUserProfile.mutate(mapUserDataToApi(data));
   };
 
@@ -133,4 +135,4 @@ const SetupProfileForm = ({ timeZones, ...props }: Props) => {
   );
 };
 
-export default SetupProfileForm;
+export default CompleteRegistrationForm;

@@ -3,13 +3,13 @@ import { z } from 'zod';
 
 import client from '@/shared/config/ky';
 
-import { SetupProfileFormRequestSchema } from '../model/schema';
+import { CompleteRegistrationFormRequestSchema } from '../model/schema';
 
 interface CheckUsernameUniqueResponse {
   isUnique: boolean;
 }
 
-export type UpdateUserProfileRequest = z.infer<typeof SetupProfileFormRequestSchema>;
+export type UpdateUserProfileRequest = z.infer<typeof CompleteRegistrationFormRequestSchema>;
 
 interface UpdateUserProfileResponse {}
 

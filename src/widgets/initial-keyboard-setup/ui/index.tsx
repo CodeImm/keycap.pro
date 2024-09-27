@@ -29,6 +29,7 @@ export function InitialKeyboardSetup() {
   }
 
   function handleSubmit(data: KeyFingerMapping) {
+    console.log(data);
     // onSubmit({ data, layout: keyboardConfig.layoutConfig });
   }
 

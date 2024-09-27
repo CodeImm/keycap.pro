@@ -5,14 +5,14 @@ import { useDeferredValue, useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 
-import { SetupProfileFormData } from './SetupProfileForm';
+import { CompleteRegistrationFormData } from './CompleteRegistrationForm';
 
 import api from '../api';
 import { UsernameSchema } from '../model/usernameSchema';
 
 interface Props {
-  control: Control<SetupProfileFormData, any>;
-  errors: FieldErrors<SetupProfileFormData>;
+  control: Control<CompleteRegistrationFormData, any>;
+  errors: FieldErrors<CompleteRegistrationFormData>;
 }
 
 const UsernameTextField = ({ control, errors }: Props) => {

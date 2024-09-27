@@ -4,16 +4,16 @@ import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '
 import dayjs from 'dayjs';
 import { Control, Controller, FieldErrors, UseFormTrigger } from 'react-hook-form';
 
-import { SetupProfileFormData } from './SetupProfileForm';
+import { CompleteRegistrationFormData } from './CompleteRegistrationForm';
 
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = [...Array(12).keys()].map((m) => dayjs().month(m).format('MMMM'));
 const years = Array.from({ length: 124 }, (_, i) => new Date().getFullYear() - i);
 
 interface Props {
-  control: Control<SetupProfileFormData, any>;
-  errors: FieldErrors<SetupProfileFormData>;
-  trigger: UseFormTrigger<SetupProfileFormData>;
+  control: Control<CompleteRegistrationFormData, any>;
+  errors: FieldErrors<CompleteRegistrationFormData>;
+  trigger: UseFormTrigger<CompleteRegistrationFormData>;
 }
 
 const DateSelector = ({ control, errors, trigger }: Props) => {

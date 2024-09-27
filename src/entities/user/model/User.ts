@@ -105,8 +105,8 @@ class User {
   // @prop({ _id: false })
   // public keyboardSettings?: KeyboardSettings;
 
-  // @prop()
-  // public timeZone?: string;
+  @prop({ type: String })
+  public timeZone?: string;
 
   // @prop({ required: true, _id: false })
   // public permissions!: Permissions;

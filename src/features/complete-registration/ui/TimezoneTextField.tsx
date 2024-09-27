@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 
-import { SetupProfileFormData } from './SetupProfileForm';
+import { CompleteRegistrationFormData } from './CompleteRegistrationForm';
 
 interface Props {
-  control: Control<SetupProfileFormData, any>;
-  errors: FieldErrors<SetupProfileFormData>;
+  control: Control<CompleteRegistrationFormData, any>;
+  errors: FieldErrors<CompleteRegistrationFormData>;
   options: string[];
 }
 
