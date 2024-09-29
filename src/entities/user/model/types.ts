@@ -25,7 +25,7 @@ export interface UpdateUserProfileResponse {
   success: boolean;
   message?: string;
   data?: {
-    fingersZonesSchema: KeyFingerMapping;
+    keyFingerMappingSchema: KeyFingerMapping;
     layout: {
       system: System;
       layoutLanguage: LayoutLanguage;

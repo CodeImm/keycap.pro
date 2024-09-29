@@ -1,7 +1,7 @@
+import { SaveKeyboardSettingsRequest } from '@/entities/keyboard';
+import { SaveKeyboardSettingsRequestSchema } from '@/entities/keyboard/model/schemas';
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import dbConnect from '@/shared/config/mongodb/dbConnect';
-import { SaveKeyboardSettingsRequest } from '@/widgets/initial-keyboard-setup/api';
-import { SaveKeyboardSettingsRequestSchema } from '@/widgets/initial-keyboard-setup/model';
 
 export async function POST(req: Request) {
   try {

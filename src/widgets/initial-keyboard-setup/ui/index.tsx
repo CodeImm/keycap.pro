@@ -11,7 +11,10 @@ import { KeyboardLayoutConfigurationForm } from '@/features/configure-keyboard-l
 import { StepControlPanel, StepperControls } from '@/shared/components';
 
 import api from '../api';
+import { mapKeybaordSetupToApi } from '../api/mappers/mapKeybaordSetupToApi';
 import { defaultKeyboardLayoutConfig } from '../config';
+
+export interface InitialKeyboardSetupFormData {}
 
 export function InitialKeyboardSetup() {
   const t = useTranslations('InitialKeyboardSetup');
@@ -25,17 +28,19 @@ export function InitialKeyboardSetup() {
     setKeyboardConfig((prev) => ({ ...prev, [property]: data }));
   }
 
-  const { mutate } = api.useSaveKeyboardSettings();
+  const { mutate } = api.useSaveKeyboardConfiguration();
 
   function handleSubmit(data: KeyFingerMapping) {
     console.log({
-      fingersZonesSchema: data,
+      keyFingerMappingSchema: data,
       layout: keyboardConfig.layoutConfig,
     });
-    mutate({
-      fingersZonesSchema: data,
-      layout: keyboardConfig.layoutConfig,
-    });
+    mutate(
+      mapKeybaordSetupToApi({
+        keyFingerMappingSchema: data,
+        keyboardConfiguration: keyboardConfig,
+      })
+    );
   }
 
   return (

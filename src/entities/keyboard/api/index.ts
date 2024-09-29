@@ -2,12 +2,12 @@ import client from '@/shared/config/ky';
 
 import { SaveKeyboardSettingsRequest, SaveKeyboardSettingsResponse } from '../model/types';
 
-interface KeyboardSettingsApi {
-  save: (data: SaveKeyboardSettingsRequest) => Promise<SaveKeyboardSettingsResponse>;
+interface KeyboardApi {
+  saveKeyboardConfiguration: (data: SaveKeyboardSettingsRequest) => Promise<SaveKeyboardSettingsResponse>;
 }
 
-const keyboardSettingsApi: KeyboardSettingsApi = {
-  save: (data: SaveKeyboardSettingsRequest) => client.post('keyboard', { json: data }).json(),
+const keyboardApi: KeyboardApi = {
+  saveKeyboardConfiguration: (data) => client.post('keyboard', { json: data }).json(),
 };
 
-export default keyboardSettingsApi;
+export default keyboardApi;

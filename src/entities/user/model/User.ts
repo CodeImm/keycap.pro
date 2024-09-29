@@ -36,7 +36,7 @@ class Layout {
 
 class KeyboardSettings {
   @prop({ _id: false, type: () => Map<string, number> })
-  public fingersZonesSchema!: KeyFingerMapping;
+  public keyFingerMappingSchema!: KeyFingerMapping;
 
   @prop({ _id: false })
   public layout!: Layout;

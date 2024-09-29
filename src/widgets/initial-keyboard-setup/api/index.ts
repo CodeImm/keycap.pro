@@ -1,13 +1,13 @@
 import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 
-import { SaveKeyboardSettingsRequest, SaveKeyboardSettingsResponse, keyboardSettingsApi } from '@/entities/keyboard';
+import { KeyboardApi, SaveKeyboardSettingsRequest, SaveKeyboardSettingsResponse } from '@/entities/keyboard';
 
 const api = {
-  useSaveKeyboardSettings: (
+  useSaveKeyboardConfiguration: (
     props?: Omit<UseMutationOptions<SaveKeyboardSettingsResponse, unknown, SaveKeyboardSettingsRequest>, 'mutationFn'>
   ) => {
     return useMutation<SaveKeyboardSettingsResponse, unknown, SaveKeyboardSettingsRequest>({
-      mutationFn: keyboardSettingsApi.save,
+      mutationFn: KeyboardApi.saveKeyboardConfiguration,
       ...props,
     });
   },
