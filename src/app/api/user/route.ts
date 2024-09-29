@@ -1,6 +1,5 @@
+import { CompleteRegistrationFormRequestSchema, UpdateUserProfileRequest } from '@/entities/user';
 import UserModel from '@/entities/user/model/User';
-import { UpdateUserProfileRequest } from '@/features/complete-registration/api';
-import { CompleteRegistrationFormRequestSchema } from '@/features/complete-registration/model/schema';
 import dayjs from '@/shared/config/dayjs';
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import dbConnect from '@/shared/config/mongodb/dbConnect';

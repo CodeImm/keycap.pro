@@ -13,8 +13,8 @@ import {
   FingerColorMapping,
   KeyFingerMapping,
   KeyFingerMappingId,
+  KeyboardFormat,
   LayoutId,
-  LayoutType,
   System,
 } from '@/entities/keyboard';
 import { getKeyFingerMappingById } from '@/entities/keyboard/lib/getKeyFingerMappingById';
@@ -24,7 +24,7 @@ interface Props {
   keyFingerMappingIdList: Exclude<KeyFingerMappingId, 'custom'>[];
   fingerColorMapping: FingerColorMapping;
   layoutId: LayoutId;
-  layoutType: LayoutType;
+  keyboardFormat: KeyboardFormat;
   customKeyFingerMapping: KeyFingerMapping;
   defaultValue: KeyFingerMappingId;
   onChange: (value: KeyFingerMappingId) => void;
@@ -34,7 +34,7 @@ const KeyFingerMappingSelector = ({
   system,
   fingerColorMapping,
   layoutId,
-  layoutType,
+  keyboardFormat,
   keyFingerMappingIdList,
   defaultValue,
   customKeyFingerMapping,

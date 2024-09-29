@@ -2,7 +2,7 @@ import { getModelForClass, prop } from '@typegoose/typegoose';
 
 import type { KeyFingerMapping } from '@/entities/keyboard';
 
-import { Gender, Role } from '../types';
+import { Gender, Role } from './types';
 
 class Settings {
   @prop({ required: true })
@@ -28,7 +28,7 @@ class Layout {
   public layoutLanguage!: string;
 
   @prop({ required: true })
-  public layoutType!: string;
+  public keyboardFormat!: string;
 
   @prop({ required: true })
   public layoutId!: string;

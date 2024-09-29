@@ -1,7 +1,7 @@
 /**
  * https://w3c.github.io/uievents-code/#code-value-tables
  */
-import type { Layout } from '../../model';
+import type { Layout } from '../../model/types';
 
 export const us_qwerty: Layout = {
   default: {

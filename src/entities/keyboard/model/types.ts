@@ -1,5 +1,9 @@
 import { ReactNode } from 'react';
 
+import { z } from 'zod';
+
+import { SaveKeyboardSettingsRequestSchema } from './schemas';
+
 export const layoutKeyIds = [
   'Backquote',
   'Digit1',
@@ -138,8 +142,8 @@ export type LayoutId = (typeof layoutIds)[number];
 export const keyFingerMappingIds = ['optimized', 'logical', 'custom'] as const;
 export type KeyFingerMappingId = (typeof keyFingerMappingIds)[number];
 
-export const layoutTypes = ['iso', 'ansi'] as const;
-export type LayoutType = (typeof layoutTypes)[number];
+export const keyboardFormats = ['iso', 'ansi'] as const;
+export type KeyboardFormat = (typeof keyboardFormats)[number];
 
 export type LayoutProfiles = {
   id: LayoutId;
@@ -148,3 +152,7 @@ export type LayoutProfiles = {
   system: System;
   emulated: boolean;
 };
+
+export type SaveKeyboardSettingsRequest = z.infer<typeof SaveKeyboardSettingsRequestSchema>;
+
+export type SaveKeyboardSettingsResponse = {};

@@ -1,4 +1,8 @@
-import { KeyFingerMapping, LayoutId, LayoutLanguage, LayoutType, System } from '@/entities/keyboard';
+import { z } from 'zod';
+
+import { KeyFingerMapping, KeyboardFormat, LayoutId, LayoutLanguage, System } from '@/entities/keyboard';
+
+import { CompleteRegistrationFormRequestSchema } from './schemas';
 
 export enum Role {
   User = 'user',
@@ -11,15 +15,11 @@ export enum Gender {
   Female = 'female',
 }
 
-export interface UpdateUserProfileData {
-  fingersZonesSchema: KeyFingerMapping;
-  layout: {
-    system: System;
-    layoutLanguage: LayoutLanguage;
-    layoutType: LayoutType;
-    layoutId: LayoutId;
-  };
+export interface CheckUsernameUniqueResponse {
+  isUnique: boolean;
 }
+
+export type UpdateUserProfileRequest = z.infer<typeof CompleteRegistrationFormRequestSchema>;
 
 export interface UpdateUserProfileResponse {
   success: boolean;
@@ -29,7 +29,7 @@ export interface UpdateUserProfileResponse {
     layout: {
       system: System;
       layoutLanguage: LayoutLanguage;
-      layoutType: LayoutType;
+      keyboardFormat: KeyboardFormat;
       layoutId: LayoutId;
     };
   };

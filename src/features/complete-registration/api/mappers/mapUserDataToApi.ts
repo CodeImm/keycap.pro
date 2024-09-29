@@ -1,4 +1,4 @@
-import { CompleteRegistrationFormData } from '../../ui/CompleteRegistrationForm';
+import { CompleteRegistrationFormData } from '@/features/complete-registration/ui/CompleteRegistrationForm';
 
 const regex = /([^\\(]*)/;
 

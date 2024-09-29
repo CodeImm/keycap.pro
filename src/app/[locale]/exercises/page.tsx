@@ -14,29 +14,6 @@ type Props = {
 export default async function ExercisesPage({ params: { locale } }: Props) {
   unstable_setRequestLocale(locale);
 
-  // const { mutate } = UserProfileAPI.useUpdateProfile();
-
-  // const handleSubmit = ({ data, layout }: { data: KeyFingerMapping; layout: any }) => {
-  //   mutate(
-  //     {
-  //       fingersZonesSchema: data,
-  //       layout: layout,
-  //     },
-  //     {
-  //       onError: (error) => {
-  //         console.error('Ошибка при обновлении конфигурации клавиатуры:', error);
-  //       },
-  //       onSuccess: (response) => {
-  //         if (response.success) {
-  //           console.log('Профиль пользователя успешно обновлен:', response.data);
-  //         } else {
-  //           console.warn('Не удалось обновить профиль пользователя:', response.message);
-  //         }
-  //       },
-  //     }
-  //   );
-  // };
-
   const { user } = await validateRequest();
 
   if (user && !user.registrationCompleted) {
@@ -45,7 +22,6 @@ export default async function ExercisesPage({ params: { locale } }: Props) {
 
   return (
     <Container maxWidth="md">
-      {/* <InitialKeyboardSetup onSubmit={handleSubmit} /> */}
       <InitialKeyboardSetup />
     </Container>
   );

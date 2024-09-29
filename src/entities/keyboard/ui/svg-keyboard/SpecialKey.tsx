@@ -6,7 +6,7 @@ import IsoEnter from './IsoEnter';
 import Key from './Key';
 import SpaceDivider from './SpaceDivider';
 
-import { FingerColorMapping, KeyFingerMapping, LayoutType } from '../../model';
+import { FingerColorMapping, KeyFingerMapping, KeyboardFormat } from '../../model/types';
 
 interface Props extends BoxProps {
   id: string;
@@ -15,7 +15,7 @@ interface Props extends BoxProps {
   y: number;
   width: number;
   height: number;
-  layoutType: LayoutType;
+  keyboardFormat: KeyboardFormat;
   label?: string;
   homing?: boolean;
   visible?: boolean;
@@ -32,7 +32,7 @@ function SpecialKey({
   y,
   width,
   height,
-  layoutType,
+  keyboardFormat,
   label,
   homing,
   visible,
@@ -40,7 +40,7 @@ function SpecialKey({
   keyFingerMapping,
   fingerColorMapping,
 }: Props) {
-  const isIsoEnter = id === 'Enter' && layoutType === 'iso';
+  const isIsoEnter = id === 'Enter' && keyboardFormat === 'iso';
   const isSpaceKey = id === 'Space';
 
   if (isIsoEnter) {

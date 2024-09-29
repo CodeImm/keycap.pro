@@ -28,7 +28,7 @@
     "system": "System",
     "layoutLanguage": "Language",
     "layoutId": "Layout",
-    "layoutType": "Type"
+    "keyboardFormat": "Format"
   },
   "InitialKeyboardSetup": {
     "title": "Initial Keyboard Setup",

@@ -1,4 +1,4 @@
-import { Finger, type FingerColorMapping } from '../model';
+import { Finger, type FingerColorMapping } from '../model/types';
 
 export const fingerColorMapping: FingerColorMapping = {
   [Finger.LEFT_PINKIE]: '#f4b3c2',

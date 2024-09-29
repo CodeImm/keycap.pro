@@ -28,7 +28,7 @@
     "system": "Система",
     "layoutLanguage": "Язык",
     "layoutId": "Раскладка",
-    "layoutType": "Тип"
+    "keyboardFormat": "Формат"
   },
   "InitialKeyboardSetup": {
     "title": "Начальная настройка клавиатуры",

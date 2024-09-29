@@ -1,4 +1,4 @@
-import { Finger, type KeyFingerMapping } from '../../model';
+import { Finger, type KeyFingerMapping } from '../../model/types';
 
 export const logical: KeyFingerMapping = {
   Backquote: Finger.LEFT_PINKIE,

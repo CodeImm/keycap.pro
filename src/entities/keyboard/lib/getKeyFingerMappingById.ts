@@ -1,5 +1,5 @@
 import { logical, optimized } from '../config/keyFingerMappings';
-import type { KeyFingerMappingId } from '../model';
+import type { KeyFingerMappingId } from '../model/types';
 
 export function getKeyFingerMappingById(id: Exclude<KeyFingerMappingId, 'custom'>) {
   switch (id) {

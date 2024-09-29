@@ -1,4 +1,4 @@
-import { KeyCap, System, VirtualKeyboardLayout } from '../../model';
+import { KeyCap, System, VirtualKeyboardLayout } from '../../model/types';
 
 const specialKeysWindows: { [key: string]: KeyCap } = {
   Backspace: { id: 'Backspace', width: 83, type: 'special', label: 'BackSpace', labelPosition: 'center-right' },

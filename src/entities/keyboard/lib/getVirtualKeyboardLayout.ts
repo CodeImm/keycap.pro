@@ -1,7 +1,7 @@
 import { createAnsiKeyboardLayout, createIsoKeyboardLayout } from '../config/virtualKeyboardLayouts';
-import type { LayoutType, System, VirtualKeyboardLayout } from '../model';
+import type { KeyboardFormat, System, VirtualKeyboardLayout } from '../model/types';
 
-export function getVirtualKeyboardLayout(type: LayoutType, system: System): VirtualKeyboardLayout {
+export function getVirtualKeyboardLayout(type: KeyboardFormat, system: System): VirtualKeyboardLayout {
   if (type === 'ansi') {
     return createAnsiKeyboardLayout(system);
   }

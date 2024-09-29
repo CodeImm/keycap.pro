@@ -5,10 +5,11 @@ import { useDeferredValue, useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 
+import { UsernameSchema } from '@/entities/user';
+
 import { CompleteRegistrationFormData } from './CompleteRegistrationForm';
 
-import api from '../api';
-import { UsernameSchema } from '../model/usernameSchema';
+import { api } from '../api';
 
 interface Props {
   control: Control<CompleteRegistrationFormData, any>;

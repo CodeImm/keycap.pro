@@ -5,7 +5,7 @@ import { Box, BoxProps, Button, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { TimeZone } from '@/entities/timeZone/model/types';
+import { TimeZone } from '@/entities/timeZone';
 import { Gender } from '@/entities/user';
 import dayjs from '@/shared/config/dayjs';
 import { useRouter } from '@/shared/navigation';
@@ -16,9 +16,9 @@ import GenderRadioButtonGroup from './GenderRadioButtonGroup';
 import TimezoneTextField from './TimezoneTextField';
 import UsernameTextField from './UsernameTextField';
 
-import api from '../api';
+import { api } from '../api';
 import { mapUserDataToApi } from '../api/mappers/mapUserDataToApi';
-import { CompleteRegistrationFormSchema } from '../model/schema';
+import { CompleteRegistrationFormSchema } from '../model/schemas';
 
 export type CompleteRegistrationFormData = z.infer<typeof CompleteRegistrationFormSchema>;
 
@@ -54,14 +54,14 @@ const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
     mode: 'onChange',
   });
 
-  const updateUserProfile = api.useUpdateUserProfile({
-    onSuccess: () => {
-      router.replace(paths.exercises);
-    },
-  });
+  const { mutate } = api.useUpdateUserProfile();
 
   const onSubmit = (data: CompleteRegistrationFormData) => {
-    updateUserProfile.mutate(mapUserDataToApi(data));
+    mutate(mapUserDataToApi(data), {
+      onSuccess: () => {
+        router.replace(paths.exercises);
+      },
+    });
   };
 
   return (

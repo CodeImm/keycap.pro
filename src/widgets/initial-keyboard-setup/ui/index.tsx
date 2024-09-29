@@ -10,11 +10,8 @@ import { KeyFingerMappingForm } from '@/features/configure-finger-zones';
 import { KeyboardLayoutConfigurationForm } from '@/features/configure-keyboard-layout';
 import { StepControlPanel, StepperControls } from '@/shared/components';
 
+import api from '../api';
 import { defaultKeyboardLayoutConfig } from '../config';
-
-interface InitialKeyboardSetupProps {
-  onSubmit: ({ data, layout }: { data: KeyFingerMapping; layout: any }) => void;
-}
 
 export function InitialKeyboardSetup() {
   const t = useTranslations('InitialKeyboardSetup');
@@ -28,9 +25,17 @@ export function InitialKeyboardSetup() {
     setKeyboardConfig((prev) => ({ ...prev, [property]: data }));
   }
 
+  const { mutate } = api.useSaveKeyboardSettings();
+
   function handleSubmit(data: KeyFingerMapping) {
-    console.log(data);
-    // onSubmit({ data, layout: keyboardConfig.layoutConfig });
+    console.log({
+      fingersZonesSchema: data,
+      layout: keyboardConfig.layoutConfig,
+    });
+    mutate({
+      fingersZonesSchema: data,
+      layout: keyboardConfig.layoutConfig,
+    });
   }
 
   return (
@@ -56,7 +61,7 @@ export function InitialKeyboardSetup() {
                 system={keyboardConfig.layoutConfig.system}
                 defaultValues={keyboardConfig.keyFingerMapping}
                 layoutId={keyboardConfig.layoutConfig.layoutId}
-                layoutType={keyboardConfig.layoutConfig.layoutType}
+                keyboardFormat={keyboardConfig.layoutConfig.keyboardFormat}
                 actions={({ getValues }) => (
                   <StepperControls
                     isFinalStep={true}

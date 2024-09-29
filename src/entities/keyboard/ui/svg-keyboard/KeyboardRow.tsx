@@ -7,17 +7,17 @@ import type {
   Finger,
   FingerColorMapping,
   KeyFingerMapping,
+  KeyboardFormat,
   Layout,
-  LayoutType,
   VirtualKeyboardLayout,
   VirtualKeyboardRowName,
-} from '../../model';
+} from '../../model/types';
 
 interface Props {
   y: number;
   rowKeys: VirtualKeyboardLayout[VirtualKeyboardRowName];
   layout: Layout;
-  layoutType: LayoutType;
+  keyboardFormat: KeyboardFormat;
   excludedKeys: string[];
   homeKeys: string[];
   keyFingerMapping?: KeyFingerMapping;
@@ -28,7 +28,7 @@ const KeyboardRow = memo(function KeyboardRow({
   y,
   rowKeys,
   layout,
-  layoutType,
+  keyboardFormat,
   excludedKeys,
   homeKeys,
   keyFingerMapping,
@@ -71,7 +71,7 @@ const KeyboardRow = memo(function KeyboardRow({
             height={40}
             width={width}
             label={label}
-            layoutType={layoutType}
+            keyboardFormat={keyboardFormat}
             homing={isHoming(id)}
             visible={isVisible(id)}
             fill={fill}
