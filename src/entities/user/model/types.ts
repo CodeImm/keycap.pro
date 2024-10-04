@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { KeyFingerMapping, KeyboardFormat, LayoutId, LayoutLanguage, System } from '@/entities/keyboard';
+import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
+import { KeyboardFormat, LayoutId, LayoutLanguage, System } from '@/entities/keyboard';
 
 import { CompleteRegistrationFormRequestSchema } from './schemas';
 
@@ -25,7 +26,7 @@ export interface UpdateUserProfileResponse {
   success: boolean;
   message?: string;
   data?: {
-    keyFingerMappingSchema: KeyFingerMapping;
+    keyFingerMappingSchema: KeyFingerMappingScheme;
     layout: {
       system: System;
       layoutLanguage: LayoutLanguage;

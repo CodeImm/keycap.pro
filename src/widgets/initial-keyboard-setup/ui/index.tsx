@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
-import { KeyFingerMapping } from '@/entities/keyboard';
+import { KeyFingerMappingScheme } from '@/entities/keyboard';
 import { getKeyFingerMappingById } from '@/entities/keyboard/lib';
 import { KeyFingerMappingForm } from '@/features/configure-finger-zones';
 import { KeyboardLayoutConfigurationForm } from '@/features/configure-keyboard-layout';
@@ -30,7 +30,7 @@ export function InitialKeyboardSetup() {
 
   const { mutate } = api.useSaveKeyboardConfiguration();
 
-  function handleSubmit(data: KeyFingerMapping) {
+  function handleSubmit(data: KeyFingerMappingScheme) {
     console.log({
       keyFingerMappingSchema: data,
       layout: keyboardConfig.layoutConfig,

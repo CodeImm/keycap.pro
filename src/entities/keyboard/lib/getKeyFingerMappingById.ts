@@ -1,7 +1,8 @@
-import { logical, optimized } from '../config/keyFingerMappings';
-import type { KeyFingerMappingId } from '../model/types';
+import { KeyFingerMappingSchemeId } from '@/entities/keyFingerMapping';
+import { logical } from '@/entities/keyFingerMapping/config/logical';
+import { optimized } from '@/entities/keyFingerMapping/config/optimized';
 
-export function getKeyFingerMappingById(id: Exclude<KeyFingerMappingId, 'custom'>) {
+export function getKeyFingerMappingById(id: Exclude<KeyFingerMappingSchemeId, 'custom'>) {
   switch (id) {
     case 'logical':
       return logical;

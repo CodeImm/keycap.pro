@@ -1,6 +1,6 @@
-import { Finger, type KeyFingerMapping } from '../../model/types';
+import { Finger, type KeyFingerMappingScheme } from '../';
 
-export const optimized: KeyFingerMapping = {
+export const optimized: KeyFingerMappingScheme = {
   Backquote: Finger.LEFT_PINKIE,
   Digit1: Finger.LEFT_PINKIE,
   Digit2: Finger.LEFT_PINKIE,

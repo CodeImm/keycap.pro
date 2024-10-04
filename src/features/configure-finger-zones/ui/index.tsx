@@ -2,8 +2,8 @@
 
 import Box from '@mui/material/Box';
 
+import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
 import {
-  KeyFingerMapping,
   Keyboard,
   KeyboardFormat,
   LayoutId,
@@ -17,11 +17,11 @@ import KeyFingerMappingSelector from './KeyFingerMappingSelector';
 import { useKeyFingerMapping, useSelectedFinger } from '../lib/hooks';
 
 interface CallbackActions {
-  getValues(): KeyFingerMapping;
+  getValues(): KeyFingerMappingScheme;
 }
 
 interface Props {
-  defaultValues: KeyFingerMapping;
+  defaultValues: KeyFingerMappingScheme;
   system: System;
   keyboardFormat: KeyboardFormat;
   layoutId: LayoutId;

@@ -1,17 +1,11 @@
 import { memo } from 'react';
 
+import { Finger, FingerColorMapping, KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
+
 import Key from './Key';
 import SpecialKey from './SpecialKey';
 
-import type {
-  Finger,
-  FingerColorMapping,
-  KeyFingerMapping,
-  KeyboardFormat,
-  Layout,
-  VirtualKeyboardLayout,
-  VirtualKeyboardRowName,
-} from '../../model/types';
+import type { KeyboardFormat, Layout, VirtualKeyboardLayout, VirtualKeyboardRowName } from '../../model/types';
 
 interface Props {
   y: number;
@@ -20,7 +14,7 @@ interface Props {
   keyboardFormat: KeyboardFormat;
   excludedKeys: string[];
   homeKeys: string[];
-  keyFingerMapping?: KeyFingerMapping;
+  keyFingerMapping?: KeyFingerMappingScheme;
   fingerColorMapping?: FingerColorMapping;
 }
 
@@ -36,7 +30,7 @@ const KeyboardRow = memo(function KeyboardRow({
 }: Props) {
   let widthAdder = 0;
 
-  const getFill = (id: keyof KeyFingerMapping) => {
+  const getFill = (id: keyof KeyFingerMappingScheme) => {
     if (!fingerColorMapping || !keyFingerMapping) return undefined;
 
     const finger = keyFingerMapping[id] as Finger;

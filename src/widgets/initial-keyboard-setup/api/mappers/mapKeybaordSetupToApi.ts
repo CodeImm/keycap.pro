@@ -1,10 +1,10 @@
-import { KeyFingerMapping } from '@/entities/keyboard';
+import { KeyFingerMappingScheme } from '@/entities/keyboard';
 
 export const mapKeybaordSetupToApi = ({
   keyFingerMappingSchema,
   keyboardConfiguration,
 }: {
-  keyFingerMappingSchema: KeyFingerMapping;
+  keyFingerMappingSchema: KeyFingerMappingScheme;
   // TODO: сделать тип для формы KeyboardSetup
   keyboardConfiguration: any;
 }) => {

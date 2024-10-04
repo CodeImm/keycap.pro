@@ -2,11 +2,13 @@ import { Fragment } from 'react';
 
 import { BoxProps } from '@mui/material/Box';
 
+import { FingerColorMapping, KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
+
 import IsoEnter from './IsoEnter';
 import Key from './Key';
 import SpaceDivider from './SpaceDivider';
 
-import { FingerColorMapping, KeyFingerMapping, KeyboardFormat } from '../../model/types';
+import { KeyboardFormat } from '../../model/types';
 
 interface Props extends BoxProps {
   id: string;
@@ -21,7 +23,7 @@ interface Props extends BoxProps {
   visible?: boolean;
   fill?: string;
   fontColor?: string;
-  keyFingerMapping?: KeyFingerMapping;
+  keyFingerMapping?: KeyFingerMappingScheme;
   fingerColorMapping?: FingerColorMapping;
 }
 

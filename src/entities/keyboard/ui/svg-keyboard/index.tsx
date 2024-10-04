@@ -2,21 +2,20 @@ import { useMemo } from 'react';
 
 import Box, { BoxProps } from '@mui/material/Box';
 
+import {
+  DEFAULT_PROMINENT_KEYS,
+  FingerColorMapping,
+  KeyFingerMappingScheme,
+  KeyIdForFingerMappingScheme,
+} from '@/entities/keyFingerMapping';
+
 import Inner from './Inner';
 import KeyboardRow from './KeyboardRow';
 import Rect from './Rect';
 
-import { DEFAULT_EXCLUDED_KEYS, DEFAULT_HOME_KEYS } from '../../config';
+import { DEFAULT_EXCLUDED_KEYS } from '../../config';
 import { getLayoutById, getVirtualKeyboardLayout } from '../../lib';
-import type {
-  FingerColorMapping,
-  KeyFingerMapping,
-  KeyboardFormat,
-  LayoutId,
-  LayoutKeyId,
-  System,
-  VirtualKeyboardRowName,
-} from '../../model/types';
+import type { KeyboardFormat, LayoutId, LayoutKeyId, System, VirtualKeyboardRowName } from '../../model/types';
 
 const VIEW_BOX = [0, 0, 639, 226];
 const ROW_HEIGHT = 40;
@@ -27,8 +26,8 @@ interface Props extends BoxProps {
   layoutId: LayoutId;
   keyboardFormat: KeyboardFormat;
   excludedKeys?: LayoutKeyId[];
-  homeKeys?: LayoutKeyId[];
-  keyFingerMapping?: KeyFingerMapping;
+  homeKeys?: KeyIdForFingerMappingScheme[];
+  keyFingerMapping?: KeyFingerMappingScheme;
   fingerColorMapping?: FingerColorMapping;
   onClick?: (e: any) => void;
 }
@@ -38,7 +37,7 @@ export function Keyboard({
   layoutId,
   keyboardFormat,
   excludedKeys = DEFAULT_EXCLUDED_KEYS,
-  homeKeys = DEFAULT_HOME_KEYS,
+  homeKeys = DEFAULT_PROMINENT_KEYS,
   keyFingerMapping,
   fingerColorMapping,
   onClick,
