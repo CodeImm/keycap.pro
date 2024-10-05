@@ -1,20 +1,17 @@
-// export { currentProfile } from './currentProfile';
+import { Options } from 'ky';
+
 import client from '@/shared/config/ky';
 
-import { UpdateUserProfileData, UpdateUserProfileResponse } from '../types';
+import { CheckUsernameUniqueResponse, UpdateUserProfileRequest, UpdateUserProfileResponse } from '../model/types';
 
-export const updateUserProfile = async (data: UpdateUserProfileData): Promise<UpdateUserProfileResponse> => {
-  try {
-    const response = await client.patch(`api/user`, {
-      json: data,
-    });
+interface UserApi {
+  updateProfile: (data: UpdateUserProfileRequest) => Promise<UpdateUserProfileResponse>;
+  checkUsername: (username: string, options?: Options) => Promise<CheckUsernameUniqueResponse>;
+}
 
-    if (!response.ok) {
-      throw new Error(`Ошибка: ${response.status} ${response.statusText}`);
-    }
-
-    return response.json();
-  } catch (error: any) {
-    return Promise.reject(new Error(`Не удалось обновить профиль: ${error.message}`));
-  }
+const userApi: UserApi = {
+  updateProfile: (data: UpdateUserProfileRequest) => client.post('user', { json: data }).json(),
+  checkUsername: (username: string, options?: Options) => client.get(`check-username/${username}`, options).json(),
 };
+
+export default userApi;

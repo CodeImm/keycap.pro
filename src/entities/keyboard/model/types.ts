@@ -1,6 +1,10 @@
 import { ReactNode } from 'react';
 
-export const layoutKeyIds = [
+import { z } from 'zod';
+
+import { SaveKeyboardSettingsRequestSchema } from './schemas';
+
+export const baseKeyIds = [
   'Backquote',
   'Digit1',
   'Digit2',
@@ -59,15 +63,14 @@ export const layoutKeyIds = [
   'MetaLeft',
   'Fn',
   'AltLeft',
-  'Space',
+  // 'Space',
   'AltRight',
   'MetaRight',
   'ContextMenu',
   'ControlRight',
 ] as const;
 
-export const enhancedLayoutKeyIds = [...layoutKeyIds, 'Space_Left', 'Space_Right'];
-
+export const layoutKeyIds = [...baseKeyIds, 'Space'] as const;
 export type LayoutKeyId = (typeof layoutKeyIds)[number];
 
 export type LayoutKeyType = 'letter' | 'symbol' | 'special' | 'digit';
@@ -102,27 +105,6 @@ export type VirtualKeyboardLayout = {
   [key in VirtualKeyboardRowName]: KeyCap[];
 };
 
-export enum Finger {
-  LEFT_PINKIE,
-  LEFT_RING,
-  LEFT_MIDDLE,
-  LEFT_INDEX,
-  LEFT_THUMB,
-  RIGHT_THUMB,
-  RIGHT_INDEX,
-  RIGHT_MIDDLE,
-  RIGHT_RING,
-  RIGHT_PINKIE,
-}
-
-export type KeyFingerMapping = {
-  [key in Exclude<LayoutKeyId, 'Space'> | 'Space_Left' | 'Space_Right']?: Finger;
-};
-
-export type FingerColorMapping = {
-  [key in Finger]: string;
-};
-
 export enum System {
   macos = 'macos',
   windows = 'windows',
@@ -132,14 +114,21 @@ export enum System {
 export const layoutLanguages = ['english', 'russian'] as const;
 export type LayoutLanguage = (typeof layoutLanguages)[number];
 
-export const layoutIds = ['us_qwerty', 'dvorak', 'colemak', 'workman', 'jcuken'] as const;
-export type LayoutId = (typeof layoutIds)[number];
+export enum LayoutId {
+  UsQwerty = 'us_qwerty',
+  Dvorak = 'dvorak',
+  Colemak = 'colemak',
+  Workman = 'workman',
+  Jcuken = 'jcuken',
+}
 
-export const keyFingerMappingIds = ['optimized', 'logical', 'custom'] as const;
-export type KeyFingerMappingId = (typeof keyFingerMappingIds)[number];
+export const keyboardFormats = ['iso', 'ansi'] as const;
+export type KeyboardFormat = (typeof keyboardFormats)[number];
 
-export const layoutTypes = ['iso', 'ansi'] as const;
-export type LayoutType = (typeof layoutTypes)[number];
+// export enum KeyboardFormat {
+//   Iso = 'iso',
+//   Ansi = 'ansi',
+// }
 
 export type LayoutProfiles = {
   id: LayoutId;
@@ -148,3 +137,7 @@ export type LayoutProfiles = {
   system: System;
   emulated: boolean;
 };
+
+export type SaveKeyboardSettingsRequest = z.infer<typeof SaveKeyboardSettingsRequestSchema>;
+
+export type SaveKeyboardSettingsResponse = {};

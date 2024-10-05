@@ -1,4 +1,4 @@
-import { LayoutProfiles, System } from '../model';
+import { LayoutProfiles, System } from '../model/types';
 
 export const layoutProfiles: LayoutProfiles[] = [
   /** Windows */

@@ -9,32 +9,26 @@ import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import isEqual from 'lodash.isequal';
 
-import {
-  FingerColorMapping,
-  KeyFingerMapping,
-  KeyFingerMappingId,
-  LayoutId,
-  LayoutType,
-  System,
-} from '@/entities/keyboard';
+import { FingerColorMapping, KeyFingerMappingScheme, KeyFingerMappingSchemeId } from '@/entities/keyFingerMapping';
+import { KeyboardFormat, LayoutId, System } from '@/entities/keyboard';
 import { getKeyFingerMappingById } from '@/entities/keyboard/lib/getKeyFingerMappingById';
 
 interface Props {
   system: System;
-  keyFingerMappingIdList: Exclude<KeyFingerMappingId, 'custom'>[];
+  keyFingerMappingIdList: Exclude<KeyFingerMappingSchemeId, 'custom'>[];
   fingerColorMapping: FingerColorMapping;
   layoutId: LayoutId;
-  layoutType: LayoutType;
-  customKeyFingerMapping: KeyFingerMapping;
-  defaultValue: KeyFingerMappingId;
-  onChange: (value: KeyFingerMappingId) => void;
+  keyboardFormat: KeyboardFormat;
+  customKeyFingerMapping: KeyFingerMappingScheme;
+  defaultValue: KeyFingerMappingSchemeId;
+  onChange: (value: KeyFingerMappingSchemeId) => void;
 }
 
 const KeyFingerMappingSelector = ({
   system,
   fingerColorMapping,
   layoutId,
-  layoutType,
+  keyboardFormat,
   keyFingerMappingIdList,
   defaultValue,
   customKeyFingerMapping,
@@ -45,8 +39,8 @@ const KeyFingerMappingSelector = ({
   const [id, setId] = useState(defaultValue);
 
   const handleChange = (_event: ChangeEvent<HTMLInputElement>, value: string) => {
-    onChange(value as KeyFingerMappingId);
-    setId(value as KeyFingerMappingId);
+    onChange(value as KeyFingerMappingSchemeId);
+    setId(value as KeyFingerMappingSchemeId);
   };
 
   useEffect(() => {

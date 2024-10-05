@@ -1,37 +1,29 @@
 import { UndefinedInitialDataOptions, UseMutationOptions, useMutation, useQuery } from '@tanstack/react-query';
-import { z } from 'zod';
 
-import client from '@/shared/config/ky';
+import {
+  CheckUsernameUniqueResponse,
+  UpdateUserProfileRequest,
+  UpdateUserProfileResponse,
+  userApi,
+} from '@/entities/user';
 
-import { CompleteRegistrationFormRequestSchema } from '../model/schema';
-
-interface CheckUsernameUniqueResponse {
-  isUnique: boolean;
-}
-
-export type UpdateUserProfileRequest = z.infer<typeof CompleteRegistrationFormRequestSchema>;
-
-interface UpdateUserProfileResponse {}
-
-const api = {
+export const api = {
   useCheckUsernameUnique: (
     username: string,
     props?: Omit<UndefinedInitialDataOptions<CheckUsernameUniqueResponse>, 'queryKey'>
   ) => {
     return useQuery<CheckUsernameUniqueResponse>({
       queryKey: ['checkUsername', username],
-      queryFn: ({ signal }) => client.get(`check-username/${username}`, { signal }).then((res) => res.json()),
+      queryFn: ({ signal }) => userApi.checkUsername(username, { signal }),
       retry: false,
       ...props,
     });
   },
   useUpdateUserProfile: (props?: UseMutationOptions<UpdateUserProfileResponse, Error, UpdateUserProfileRequest>) => {
     return useMutation({
-      mutationFn: (profile) => client.post(`user`, { json: profile }),
+      mutationFn: userApi.updateProfile,
       retry: false,
       ...props,
     });
   },
 };
-
-export default api;

@@ -1,5 +1,5 @@
 export { UserAvatar } from './ui/UserAvatar';
 export { UserName } from './ui/UserName';
-export { UserProfileAPI } from './hooks';
-// export { default } from './model/User';
-export * from './types';
+export { default as userApi } from './api';
+export * from './model/types';
+export * from './model/schemas';

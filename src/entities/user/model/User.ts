@@ -1,8 +1,10 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
+import { Types } from 'mongoose';
 
-import type { KeyFingerMapping } from '@/entities/keyboard';
+import { DEFAULT_HOME_ROW, type HomeRow, HomeRowSchema, KeyFingerMappingSchemeType } from '@/entities/keyFingerMapping';
+import { type KeyboardFormat, LayoutId, System } from '@/entities/keyboard';
 
-import { Gender, Role } from '../types';
+import { Gender, Role } from './types';
 
 class Settings {
   @prop({ required: true })
@@ -20,26 +22,36 @@ class Profile {
   public website?: string;
 }
 
-class Layout {
-  @prop({ required: true })
-  public system!: string;
-
-  @prop({ required: true })
-  public layoutLanguage!: string;
-
-  @prop({ required: true })
-  public layoutType!: string;
-
-  @prop({ required: true })
-  public layoutId!: string;
-}
-
 class KeyboardSettings {
-  @prop({ _id: false, type: () => Map<string, number> })
-  public fingersZonesSchema!: KeyFingerMapping;
+  @prop({ enum: System })
+  public system!: System;
 
-  @prop({ _id: false })
-  public layout!: Layout;
+  @prop({ type: String })
+  public format!: KeyboardFormat;
+
+  @prop({ enum: LayoutId })
+  public layoutId!: LayoutId;
+
+  @prop({ type: Types.ObjectId })
+  public activeKeyFingerMappingSchemeId!: Types.ObjectId;
+
+  @prop({ enum: KeyFingerMappingSchemeType, required: true })
+  public activeKeyFingerMappingSchemeType!: KeyFingerMappingSchemeType;
+
+  @prop({
+    type: Object,
+    required: true,
+    validate: {
+      validator: (value: unknown) => {
+        const result = HomeRowSchema.safeParse(value);
+
+        return result.success;
+      },
+      message: 'Invalid home row configuration',
+    },
+    default: DEFAULT_HOME_ROW,
+  })
+  public homeRow!: HomeRow;
 }
 
 class Permissions {
@@ -102,11 +114,11 @@ class User {
   @prop({ required: false, default: null })
   public registrationCompleted?: Date;
 
-  // @prop({ _id: false })
-  // public keyboardSettings?: KeyboardSettings;
+  @prop({ _id: false })
+  public keyboardSettings?: KeyboardSettings;
 
-  // @prop()
-  // public timeZone?: string;
+  @prop({ type: String })
+  public timeZone?: string;
 
   // @prop({ required: true, _id: false })
   // public permissions!: Permissions;

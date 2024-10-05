@@ -1,8 +1,9 @@
+import dayjs from 'dayjs';
 import { z } from 'zod';
 
-import dayjs from '@/shared/config/dayjs';
+import { GenderSchema, UsernameSchema } from '@/entities/user';
 
-export const DateSchema = z
+const DateSchema = z
   .object({
     day: z
       .union([z.number().min(1).max(31), z.literal('')])
@@ -32,3 +33,13 @@ export const DateSchema = z
       message: 'Invalid date',
     }
   );
+
+export const CompleteRegistrationFormSchema = z.object({
+  email: z.string().trim().email(),
+  firstName: z.string().trim().max(50).optional(),
+  lastName: z.string().trim().max(50).optional(),
+  dateOfBirth: DateSchema,
+  gender: GenderSchema,
+  username: UsernameSchema,
+  timeZone: z.string(),
+});

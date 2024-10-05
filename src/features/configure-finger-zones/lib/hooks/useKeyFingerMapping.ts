@@ -1,58 +1,43 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import type {
-  Finger,
-  KeyFingerMapping,
-  KeyFingerMappingId,
-  LayoutKeyId,
-} from '@/entities/keyboard';
 import {
-  DEFAULT_EXCLUDED_KEYS,
-  enhancedLayoutKeyIds,
-} from '@/entities/keyboard';
+  Finger,
+  KeyFingerMappingScheme,
+  KeyFingerMappingSchemeId,
+  keyIdsForFingerMappingScheme,
+} from '@/entities/keyFingerMapping';
+import type { LayoutKeyId } from '@/entities/keyboard';
+import { DEFAULT_EXCLUDED_KEYS } from '@/entities/keyboard';
 import { getKeyFingerMappingById } from '@/entities/keyboard/lib';
 
 interface UseKeyFingerMapping {
-  keyFingerMapping: KeyFingerMapping;
+  keyFingerMapping: KeyFingerMappingScheme;
   handleKeyClick: (event: MouseEvent) => void;
-  handleReset(id?: KeyFingerMappingId): void;
+  handleReset(id?: KeyFingerMappingSchemeId): void;
 }
 
 interface Props {
-  defaultValues: KeyFingerMapping;
+  defaultValues: KeyFingerMappingScheme;
   selectedFinger: Finger;
 }
 
-export function useKeyFingerMapping({
-  defaultValues,
-  selectedFinger,
-}: Props): UseKeyFingerMapping {
-  const [keyFingerMapping, setKeyFingerMapping] =
-    useState<KeyFingerMapping>(defaultValues);
+export function useKeyFingerMapping({ defaultValues, selectedFinger }: Props): UseKeyFingerMapping {
+  const [keyFingerMapping, setKeyFingerMapping] = useState<KeyFingerMappingScheme>(defaultValues);
 
-  const updateKeyFingerMapping = useCallback(
-    (keyId: LayoutKeyId, finger: Finger) => {
-      setKeyFingerMapping((currentMapping) => ({
-        ...currentMapping,
-        [keyId]: finger,
-      }));
-    },
-    []
-  );
+  const updateKeyFingerMapping = useCallback((keyId: LayoutKeyId, finger: Finger) => {
+    setKeyFingerMapping((currentMapping) => ({
+      ...currentMapping,
+      [keyId]: finger,
+    }));
+  }, []);
 
-  const handleReset = (
-    id: Exclude<KeyFingerMappingId, 'custom'> = 'optimized'
-  ) => {
+  const handleReset = (id: Exclude<KeyFingerMappingSchemeId, 'custom'> = 'optimized') => {
     setKeyFingerMapping(getKeyFingerMappingById(id));
   };
 
   const handleKeyFingerChange = useCallback(
     (id: LayoutKeyId | undefined) => {
-      if (
-        id &&
-        enhancedLayoutKeyIds.includes(id) &&
-        !DEFAULT_EXCLUDED_KEYS.includes(id)
-      ) {
+      if (id && keyIdsForFingerMappingScheme.includes(id) && !DEFAULT_EXCLUDED_KEYS.includes(id)) {
         updateKeyFingerMapping(id, selectedFinger);
       }
     },

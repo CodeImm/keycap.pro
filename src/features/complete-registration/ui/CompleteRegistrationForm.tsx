@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { TimeZone } from '@/entities/timeZone/model/types';
 import { Gender } from '@/entities/user';
 import dayjs from '@/shared/config/dayjs';
-import { redirect } from '@/shared/navigation';
+import { useRouter } from '@/shared/navigation';
 import { paths } from '@/shared/routing';
 
 import DateSelector from './DateSelector';
@@ -16,9 +16,9 @@ import GenderRadioButtonGroup from './GenderRadioButtonGroup';
 import TimezoneTextField from './TimezoneTextField';
 import UsernameTextField from './UsernameTextField';
 
-import api from '../api';
+import { api } from '../api';
 import { mapUserDataToApi } from '../api/mappers/mapUserDataToApi';
-import { CompleteRegistrationFormSchema } from '../model/schema';
+import { CompleteRegistrationFormSchema } from '../model/schemas';
 
 export type CompleteRegistrationFormData = z.infer<typeof CompleteRegistrationFormSchema>;
 
@@ -27,6 +27,8 @@ interface Props extends BoxProps<'form'> {
 }
 
 const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
+  const router = useRouter();
+
   const defaultTimeZone = timeZones.find((timeZone) => timeZone.timeZone === dayjs.tz.guess()) ?? timeZones[0];
 
   const {
@@ -52,14 +54,14 @@ const CompleteRegistrationForm = ({ timeZones, ...props }: Props) => {
     mode: 'onChange',
   });
 
-  const updateUserProfile = api.useUpdateUserProfile({
-    onSuccess: () => {
-      redirect(paths.exercises);
-    },
-  });
+  const { mutate } = api.useUpdateUserProfile();
 
   const onSubmit = (data: CompleteRegistrationFormData) => {
-    updateUserProfile.mutate(mapUserDataToApi(data));
+    mutate(mapUserDataToApi(data), {
+      onSuccess: () => {
+        router.replace(paths.exercises);
+      },
+    });
   };
 
   return (

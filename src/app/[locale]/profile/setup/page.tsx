@@ -1,4 +1,4 @@
-import { CompleteRegistrationForm } from '@/features/setup-profile';
+import { CompleteRegistrationForm } from '@/features/complete-registration';
 import { fetchTimeZones } from '@/shared/api/timeZones';
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import { redirect } from '@/shared/navigation';

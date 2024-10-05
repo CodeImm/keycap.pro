@@ -1,1 +1,1 @@
-export { SignOut } from './SignOut';
+export { SignOutButton } from './ui/index';

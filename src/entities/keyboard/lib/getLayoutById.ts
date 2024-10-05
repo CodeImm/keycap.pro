@@ -1,11 +1,5 @@
-import {
-  colemak,
-  dvorak,
-  jcuken,
-  us_qwerty,
-  workman,
-} from '../config/keyboardLayouts';
-import type { LayoutId } from '../model';
+import { colemak, dvorak, jcuken, us_qwerty, workman } from '../config/keyboardLayouts';
+import type { LayoutId } from '../model/types';
 
 export function getLayoutById(id: LayoutId) {
   switch (id) {

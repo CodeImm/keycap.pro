@@ -1,4 +1,4 @@
-import { CompleteRegistrationFormData } from '../../ui/CompleteRegistrationForm';
+import { CompleteRegistrationFormData } from '@/features/complete-registration/ui/CompleteRegistrationForm';
 
 const regex = /([^\\(]*)/;
 
@@ -9,6 +9,6 @@ export const mapUserDataToApi = (data: CompleteRegistrationFormData) => {
     //TODO: сделать в селекторе различающимися value (без (GPT+3)) и renderOption (c (GPT+3))
     timeZone: data.timeZone.match(regex)?.[1].trim() ?? '',
   };
-  console.log(mappedData);
+
   return mappedData;
 };

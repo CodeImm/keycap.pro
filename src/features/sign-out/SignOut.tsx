@@ -1,44 +1,21 @@
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+'use client';
 
-import { lucia } from '@/shared/config/lucia-auth/auth';
-import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
+import { useTranslations } from 'next-intl';
 
-interface Callback {
-  onClick(): void;
-}
+import { MenuItem, Typography } from '@mui/material';
 
-interface Props {
-  children: ({ onClick }: Callback) => JSX.Element;
-}
+import { signOut } from './actions/signOut';
 
-export const SignOut = ({ children }: Props) => {
+export const SignOut = () => {
+  const t = useTranslations('Navigation');
+
+  const handleSignOut = () => {
+    signOut();
+  };
+
   return (
-    <>
-      {children({
-        onClick: logout,
-      })}
-    </>
+    <MenuItem onClick={handleSignOut}>
+      <Typography textAlign="center">{t('signOut')}</Typography>
+    </MenuItem>
   );
 };
-
-async function logout(): Promise<ActionResult> {
-  'use server';
-  const { session } = await validateRequest();
-  if (!session) {
-    return {
-      error: 'Unauthorized',
-    };
-  }
-
-  await lucia.invalidateSession(session.id);
-
-  const sessionCookie = lucia.createBlankSessionCookie();
-  cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
-
-  return redirect('/login');
-}
-
-interface ActionResult {
-  error: string | null;
-}

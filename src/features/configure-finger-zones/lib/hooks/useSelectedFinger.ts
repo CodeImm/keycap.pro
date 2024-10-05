@@ -1,24 +1,16 @@
 import { ChangeEvent, useState } from 'react';
 
-import { Finger } from '@/entities/keyboard';
+import { Finger } from '@/entities/keyFingerMapping';
 
 interface UseSelectedFinger {
   selectedFinger: Finger;
-  handleSelectedFingerChange: (
-    _event: ChangeEvent<HTMLInputElement>,
-    value: string
-  ) => void;
+  handleSelectedFingerChange: (_event: ChangeEvent<HTMLInputElement>, value: string) => void;
 }
 
 export function useSelectedFinger(): UseSelectedFinger {
-  const [selectedFinger, setSelectedFinger] = useState<number>(
-    Finger.LEFT_THUMB
-  );
+  const [selectedFinger, setSelectedFinger] = useState<number>(Finger.LEFT_THUMB);
 
-  const handleSelectedFingerChange = (
-    _event: ChangeEvent<HTMLInputElement>,
-    value: string
-  ) => {
+  const handleSelectedFingerChange = (_event: ChangeEvent<HTMLInputElement>, value: string) => {
     setSelectedFinger(+value);
   };
 

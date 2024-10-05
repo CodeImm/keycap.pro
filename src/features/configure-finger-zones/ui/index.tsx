@@ -2,11 +2,11 @@
 
 import Box from '@mui/material/Box';
 
+import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
 import {
-  KeyFingerMapping,
   Keyboard,
+  KeyboardFormat,
   LayoutId,
-  LayoutType,
   System,
   fingerColorMapping as defaultFingerColorMapping,
 } from '@/entities/keyboard';
@@ -17,18 +17,18 @@ import KeyFingerMappingSelector from './KeyFingerMappingSelector';
 import { useKeyFingerMapping, useSelectedFinger } from '../lib/hooks';
 
 interface CallbackActions {
-  getValues(): KeyFingerMapping;
+  getValues(): KeyFingerMappingScheme;
 }
 
 interface Props {
-  defaultValues: KeyFingerMapping;
+  defaultValues: KeyFingerMappingScheme;
   system: System;
-  layoutType: LayoutType;
+  keyboardFormat: KeyboardFormat;
   layoutId: LayoutId;
   actions({ getValues }: CallbackActions): JSX.Element;
 }
 //TODO: submitButtonText по умолчанию с t
-export function KeyFingerMappingForm({ defaultValues, system, layoutType, layoutId, actions }: Props) {
+export function KeyFingerMappingForm({ defaultValues, system, keyboardFormat, layoutId, actions }: Props) {
   const { selectedFinger, handleSelectedFingerChange } = useSelectedFinger();
 
   const { keyFingerMapping, handleKeyClick, handleReset } = useKeyFingerMapping({
@@ -67,7 +67,7 @@ export function KeyFingerMappingForm({ defaultValues, system, layoutType, layout
         <Keyboard
           system={system}
           layoutId={layoutId}
-          layoutType={layoutType}
+          keyboardFormat={keyboardFormat}
           fingerColorMapping={defaultFingerColorMapping}
           keyFingerMapping={keyFingerMapping}
           onClick={handleKeyClick}
@@ -76,7 +76,7 @@ export function KeyFingerMappingForm({ defaultValues, system, layoutType, layout
       <KeyFingerMappingSelector
         system={system}
         layoutId={layoutId}
-        layoutType={layoutType}
+        keyboardFormat={keyboardFormat}
         fingerColorMapping={defaultFingerColorMapping}
         defaultValue={'optimized'}
         keyFingerMappingIdList={['optimized', 'logical']}
