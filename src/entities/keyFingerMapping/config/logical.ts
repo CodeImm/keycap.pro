@@ -1,4 +1,6 @@
-import { Finger, KeyFingerMappingScheme } from '../';
+import { Finger } from '@/shared/types';
+
+import { type KeyFingerMappingScheme } from '../model/schemas';
 
 export const logical: KeyFingerMappingScheme = {
   Backquote: Finger.LEFT_PINKIE,

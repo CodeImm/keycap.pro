@@ -1,31 +1,31 @@
-import { LayoutProfiles, System } from '../model/types';
+import { LayoutId, LayoutProfiles, System } from '../model/types';
 
 export const layoutProfiles: LayoutProfiles[] = [
   /** Windows */
   // English
   {
-    id: 'us_qwerty',
+    id: LayoutId.UsQwerty,
     name: 'QWERTY',
     language: 'english',
     system: System.windows,
     emulated: true,
   },
   {
-    id: 'dvorak',
+    id: LayoutId.Dvorak,
     name: 'Dvorak',
     language: 'english',
     system: System.windows,
     emulated: true,
   },
   {
-    id: 'colemak',
+    id: LayoutId.Colemak,
     name: 'Colemak',
     language: 'english',
     system: System.windows,
     emulated: true,
   },
   {
-    id: 'workman',
+    id: LayoutId.Workman,
     name: 'Workman',
     language: 'english',
     system: System.windows,
@@ -34,7 +34,7 @@ export const layoutProfiles: LayoutProfiles[] = [
 
   // Russian
   {
-    id: 'jcuken',
+    id: LayoutId.Jcuken,
     name: 'ЙЦУКЕН',
     language: 'russian',
     system: System.windows,
@@ -44,28 +44,28 @@ export const layoutProfiles: LayoutProfiles[] = [
   /** Linux */
   // English
   {
-    id: 'us_qwerty',
+    id: LayoutId.UsQwerty,
     name: 'QWERTY',
     language: 'english',
     system: System.linux,
     emulated: true,
   },
   {
-    id: 'dvorak',
+    id: LayoutId.Dvorak,
     name: 'Dvorak',
     language: 'english',
     system: System.linux,
     emulated: true,
   },
   {
-    id: 'colemak',
+    id: LayoutId.Colemak,
     name: 'Colemak',
     language: 'english',
     system: System.linux,
     emulated: true,
   },
   {
-    id: 'workman',
+    id: LayoutId.Workman,
     name: 'Workman',
     language: 'english',
     system: System.linux,
@@ -74,7 +74,7 @@ export const layoutProfiles: LayoutProfiles[] = [
 
   // Russian
   {
-    id: 'jcuken',
+    id: LayoutId.Jcuken,
     name: 'ЙЦУКЕН',
     language: 'russian',
     system: System.linux,
@@ -84,28 +84,28 @@ export const layoutProfiles: LayoutProfiles[] = [
   /** MacOS */
   // English
   {
-    id: 'us_qwerty',
+    id: LayoutId.UsQwerty,
     name: 'QWERTY',
     language: 'english',
     system: System.macos,
     emulated: true,
   },
   {
-    id: 'dvorak',
+    id: LayoutId.Dvorak,
     name: 'Dvorak',
     language: 'english',
     system: System.macos,
     emulated: true,
   },
   {
-    id: 'colemak',
+    id: LayoutId.Colemak,
     name: 'Colemak',
     language: 'english',
     system: System.macos,
     emulated: true,
   },
   {
-    id: 'workman',
+    id: LayoutId.Workman,
     name: 'Workman',
     language: 'english',
     system: System.macos,
@@ -114,7 +114,7 @@ export const layoutProfiles: LayoutProfiles[] = [
 
   // Russian
   {
-    id: 'jcuken',
+    id: LayoutId.Jcuken,
     name: 'Русская — ПК',
     language: 'russian',
     system: System.macos,

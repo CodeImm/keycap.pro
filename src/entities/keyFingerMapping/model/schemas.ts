@@ -1,19 +1,8 @@
 import { z } from 'zod';
 
-import { KeyIdForFingerMappingScheme, keyIdsForFingerMappingScheme } from './types';
+import { Finger } from '@/shared/types';
 
-export enum Finger {
-  LEFT_PINKIE,
-  LEFT_RING,
-  LEFT_MIDDLE,
-  LEFT_INDEX,
-  LEFT_THUMB,
-  RIGHT_THUMB,
-  RIGHT_INDEX,
-  RIGHT_MIDDLE,
-  RIGHT_RING,
-  RIGHT_PINKIE,
-}
+import { KeyIdForFingerMappingScheme, keyIdsForFingerMappingScheme } from './types';
 
 export type KeyFingerMappingScheme = {
   [key in KeyIdForFingerMappingScheme]?: Finger;
@@ -48,3 +37,5 @@ export const HomeRowSchema = z
   );
 
 export const KeyFingerMappingSchema = z.record(z.enum(keyIdsForFingerMappingScheme), z.nativeEnum(Finger));
+
+export type HomeRow = z.infer<typeof HomeRowSchema>;

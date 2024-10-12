@@ -1,5 +1,7 @@
-import { Finger } from '..';
-import { HomeRow, KeyIdForFingerMappingScheme } from '../model/types';
+import { Finger } from '@/shared/types';
+
+import { HomeRow } from '../model/schemas';
+import { KeyIdForFingerMappingScheme } from '../model/types';
 
 export const DEFAULT_HOME_ROW: HomeRow = {
   [Finger.LEFT_PINKIE]: 'KeyA',
@@ -12,6 +14,6 @@ export const DEFAULT_HOME_ROW: HomeRow = {
   [Finger.RIGHT_MIDDLE]: 'KeyK',
   [Finger.RIGHT_RING]: 'KeyL',
   [Finger.RIGHT_PINKIE]: 'KeyL',
-};
+} as const;
 
-export const DEFAULT_PROMINENT_KEYS: KeyIdForFingerMappingScheme[] = ['KeyF', 'KeyJ'];
+export const DEFAULT_PROMINENT_KEYS: KeyIdForFingerMappingScheme[] = ['KeyF', 'KeyJ'] as const;

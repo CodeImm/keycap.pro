@@ -1,19 +1,14 @@
-import { z } from 'zod';
-
 import { baseKeyIds } from '@/entities/keyboard';
-
-import { HomeRowSchema } from './schemas';
 
 export enum KeyFingerMappingSchemeType {
   Standard = 'standard',
   User = 'user',
 }
 
-export type HomeRow = z.infer<typeof HomeRowSchema>;
-
 // TODO: проверить правильно ли используется т.к. нет Space (но он был)
 export const keyIdsForFingerMappingScheme = [
   ...baseKeyIds,
+  // TODO: ошибка из-за неправильных реекспортов
   'Space_Right', //
   'Space_Left', //
 ] as const;

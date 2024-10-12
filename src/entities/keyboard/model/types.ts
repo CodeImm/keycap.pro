@@ -111,6 +111,21 @@ export enum System {
   linux = 'linux',
 }
 
+export enum FormFactor {
+  Fullsize = 'fullsize',
+  TKL = 'tkl', // Tenkeyless
+  SixtyPercent = '60%', // 60%
+  SeventyFivePercent = '75%', // 75%
+  FortyPercent = '40%', // 40%
+  FiftyPercent = '50%', // 50%
+  EightyPercent = '80%', // 80%
+}
+
+export enum Format {
+  ISO = 'iso',
+  ANSI = 'ansi',
+}
+
 export const layoutLanguages = ['english', 'russian'] as const;
 export type LayoutLanguage = (typeof layoutLanguages)[number];
 

@@ -3,13 +3,8 @@
 import Box from '@mui/material/Box';
 
 import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
-import {
-  Keyboard,
-  KeyboardFormat,
-  LayoutId,
-  System,
-  fingerColorMapping as defaultFingerColorMapping,
-} from '@/entities/keyboard';
+import { DEFAULT_FINGER_COLOR_MAPPING as defaultFingerColorMapping } from '@/entities/keyFingerMapping';
+import { Keyboard, KeyboardFormat, LayoutId, System } from '@/entities/keyboard';
 
 import FingerSelectionForm from './FingerSelectionForm';
 import KeyFingerMappingSelector from './KeyFingerMappingSelector';

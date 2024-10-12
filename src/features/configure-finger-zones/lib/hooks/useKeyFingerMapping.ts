@@ -36,7 +36,7 @@ export function useKeyFingerMapping({ defaultValues, selectedFinger }: Props): U
   };
 
   const handleKeyFingerChange = useCallback(
-    (id: LayoutKeyId | undefined) => {
+    (id: LayoutKeyId | undefined | any) => {
       if (id && keyIdsForFingerMappingScheme.includes(id) && !DEFAULT_EXCLUDED_KEYS.includes(id)) {
         updateKeyFingerMapping(id, selectedFinger);
       }

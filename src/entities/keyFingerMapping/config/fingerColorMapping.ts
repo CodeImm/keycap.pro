@@ -1,6 +1,8 @@
-import { Finger, FingerColorMapping } from '@/entities/keyFingerMapping';
+import { Finger } from '@/shared/types';
 
-export const fingerColorMapping: FingerColorMapping = {
+import { FingerColorMapping } from '../model/schemas';
+
+export const DEFAULT_FINGER_COLOR_MAPPING: FingerColorMapping = {
   [Finger.LEFT_PINKIE]: '#f4b3c2',
   [Finger.LEFT_RING]: '#fdcf8c',
   [Finger.LEFT_MIDDLE]: '#bcdd9c',
@@ -11,4 +13,4 @@ export const fingerColorMapping: FingerColorMapping = {
   [Finger.RIGHT_MIDDLE]: '#bcdd9c',
   [Finger.RIGHT_RING]: '#fdcf8c',
   [Finger.RIGHT_PINKIE]: '#f4b3c2',
-};
+} as const;
