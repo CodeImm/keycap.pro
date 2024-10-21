@@ -1,19 +1,19 @@
+import { KeyFingerMappingScheme } from './../../../../entities/keyFingerMapping';
+
 import { Finger } from '@/shared/types';
 
-import { type KeyFingerMappingScheme } from '../model/schemas';
-
-export const logical: KeyFingerMappingScheme = {
+export const optimized: KeyFingerMappingScheme = {
   Backquote: Finger.LEFT_PINKIE,
   Digit1: Finger.LEFT_PINKIE,
-  Digit2: Finger.LEFT_RING,
-  Digit3: Finger.LEFT_MIDDLE,
-  Digit4: Finger.LEFT_INDEX,
+  Digit2: Finger.LEFT_PINKIE,
+  Digit3: Finger.LEFT_RING,
+  Digit4: Finger.LEFT_MIDDLE,
   Digit5: Finger.LEFT_INDEX,
-  Digit6: Finger.RIGHT_INDEX,
+  Digit6: Finger.LEFT_INDEX,
   Digit7: Finger.RIGHT_INDEX,
-  Digit8: Finger.RIGHT_MIDDLE,
-  Digit9: Finger.RIGHT_RING,
-  Digit0: Finger.RIGHT_PINKIE,
+  Digit8: Finger.RIGHT_INDEX,
+  Digit9: Finger.RIGHT_MIDDLE,
+  Digit0: Finger.RIGHT_RING,
   Minus: Finger.RIGHT_PINKIE,
   Equal: Finger.RIGHT_PINKIE,
   Backspace: Finger.RIGHT_PINKIE,

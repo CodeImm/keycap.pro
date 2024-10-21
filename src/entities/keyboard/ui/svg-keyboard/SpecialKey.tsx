@@ -1,5 +1,3 @@
-import { Fragment } from 'react';
-
 import { BoxProps } from '@mui/material/Box';
 
 import { FingerColorMapping, KeyFingerMappingScheme } from '@/entities/keyFingerMapping';

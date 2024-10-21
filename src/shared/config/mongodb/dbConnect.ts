@@ -1,4 +1,7 @@
+import dotenv from 'dotenv';
 import _mongoose from 'mongoose';
+// TODO: dotenv было добавлен в зависимости, т.к. испольхуется вне next.js в seeders, нужно убрать.
+dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

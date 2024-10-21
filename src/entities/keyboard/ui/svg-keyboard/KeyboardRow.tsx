@@ -1,11 +1,12 @@
 import { memo } from 'react';
 
-import { Finger, FingerColorMapping, KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
+import { FingerColorMapping, KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
 
 import Key from './Key';
 import SpecialKey from './SpecialKey';
 
 import type { KeyboardFormat, Layout, VirtualKeyboardLayout, VirtualKeyboardRowName } from '../../model/types';
+import { Finger } from '@/shared/types';
 
 interface Props {
   y: number;

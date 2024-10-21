@@ -2,15 +2,7 @@ import { z } from 'zod';
 
 import { Finger } from '@/shared/types';
 
-import { KeyIdForFingerMappingScheme, keyIdsForFingerMappingScheme } from './types';
-
-export type KeyFingerMappingScheme = {
-  [key in KeyIdForFingerMappingScheme]?: Finger;
-};
-
-export type FingerColorMapping = {
-  [key in Finger]: string;
-};
+import { keyIdsForFingerMappingScheme } from './types';
 
 export const HomeRowSchema = z
   .object({

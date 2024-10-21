@@ -36,6 +36,9 @@ export class KeyboardProfile {
 
   @prop({ type: Boolean, required: true, default: true })
   public generated!: boolean;
+
+  // @prop({ type: [Types.ObjectId], ref: () => Types.ObjectId })
+  // public exercises!: Ref<Types.ObjectId>[];
 }
 
 const KeyboardProfileModel = getModelForClass(KeyboardProfile, { schemaOptions: { timestamps: true } });
