@@ -2,73 +2,9 @@ import { ReactNode } from 'react';
 
 import { z } from 'zod';
 
-import { SaveKeyboardSettingsRequestSchema } from './schemas';
+import { baseKeyIds } from '@/shared/types';
 
-export const baseKeyIds = [
-  'Backquote',
-  'Digit1',
-  'Digit2',
-  'Digit3',
-  'Digit4',
-  'Digit5',
-  'Digit6',
-  'Digit7',
-  'Digit8',
-  'Digit9',
-  'Digit0',
-  'Minus',
-  'Equal',
-  'Backspace',
-  'Tab',
-  'KeyQ',
-  'KeyW',
-  'KeyE',
-  'KeyR',
-  'KeyT',
-  'KeyY',
-  'KeyU',
-  'KeyI',
-  'KeyO',
-  'KeyP',
-  'BracketLeft',
-  'BracketRight',
-  'Backslash',
-  'CapsLock',
-  'KeyA',
-  'KeyS',
-  'KeyD',
-  'KeyF',
-  'KeyG',
-  'KeyH',
-  'KeyJ',
-  'KeyK',
-  'KeyL',
-  'Semicolon',
-  'Quote',
-  'Enter',
-  'ShiftLeft',
-  'IntlBackslash',
-  'KeyZ',
-  'KeyX',
-  'KeyC',
-  'KeyV',
-  'KeyB',
-  'KeyN',
-  'KeyM',
-  'Comma',
-  'Period',
-  'Slash',
-  'ShiftRight',
-  'ControlLeft',
-  'MetaLeft',
-  'Fn',
-  'AltLeft',
-  // 'Space',
-  'AltRight',
-  'MetaRight',
-  'ContextMenu',
-  'ControlRight',
-] as const;
+import { SaveKeyboardSettingsRequestSchema } from './schemas';
 
 export const layoutKeyIds = [...baseKeyIds, 'Space'] as const;
 export type LayoutKeyId = (typeof layoutKeyIds)[number];
@@ -109,6 +45,21 @@ export enum System {
   macos = 'macos',
   windows = 'windows',
   linux = 'linux',
+}
+
+export enum FormFactor {
+  Fullsize = 'fullsize',
+  TKL = 'tkl', // Tenkeyless
+  SixtyPercent = '60%', // 60%
+  SeventyFivePercent = '75%', // 75%
+  FortyPercent = '40%', // 40%
+  FiftyPercent = '50%', // 50%
+  EightyPercent = '80%', // 80%
+}
+
+export enum Format {
+  ISO = 'iso',
+  ANSI = 'ansi',
 }
 
 export const layoutLanguages = ['english', 'russian'] as const;

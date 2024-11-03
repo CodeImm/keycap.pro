@@ -14,6 +14,8 @@ export function getLayoutById(id: LayoutId) {
     case 'jcuken':
       return jcuken;
     default: {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const exhaustiveCheck: never = id;
       throw new Error(`Unknown layout id: ${exhaustiveCheck}`);
     }

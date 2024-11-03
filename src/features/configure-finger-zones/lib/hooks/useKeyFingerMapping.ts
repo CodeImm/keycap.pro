@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import {
-  Finger,
   KeyFingerMappingScheme,
   KeyFingerMappingSchemeId,
   keyIdsForFingerMappingScheme,
@@ -9,6 +8,7 @@ import {
 import type { LayoutKeyId } from '@/entities/keyboard';
 import { DEFAULT_EXCLUDED_KEYS } from '@/entities/keyboard';
 import { getKeyFingerMappingById } from '@/entities/keyboard/lib';
+import { Finger } from '@/shared/types';
 
 interface UseKeyFingerMapping {
   keyFingerMapping: KeyFingerMappingScheme;
@@ -36,7 +36,7 @@ export function useKeyFingerMapping({ defaultValues, selectedFinger }: Props): U
   };
 
   const handleKeyFingerChange = useCallback(
-    (id: LayoutKeyId | undefined) => {
+    (id: LayoutKeyId | undefined | any) => {
       if (id && keyIdsForFingerMappingScheme.includes(id) && !DEFAULT_EXCLUDED_KEYS.includes(id)) {
         updateKeyFingerMapping(id, selectedFinger);
       }

@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 
-import { Finger } from '@/entities/keyFingerMapping';
+import { Finger } from '@/shared/types';
 
 interface UseSelectedFinger {
   selectedFinger: Finger;

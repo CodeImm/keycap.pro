@@ -1,8 +1,9 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
+import type { Ref } from '@typegoose/typegoose';
 import { Types } from 'mongoose';
 
-import { DEFAULT_HOME_ROW, type HomeRow, HomeRowSchema, KeyFingerMappingSchemeType } from '@/entities/keyFingerMapping';
-import { type KeyboardFormat, LayoutId, System } from '@/entities/keyboard';
+import { System } from '@/entities/keyboard';
+import { KeyboardProfile } from '@/entities/keyboard/model/KeyboardProfile';
 
 import { Gender, Role } from './types';
 
@@ -14,44 +15,15 @@ class Settings {
   public notifications!: boolean;
 }
 
-class Profile {
-  @prop()
-  public bio?: string;
-
-  @prop()
-  public website?: string;
-}
-
 class KeyboardSettings {
-  @prop({ enum: System })
-  public system!: System;
+  @prop({ enum: System, required: true })
+  public system!: string;
 
-  @prop({ type: String })
-  public format!: KeyboardFormat;
+  @prop({ type: [Types.ObjectId], ref: 'KeyboardProfile', required: true })
+  public keyboardProfileIds!: Ref<KeyboardProfile>[];
 
-  @prop({ enum: LayoutId })
-  public layoutId!: LayoutId;
-
-  @prop({ type: Types.ObjectId })
-  public activeKeyFingerMappingSchemeId!: Types.ObjectId;
-
-  @prop({ enum: KeyFingerMappingSchemeType, required: true })
-  public activeKeyFingerMappingSchemeType!: KeyFingerMappingSchemeType;
-
-  @prop({
-    type: Object,
-    required: true,
-    validate: {
-      validator: (value: unknown) => {
-        const result = HomeRowSchema.safeParse(value);
-
-        return result.success;
-      },
-      message: 'Invalid home row configuration',
-    },
-    default: DEFAULT_HOME_ROW,
-  })
-  public homeRow!: HomeRow;
+  @prop({ type: Types.ObjectId, ref: 'KeyboardProfile', required: true })
+  public activeKeyboardProfileId!: Ref<KeyboardProfile>;
 }
 
 class Permissions {

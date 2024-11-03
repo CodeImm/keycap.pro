@@ -10,7 +10,8 @@
     "lint:fix": "next lint --fix .",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint:fixall": "npm run lint:fix && npm run prettier:fix"
+    "lint:fixall": "npm run lint:fix && npm run prettier:fix",
+    "seed": "npx tsx ./src/shared/seeders/KeyFingerMappingScheme/index.ts"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
@@ -27,6 +28,7 @@
     "@typescript-eslint/parser": "^7.18.0",
     "arctic": "^1.9.2",
     "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
     "ky": "^1.7.1",
     "lodash.isequal": "^4.5.0",
     "lucia": "^3.2.0",

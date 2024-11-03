@@ -1,6 +1,6 @@
-import { KeyFingerMappingScheme } from '@/entities/keyboard';
+import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
 
-export const mapKeybaordSetupToApi = ({
+export const mapKeyboardSetupToApi = ({
   keyFingerMappingSchema,
   keyboardConfiguration,
 }: {

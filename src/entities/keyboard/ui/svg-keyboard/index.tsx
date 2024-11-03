@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
 
 import {
-  DEFAULT_PROMINENT_KEYS,
+  DEFAULT_HOME_ROW,
   FingerColorMapping,
   KeyFingerMappingScheme,
   KeyIdForFingerMappingScheme,
@@ -37,7 +37,7 @@ export function Keyboard({
   layoutId,
   keyboardFormat,
   excludedKeys = DEFAULT_EXCLUDED_KEYS,
-  homeKeys = DEFAULT_PROMINENT_KEYS,
+  homeKeys = Object.values(DEFAULT_HOME_ROW),
   keyFingerMapping,
   fingerColorMapping,
   onClick,

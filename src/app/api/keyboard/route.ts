@@ -17,9 +17,10 @@ export async function POST(req: Request) {
     if (!validation.success) {
       return new Response('Invalid data', { status: 400 });
     }
-
+    console.log('result');
     // найти клавиатуру с такими же настройками и если такая существуют сохранить id документа в профиль пользователя
-
+    // const result = await KeyboardProfileModel.find();
+    // console.log(result);
     const userId = user.id;
     console.log({ userId }, { body });
     // const result = await UserModel.findOneAndUpdate({ _id: userId }, { keyboardSettings: { ids: '' } });
