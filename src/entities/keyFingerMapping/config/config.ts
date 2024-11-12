@@ -13,7 +13,7 @@ export const DEFAULT_HOME_ROW: HomeRow = {
   [Finger.RIGHT_INDEX]: 'KeyJ',
   [Finger.RIGHT_MIDDLE]: 'KeyK',
   [Finger.RIGHT_RING]: 'KeyL',
-  [Finger.RIGHT_PINKIE]: 'KeyL',
+  [Finger.RIGHT_PINKIE]: 'Semicolon',
 } as const;
 
 export const DEFAULT_PROMINENT_KEYS: KeyIdForFingerMappingScheme[] = ['KeyF', 'KeyJ'] as const;

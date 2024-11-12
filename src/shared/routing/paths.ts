@@ -16,17 +16,19 @@ export const paths = {
     settings: '/profile/settings',
   },
 
+  admin: '/admin',
+
   account: '/account',
   statistics: '/statistics',
 };
 
-export const publicPages = [paths.home, paths.exercises];
+export const publicPages = [paths.home, paths.exercises, ];
 export const protectedPages = [
   paths.testing,
   paths.statistics,
   paths.profile.main,
   paths.profile.setup,
-  paths.profile.settings,
+  paths.profile.settings,paths.admin
 ];
 
 export const authPages = [paths.auth.login, paths.auth.signup];

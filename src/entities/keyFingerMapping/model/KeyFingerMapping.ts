@@ -1,21 +1,41 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
+import { getModelForClass, pre, prop } from '@typegoose/typegoose';
+import crypto from 'crypto';
 
-import { type KeyFingerMappingScheme, KeyFingerMappingSchemeType } from './types';
+import { Finger } from '@/shared/types';
 
+import { type KeyFingerMappingScheme, KeyFingerMappingSchemeType, KeyIdForFingerMappingScheme } from './types';
+
+@pre<KeyFingerMapping>('save', function () {
+  this.hash = this.generateHash();
+})
 export class KeyFingerMapping {
   @prop({ type: String, enum: KeyFingerMappingSchemeType, required: true, default: KeyFingerMappingSchemeType.Custom })
   public schemeType!: KeyFingerMappingSchemeType;
 
-  @prop({ type: String, required: true })
-  public name!: string;
+  @prop({ type: String, required: false })
+  public name?: string;
 
   @prop({ type: String })
   public description?: string;
 
-  // TODO: заменить Object
-  @prop({ _id: false, type: () => Object })
+  @prop({ _id: false, type: Map<KeyIdForFingerMappingScheme, Finger> })
   public keyFingerMappingScheme!: KeyFingerMappingScheme;
+
+  @prop({ type: String, required: false })
+  public hash!: string;
+
+  private generateHash(): string {
+    const hash = crypto.createHash('sha256');
+    const sortedKeys = Object.keys(this.keyFingerMappingScheme).sort() as KeyIdForFingerMappingScheme[];
+    const sortedScheme = sortedKeys.reduce((acc: any, key) => {
+      acc[key] = this.keyFingerMappingScheme[key];
+      return acc;
+    }, {});
+    hash.update(JSON.stringify(sortedScheme));
+    return hash.digest('hex');
+  }
 }
+
 
 const KeyFingerMappingModel = getModelForClass(KeyFingerMapping, { schemaOptions: { timestamps: true } });
 
