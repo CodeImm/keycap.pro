@@ -21,6 +21,7 @@ export const HomeRowSchema = z
     (data) => {
       const values = Object.values(data).filter((value) => value !== undefined);
       const uniqueValues = new Set(values);
+      
       return values.length === uniqueValues.size;
     },
     {

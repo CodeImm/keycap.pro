@@ -3,6 +3,8 @@ import KeyFingerMappingModel from './../../../entities/keyFingerMapping/model/Ke
 
 import mongoose from 'mongoose';
 
+import { generateHash } from '@/entities/keyFingerMapping/lib';
+
 import { logical } from './data/logical';
 import { optimized } from './data/optimized';
 
@@ -28,6 +30,10 @@ export async function seedKeyFingerMappingSchemes() {
         keyFingerMappingScheme: optimized,
       },
     ];
+
+    keyFingerMappingsSchemes.forEach((item) => {
+      item.hash = generateHash(item.keyFingerMappingScheme);
+    });
 
     await KeyFingerMappingModel.insertMany(keyFingerMappingsSchemes);
 

@@ -15,7 +15,7 @@ class Settings {
   public notifications!: boolean;
 }
 
-class KeyboardSettings {
+export class KeyboardSettings {
   @prop({ enum: System, required: true })
   public system!: string;
 
@@ -37,7 +37,7 @@ class Permissions {
   public canAccessPremiumFeatures!: boolean;
 }
 
-class User {
+export class User {
   @prop({ unique: true })
   github_id!: number;
 

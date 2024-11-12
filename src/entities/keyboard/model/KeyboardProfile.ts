@@ -7,21 +7,21 @@ import { KeyFingerMapping } from '@/entities/keyFingerMapping/model/KeyFingerMap
 import { FormFactor, Format, LayoutId } from '@/entities/keyboard';
 
 export class KeyboardProfile {
-  @prop({ enum: FormFactor, type: String, required: true, default: FormFactor.SixtyPercent })
+  @prop({ enum: FormFactor, type: String, required: false, default: FormFactor.SixtyPercent })
   public formFactor!: FormFactor;
 
   @prop({ enum: Format, type: String, required: true })
   public format!: Format;
 
   @prop({ enum: LayoutId, type: String, required: true })
-  public layoutId!: LayoutId;
+  public layout!: LayoutId;
 
   @prop({ ref: 'KeyFingerMapping', required: true })
   public keyFingerMappingSchemeId!: Ref<KeyFingerMapping>;
 
   @prop({
     type: Object,
-    required: true,
+    required: false,
     validate: {
       validator: (value: unknown) => {
         const result = HomeRowSchema.safeParse(value);
@@ -34,7 +34,7 @@ export class KeyboardProfile {
   })
   public homeRow!: HomeRow;
 
-  @prop({ type: Boolean, required: true, default: true })
+  @prop({ type: Boolean, required: false, default: true })
   public generated!: boolean;
 
   // @prop({ type: [Types.ObjectId], ref: () => Types.ObjectId })

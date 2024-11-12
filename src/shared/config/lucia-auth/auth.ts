@@ -3,6 +3,7 @@ import { Lucia } from 'lucia';
 import { Types } from 'mongoose';
 
 import { adapter } from './adapter';
+import { KeyboardSettings } from '@/entities/user/model/User';
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
@@ -24,6 +25,7 @@ export const lucia = new Lucia(adapter, {
       email: attributes.email,
       emailVerified: attributes.emailVerified,
       registrationCompleted: attributes.registrationCompleted,
+      keyboardSettings: attributes.keyboardSettings,
       role: attributes.role,
       imageURL: attributes.imageURL,
       createdAt: attributes.createdAt,
@@ -56,6 +58,7 @@ interface DatabaseUserAttributes {
   email?: string | null;
   emailVerified: Date | null;
   registrationCompleted: Date | null;
+  keyboardSettings: KeyboardSettings;
   role: string;
   imageURL?: string;
   createdAt: Date;
