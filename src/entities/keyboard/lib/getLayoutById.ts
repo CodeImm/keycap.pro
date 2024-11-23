@@ -1,4 +1,4 @@
-import { colemak, dvorak, jcuken, us_qwerty, workman } from '../config/keyboardLayouts';
+import { colemak, dvorak, jcuken, us_qwerty, workman} from '@/shared/seeders/KeyboardLayout/data';
 import type { LayoutId } from '../model/types';
 
 export function getLayoutById(id: LayoutId) {

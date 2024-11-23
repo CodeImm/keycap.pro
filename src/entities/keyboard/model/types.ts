@@ -9,20 +9,6 @@ import { SaveKeyboardSettingsRequestSchema } from './schemas';
 export const layoutKeyIds = [...baseKeyIds, 'Space'] as const;
 export type LayoutKeyId = (typeof layoutKeyIds)[number];
 
-export type LayoutKeyType = 'letter' | 'symbol' | 'special' | 'digit';
-
-export type LayoutKeyInfo = {
-  [key in LayoutKeyId]?: {
-    key: string;
-    type: LayoutKeyType;
-    alternate?: LayoutKeyId;
-  };
-};
-
-export type ShiftState = 'shift' | 'default';
-
-export type Layout = { [key in ShiftState]: LayoutKeyInfo };
-
 type KeyLabelPosition = 'center' | 'bottom' | 'center-left' | 'center-right';
 
 export type VirtualKeyboardRowName = 'row1' | 'row2' | 'row3' | 'row4' | 'row5';
@@ -65,6 +51,7 @@ export enum Format {
 export const layoutLanguages = ['english', 'russian'] as const;
 export type LayoutLanguage = (typeof layoutLanguages)[number];
 
+// TODO: есть дубликат KeyboardLayoutId 
 export enum LayoutId {
   UsQwerty = 'us_qwerty',
   Dvorak = 'dvorak',
