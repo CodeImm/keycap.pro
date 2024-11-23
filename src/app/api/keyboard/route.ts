@@ -36,6 +36,7 @@ export async function POST(req: Request) {
     });
     // console.log({ existingScheme });
     let keyFingerMappingSchemeId;
+    let keyboardProfile: any;
 
     if (existingScheme) {
       keyFingerMappingSchemeId = existingScheme._id;
@@ -49,18 +50,17 @@ export async function POST(req: Request) {
       keyFingerMappingSchemeId = savedScheme._id;
     }
 
-    const existingKeyboardProfile = await KeyboardProfileModel.findOne({
+    keyboardProfile = await KeyboardProfileModel.findOne({
       format: body.keyboardConfiguration.keyboardFormat,
       layout: body.keyboardConfiguration.keyboardLayoutId,
       keyFingerMappingSchemeId,
     });
     // console.log({ existingKeyboardProfile });
-    if (existingKeyboardProfile) {
+    if (keyboardProfile) {
       const userKeyboardProfiles = await UserKeyboardProfileModel.find({ userId: userId });
       // console.log({ userKeyboardProfiles });
       const profileExists = userKeyboardProfiles.some(
-        (userKeyboardProfile) =>
-          userKeyboardProfile.keyboardProfileId.toString() === existingKeyboardProfile._id.toString()
+        (userKeyboardProfile) => userKeyboardProfile.keyboardProfileId.toString() === keyboardProfile._id.toString()
       );
       // console.log({ profileExists });
       if (profileExists) {
@@ -68,7 +68,7 @@ export async function POST(req: Request) {
       }
       const newUserKeyboardProfile = new UserKeyboardProfileModel({
         userId,
-        keyboardProfileId: existingKeyboardProfile._id,
+        keyboardProfileId: keyboardProfile._id,
       });
       await newUserKeyboardProfile.save();
       // console.log({ newUserKeyboardProfile });
@@ -76,15 +76,15 @@ export async function POST(req: Request) {
       const newProfile = new KeyboardProfileModel({
         userId,
         layout: body.keyboardConfiguration.keyboardLayoutId,
-        format:body.keyboardConfiguration.keyboardFormat,
+        format: body.keyboardConfiguration.keyboardFormat,
         keyFingerMappingSchemeId,
       });
-      const savedProfile = await newProfile.save();
+      keyboardProfile = await newProfile.save();
       // console.log({ savedProfile });
 
       const userKeyboardProfile = new UserKeyboardProfileModel({
         userId,
-        keyboardProfileId: savedProfile._id,
+        keyboardProfileId: keyboardProfile._id,
       });
       // console.log({ userKeyboardProfile });
       await userKeyboardProfile.save();
@@ -92,7 +92,12 @@ export async function POST(req: Request) {
 
     await UserModel.findByIdAndUpdate(
       new Types.ObjectId(userId),
-      { $set: { 'keyboardSettings.system': body.keyboardConfiguration.system } },
+      {
+        $set: {
+          'keyboardSettings.system': body.keyboardConfiguration.system,
+          'keyboardSettings.activeKeyboardProfileId': keyboardProfile._id,
+        },
+      },
       { new: true }
     );
 
