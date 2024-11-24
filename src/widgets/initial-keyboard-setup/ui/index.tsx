@@ -9,6 +9,7 @@ import { getKeyFingerMappingById } from '@/entities/keyboard/lib';
 import { KeyFingerMappingForm } from '@/features/configure-finger-zones';
 import { KeyboardLayoutConfigurationForm } from '@/features/configure-keyboard-layout';
 import { StepControlPanel, StepperControls } from '@/shared/components';
+import { useRouter } from '@/shared/navigation';
 
 import api from '../api';
 import { mapKeyboardSetupToApi } from '../api/mappers/mapKeyboardSetupToApi';
@@ -19,6 +20,8 @@ export interface InitialKeyboardSetupFormData {}
 export function InitialKeyboardSetup() {
   const t = useTranslations('InitialKeyboardSetup');
 
+  const router = useRouter();
+
   const [keyboardConfig, setKeyboardConfig] = useState({
     layoutConfig: defaultKeyboardLayoutConfig,
     keyFingerMapping: getKeyFingerMappingById('optimized'),
@@ -28,7 +31,11 @@ export function InitialKeyboardSetup() {
     setKeyboardConfig((prev) => ({ ...prev, [property]: data }));
   }
 
-  const { mutate } = api.useSaveKeyboardConfiguration();
+  const { mutate } = api.useSaveKeyboardConfiguration({
+    onSuccess: () => {
+      router.refresh();
+    },
+  });
 
   function handleSubmit(data: KeyFingerMappingScheme) {
     console.log({

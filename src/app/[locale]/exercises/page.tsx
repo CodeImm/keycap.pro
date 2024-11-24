@@ -22,7 +22,7 @@ export default async function ExercisesPage({ params: { locale } }: Props) {
 
   return (
     <Container maxWidth="md">
-      <InitialKeyboardSetup />
+      {user?.keyboardSettings?.activeKeyboardProfileId ? <>Exercises</> : <InitialKeyboardSetup />}
     </Container>
   );
 }
