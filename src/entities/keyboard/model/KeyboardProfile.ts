@@ -7,7 +7,7 @@ import { KeyFingerMapping } from '@/entities/keyFingerMapping/model/KeyFingerMap
 import { FormFactor, Format, LayoutId } from '@/entities/keyboard';
 
 export class KeyboardProfile {
-  @prop({ enum: FormFactor, type: String, required: false, default: FormFactor.SixtyPercent })
+  @prop({ enum: FormFactor, type: String, default: FormFactor.SixtyPercent })
   public formFactor!: FormFactor;
 
   @prop({ enum: Format, type: String, required: true })
@@ -34,11 +34,7 @@ export class KeyboardProfile {
   })
   public homeRow!: HomeRow;
 
-  @prop({ type: Boolean, required: false, default: true })
-  public generated!: boolean;
 
-  // @prop({ type: [Types.ObjectId], ref: () => Types.ObjectId })
-  // public exercises!: Ref<Types.ObjectId>[];
 }
 
 const KeyboardProfileModel = getModelForClass(KeyboardProfile, { schemaOptions: { timestamps: true } });
