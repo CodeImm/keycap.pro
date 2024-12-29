@@ -3,9 +3,11 @@ import { memo } from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
 
 import HomeMark from './HomeMark';
-import Rect from './Rect';
 import RightHandMark from './RightHandMark';
 import Text from './Text';
+
+const labelPadding = 5;
+const labelOffset = 0;
 
 interface KeyProps extends BoxProps {
   id: string;
@@ -34,7 +36,6 @@ function Key({
   centerLabel,
   topLeftLabel,
   bottomLeftLabel,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   bottomRightLabel,
   centerLeftLabel,
   homing = false,
@@ -47,7 +48,7 @@ function Key({
 }: KeyProps) {
   return (
     <Box id={id} component="svg" x={x} y={y} sx={{ visibility: visible ? 'visible' : 'hidden', ...sx }} {...props}>
-      <Rect x={0} y={0} width={width} height={height} fill={fill} />
+      <Box component="path" d={`M 0 0 H ${width} V ${height} H 0 Z`} fill={fill} />
       <>
         {centerLabel && (
           <Text
@@ -64,9 +65,10 @@ function Key({
         )}
         {topLeftLabel && (
           <Text
-            x={10}
-            y={15}
-            fill={fontColor}
+            x={labelPadding}
+            y={labelPadding}
+            dominantBaseline="text-before-edge"
+            textAnchor="start"
             textRendering="optimizeLegibility"
             sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
           >
@@ -75,8 +77,10 @@ function Key({
         )}
         {bottomLeftLabel && (
           <Text
-            x={10}
-            y={30}
+            x={labelPadding}
+            y={height - labelPadding}
+            dominantBaseline="text-after-edge"
+            textAnchor="start"
             fill={fontColor}
             textRendering="optimizeLegibility"
             sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
@@ -84,12 +88,26 @@ function Key({
             {bottomLeftLabel}
           </Text>
         )}
+        {bottomRightLabel && (
+          <Text
+            x={width - labelPadding}
+            y={height - labelPadding}
+            dominantBaseline="text-after-edge"
+            textAnchor="end"
+            fill={fontColor}
+            textRendering="optimizeLegibility"
+            sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
+          >
+            {bottomRightLabel}
+          </Text>
+        )}
         {centerLeftLabel && (
           <>
             <Text
-              x={12}
-              y={height / 2 + 2}
+              x={labelPadding + labelOffset}
+              y={height / 2}
               dominantBaseline="middle"
+              textAnchor="start"
               fill={fontColor}
               textRendering="optimizeLegibility"
               sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}

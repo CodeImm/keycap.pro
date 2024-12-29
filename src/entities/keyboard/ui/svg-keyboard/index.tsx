@@ -3,10 +3,9 @@ import { useMemo } from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
 
 import {
-  DEFAULT_HOME_ROW,
+  DEFAULT_HOMING_KEYS,
   FingerColorMapping,
-  KeyFingerMappingScheme,
-  KeyIdForFingerMappingScheme,
+  KeyFingerMappingScheme
 } from '@/entities/keyFingerMapping';
 
 import Inner from './Inner';
@@ -26,7 +25,7 @@ interface Props extends BoxProps {
   layoutId: LayoutId;
   keyboardFormat: KeyboardFormat;
   excludedKeys?: LayoutKeyId[];
-  homeKeys?: KeyIdForFingerMappingScheme[];
+  homingKeys?: LayoutKeyId[];
   keyFingerMapping?: KeyFingerMappingScheme;
   fingerColorMapping?: FingerColorMapping;
   onClick?: (e: any) => void;
@@ -37,7 +36,7 @@ export function Keyboard({
   layoutId,
   keyboardFormat,
   excludedKeys = DEFAULT_EXCLUDED_KEYS,
-  homeKeys = Object.values(DEFAULT_HOME_ROW),
+  homingKeys = DEFAULT_HOMING_KEYS,
   keyFingerMapping,
   fingerColorMapping,
   onClick,
@@ -76,7 +75,7 @@ export function Keyboard({
             layout={layout}
             keyboardFormat={keyboardFormat}
             excludedKeys={excludedKeys}
-            homeKeys={homeKeys}
+            homingKeys={homingKeys}
             keyFingerMapping={keyFingerMapping}
             fingerColorMapping={fingerColorMapping}
           />

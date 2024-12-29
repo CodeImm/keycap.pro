@@ -117,7 +117,6 @@ function SpecialKey({
       height={height}
       width={width}
       centerLabel={label}
-      bottomRightLabel={undefined}
       homing={homing}
       visible={visible}
       fill={fill}

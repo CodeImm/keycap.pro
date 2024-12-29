@@ -1,7 +1,7 @@
 import { Finger } from '@/shared/types';
 
+import { LayoutKeyId } from '@/entities/keyboard';
 import { HomeRow } from '../model/schemas';
-import { KeyIdForFingerMappingScheme } from '../model/types';
 
 export const DEFAULT_HOME_ROW: HomeRow = {
   [Finger.LEFT_PINKIE]: 'KeyA',
@@ -16,4 +16,4 @@ export const DEFAULT_HOME_ROW: HomeRow = {
   [Finger.RIGHT_PINKIE]: 'Semicolon',
 } as const;
 
-export const DEFAULT_PROMINENT_KEYS: KeyIdForFingerMappingScheme[] = ['KeyF', 'KeyJ'] as const;
+export const DEFAULT_HOMING_KEYS: LayoutKeyId[] = ['KeyF', 'KeyJ'] as const;

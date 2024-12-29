@@ -1,12 +1,13 @@
 import { memo } from 'react';
 
 import { FingerColorMapping, KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
+import { Layout } from '@/entities/keyboardLayout';
+import { Finger } from '@/shared/types';
 
 import Key from './Key';
 import SpecialKey from './SpecialKey';
 
-import type { KeyboardFormat, Layout, VirtualKeyboardLayout, VirtualKeyboardRowName } from '../../model/types';
-import { Finger } from '@/shared/types';
+import type { KeyboardFormat, LayoutKeyId, VirtualKeyboardLayout, VirtualKeyboardRowName } from '../../model/types';
 
 interface Props {
   y: number;
@@ -14,7 +15,7 @@ interface Props {
   layout: Layout;
   keyboardFormat: KeyboardFormat;
   excludedKeys: string[];
-  homeKeys: string[];
+  homingKeys: LayoutKeyId[];
   keyFingerMapping?: KeyFingerMappingScheme;
   fingerColorMapping?: FingerColorMapping;
 }
@@ -25,7 +26,7 @@ const KeyboardRow = memo(function KeyboardRow({
   layout,
   keyboardFormat,
   excludedKeys,
-  homeKeys,
+  homingKeys,
   keyFingerMapping,
   fingerColorMapping,
 }: Props) {
@@ -45,7 +46,7 @@ const KeyboardRow = memo(function KeyboardRow({
 
   const isVisible = (id: string) => !excludedKeys.includes(id);
 
-  const isHoming = (id: string) => id === homeKeys[0] || id === homeKeys[1];
+  const isHomingKey = (id: LayoutKeyId) => homingKeys.includes(id);
 
   return (
     <>
@@ -67,7 +68,7 @@ const KeyboardRow = memo(function KeyboardRow({
             width={width}
             label={label}
             keyboardFormat={keyboardFormat}
-            homing={isHoming(id)}
+            homing={isHomingKey(id)}
             visible={isVisible(id)}
             fill={fill}
             fingerColorMapping={fingerColorMapping}
@@ -85,7 +86,7 @@ const KeyboardRow = memo(function KeyboardRow({
             topLeftLabel={isLetter(id) ? undefined : layout.shift?.[id]?.key}
             bottomLeftLabel={isLetter(id) ? undefined : layout.default?.[id]?.key}
             bottomRightLabel={undefined}
-            homing={isHoming(id)}
+            homing={isHomingKey(id)}
             visible={isVisible(id)}
             fill={fill}
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
