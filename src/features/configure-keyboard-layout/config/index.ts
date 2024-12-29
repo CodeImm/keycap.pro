@@ -1,4 +1,4 @@
-import type { KeyboardFormat, LayoutLanguage } from '@/entities/keyboard';
+import { KeyboardFormat, LayoutLanguage } from '@/entities/keyboard';
 import { System } from '@/entities/keyboard';
 import type { SelectOption } from '@/shared/components';
 
@@ -9,11 +9,11 @@ export const systemOptions: SelectOption<System>[] = [
 ];
 
 export const keyboardLayoutLanguageOptions: SelectOption<LayoutLanguage>[] = [
-  { value: 'russian', label: 'Русский' },
-  { value: 'english', label: 'English' },
+  { value: LayoutLanguage.Russian, label: 'Русский' },
+  { value: LayoutLanguage.English, label: 'English' },
 ];
 
 export const keyboardLayoutTypeOptions: SelectOption<KeyboardFormat>[] = [
-  { value: 'iso', label: 'ISO' },
-  { value: 'ansi', label: 'ANSI' },
+  { value: KeyboardFormat.Iso, label: 'ISO' },
+  { value: KeyboardFormat.Ansi, label: 'ANSI' },
 ];

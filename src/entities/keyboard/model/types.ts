@@ -48,8 +48,10 @@ export enum Format {
   ANSI = 'ansi',
 }
 
-export const layoutLanguages = ['english', 'russian'] as const;
-export type LayoutLanguage = (typeof layoutLanguages)[number];
+export enum LayoutLanguage {
+  English = 'english',
+  Russian = 'russian',
+}
 
 // TODO: есть дубликат KeyboardLayoutId 
 export enum LayoutId {
@@ -60,13 +62,10 @@ export enum LayoutId {
   Jcuken = 'jcuken',
 }
 
-export const keyboardFormats = ['iso', 'ansi'] as const;
-export type KeyboardFormat = (typeof keyboardFormats)[number];
-
-// export enum KeyboardFormat {
-//   Iso = 'iso',
-//   Ansi = 'ansi',
-// }
+export enum KeyboardFormat {
+  Iso = 'iso',
+  Ansi = 'ansi',
+}
 
 export type LayoutProfiles = {
   id: LayoutId;

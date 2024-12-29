@@ -40,7 +40,7 @@ function SpecialKey({
   keyFingerMapping,
   fingerColorMapping,
 }: Props) {
-  const isIsoEnter = id === 'Enter' && keyboardFormat === 'iso';
+  const isIsoEnter = id === 'Enter' && keyboardFormat === KeyboardFormat.Iso;
   const isSpaceKey = id === 'Space';
 
   if (isIsoEnter) {
