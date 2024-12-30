@@ -4,17 +4,18 @@ import { getModelForClass, prop } from '@typegoose/typegoose';
 import type { HomeRow } from '@/entities/keyFingerMapping';
 import { DEFAULT_HOME_ROW, HomeRowSchema } from '@/entities/keyFingerMapping';
 import { KeyFingerMapping } from '@/entities/keyFingerMapping/model/KeyFingerMapping';
-import { FormFactor, Format, LayoutId } from '@/entities/keyboard';
+import { FormFactor, } from '@/entities/keyboard';
+import { KeyboardFormat, KeyboardLayoutId } from '@/shared/types';
 
 export class KeyboardProfile {
   @prop({ enum: FormFactor, type: String, default: FormFactor.SixtyPercent })
   public formFactor!: FormFactor;
 
-  @prop({ enum: Format, type: String, required: true })
-  public format!: Format;
+  @prop({ enum: KeyboardFormat, type: String, required: true })
+  public format!: KeyboardFormat;
 
-  @prop({ enum: LayoutId, type: String, required: true })
-  public layout!: LayoutId;
+  @prop({ enum: KeyboardLayoutId, type: String, required: true })
+  public layout!: KeyboardLayoutId;
 
   @prop({ ref: 'KeyFingerMapping', required: true })
   public keyFingerMappingSchemeId!: Ref<KeyFingerMapping>;

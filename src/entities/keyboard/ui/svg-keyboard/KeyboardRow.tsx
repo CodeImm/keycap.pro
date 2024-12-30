@@ -1,22 +1,20 @@
 import { memo } from 'react';
 
-import { FingerColorMapping, KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
-import { Layout } from '@/entities/keyboardLayout';
-import { Finger } from '@/shared/types';
+import { Finger, FingerColorMapping, KeyCode, KeyFingerMapping, KeyboardFormat, KeyboardLayout } from '@/shared/types';
 
 import Key from './Key';
 import SpecialKey from './SpecialKey';
 
-import type { KeyboardFormat, LayoutKeyId, VirtualKeyboardLayout, VirtualKeyboardRowName } from '../../model/types';
+import type { VirtualKeyboardLayout, VirtualKeyboardRowName } from '../../model/types';
 
 interface Props {
   y: number;
   rowKeys: VirtualKeyboardLayout[VirtualKeyboardRowName];
-  layout: Layout;
+  layout: KeyboardLayout;
   keyboardFormat: KeyboardFormat;
   excludedKeys: string[];
-  homingKeys: LayoutKeyId[];
-  keyFingerMapping?: KeyFingerMappingScheme;
+  homingKeys: KeyCode[];
+  keyFingerMapping?: KeyFingerMapping;
   fingerColorMapping?: FingerColorMapping;
 }
 
@@ -32,10 +30,10 @@ const KeyboardRow = memo(function KeyboardRow({
 }: Props) {
   let widthAdder = 0;
 
-  const getFill = (id: keyof KeyFingerMappingScheme) => {
+  const getFill = (keyCode: keyof KeyFingerMapping) => {
     if (!fingerColorMapping || !keyFingerMapping) return undefined;
 
-    const finger = keyFingerMapping[id] as Finger;
+    const finger = keyFingerMapping[keyCode] as Finger[];
 
     return fingerColorMapping[finger];
   };
@@ -46,7 +44,7 @@ const KeyboardRow = memo(function KeyboardRow({
 
   const isVisible = (id: string) => !excludedKeys.includes(id);
 
-  const isHomingKey = (id: LayoutKeyId) => homingKeys.includes(id);
+  const isHomingKey = (keyCode: KeyCode) => homingKeys.includes(keyCode);
 
   return (
     <>
@@ -82,9 +80,9 @@ const KeyboardRow = memo(function KeyboardRow({
             y={y}
             height={40}
             width={width}
-            centerLabel={isLetter(id) ? layout.shift?.[id]?.key : undefined}
-            topLeftLabel={isLetter(id) ? undefined : layout.shift?.[id]?.key}
-            bottomLeftLabel={isLetter(id) ? undefined : layout.default?.[id]?.key}
+            centerLabel={isLetter(id) ? layout.shift?.[id]?.char : undefined}
+            topLeftLabel={isLetter(id) ? undefined : layout.shift?.[id]?.char}
+            bottomLeftLabel={isLetter(id) ? undefined : layout.default?.[id]?.char}
             bottomRightLabel={undefined}
             homing={isHomingKey(id)}
             visible={isVisible(id)}

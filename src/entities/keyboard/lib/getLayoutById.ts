@@ -1,7 +1,8 @@
-import { colemak, dvorak, jcuken, us_qwerty, workman} from '@/shared/seeders/KeyboardLayout/data';
-import type { LayoutId } from '../model/types';
+import { colemak, dvorak, jcuken, us_qwerty, workman } from '@/shared/seeders/KeyboardLayout/data';
+import { KeyboardLayoutId } from '@/shared/types';
 
-export function getLayoutById(id: LayoutId) {
+
+export function getLayoutById(id: KeyboardLayoutId) {
   switch (id) {
     case 'us_qwerty':
       return us_qwerty;

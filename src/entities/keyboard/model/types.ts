@@ -2,18 +2,14 @@ import { ReactNode } from 'react';
 
 import { z } from 'zod';
 
-import { baseKeyIds } from '@/shared/types';
-
+import { KeyboardLayoutId, KeyCode } from '@/shared/types';
 import { SaveKeyboardSettingsRequestSchema } from './schemas';
-
-export const layoutKeyIds = [...baseKeyIds, 'Space'] as const;
-export type LayoutKeyId = (typeof layoutKeyIds)[number];
 
 type KeyLabelPosition = 'center' | 'bottom' | 'center-left' | 'center-right';
 
 export type VirtualKeyboardRowName = 'row1' | 'row2' | 'row3' | 'row4' | 'row5';
 export interface KeyCap {
-  id: LayoutKeyId;
+  id: KeyCode;
   width: number;
   type?: 'special';
   label?: string;
@@ -28,9 +24,9 @@ export type VirtualKeyboardLayout = {
 };
 
 export enum System {
-  macos = 'macos',
-  windows = 'windows',
-  linux = 'linux',
+  Macos = 'macos',
+  Windows = 'windows',
+  Linux = 'linux',
 }
 
 export enum FormFactor {
@@ -43,32 +39,13 @@ export enum FormFactor {
   EightyPercent = '80%', // 80%
 }
 
-export enum Format {
-  ISO = 'iso',
-  ANSI = 'ansi',
-}
-
 export enum LayoutLanguage {
   English = 'english',
   Russian = 'russian',
 }
 
-// TODO: есть дубликат KeyboardLayoutId 
-export enum LayoutId {
-  UsQwerty = 'us_qwerty',
-  Dvorak = 'dvorak',
-  Colemak = 'colemak',
-  Workman = 'workman',
-  Jcuken = 'jcuken',
-}
-
-export enum KeyboardFormat {
-  Iso = 'iso',
-  Ansi = 'ansi',
-}
-
 export type LayoutProfiles = {
-  id: LayoutId;
+  id: KeyboardLayoutId;
   name: string;
   language: LayoutLanguage;
   system: System;

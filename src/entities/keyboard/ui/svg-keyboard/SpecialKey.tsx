@@ -1,12 +1,10 @@
 import { BoxProps } from '@mui/material/Box';
 
-import { FingerColorMapping, KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
+import { FingerColorMapping, KeyFingerMapping, KeyboardFormat } from '@/shared/types';
 
 import IsoEnter from './IsoEnter';
 import Key from './Key';
 import SpaceDivider from './SpaceDivider';
-
-import { KeyboardFormat } from '../../model/types';
 
 interface Props extends BoxProps {
   id: string;
@@ -21,7 +19,7 @@ interface Props extends BoxProps {
   visible?: boolean;
   fill?: string;
   fontColor?: string;
-  keyFingerMapping?: KeyFingerMappingScheme;
+  keyFingerMapping?: KeyFingerMapping;
   fingerColorMapping?: FingerColorMapping;
 }
 

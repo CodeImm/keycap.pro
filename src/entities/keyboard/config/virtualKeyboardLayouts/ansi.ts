@@ -1,68 +1,69 @@
-import { KeyType } from '@/entities/keyboardLayout';
+import { KeyType } from '@/shared/types';
+
 import { KeyCap, System, VirtualKeyboardLayout } from '../../model/types';
 
 const specialKeysWindows: { [key: string]: KeyCap } = {
-  Backspace: { id: 'Backspace', width: 83,type: KeyType.SPECIAL, label: 'BackSpace', labelPosition: 'center-right' },
-  Tab: { id: 'Tab', width: 63,type: KeyType.SPECIAL, label: 'Tab', labelPosition: 'center-left' },
-  CapsLock: { id: 'CapsLock', width: 70,type: KeyType.SPECIAL, label: 'CapsLock', labelPosition: 'center-left' },
-  Enter: { id: 'Enter', width: 95,type: KeyType.SPECIAL, label: 'Return', labelPosition: 'center-right' },
-  ShiftLeft: { id: 'ShiftLeft', width: 92,type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-left' },
-  ShiftRight: { id: 'ShiftRight', width: 115,type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-right' },
-  ControlLeft: { id: 'ControlLeft', width: 63,type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
-  MetaLeft: { id: 'MetaLeft', width: 40,type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
-  Fn: { id: 'Fn', width: 40,type: KeyType.SPECIAL, label: 'Fn', labelPosition: 'center' },
-  Space: { id: 'Space', width: 247,type: KeyType.SPECIAL },
-  AltLeft: { id: 'AltLeft', width: 40,type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
-  AltRight: { id: 'AltRight', width: 40,type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
-  MetaRight: { id: 'MetaRight', width: 40,type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
-  ContextMenu: { id: 'ContextMenu', width: 40,type: KeyType.SPECIAL },
-  ControlRight: { id: 'ControlRight', width: 63,type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
+  Backspace: { id: 'Backspace', width: 83, type: KeyType.SPECIAL, label: 'BackSpace', labelPosition: 'center-right' },
+  Tab: { id: 'Tab', width: 63, type: KeyType.SPECIAL, label: 'Tab', labelPosition: 'center-left' },
+  CapsLock: { id: 'CapsLock', width: 70, type: KeyType.SPECIAL, label: 'CapsLock', labelPosition: 'center-left' },
+  Enter: { id: 'Enter', width: 95, type: KeyType.SPECIAL, label: 'Enter', labelPosition: 'center-right' },
+  ShiftLeft: { id: 'ShiftLeft', width: 92, type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-left' },
+  ShiftRight: { id: 'ShiftRight', width: 115, type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-right' },
+  ControlLeft: { id: 'ControlLeft', width: 63, type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
+  MetaLeft: { id: 'MetaLeft', width: 40, type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
+  Fn: { id: 'Fn', width: 40, type: KeyType.SPECIAL, label: 'Fn', labelPosition: 'center' },
+  Space: { id: 'Space', width: 247, type: KeyType.SPECIAL },
+  AltLeft: { id: 'AltLeft', width: 40, type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
+  AltRight: { id: 'AltRight', width: 40, type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
+  MetaRight: { id: 'MetaRight', width: 40, type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
+  ContextMenu: { id: 'ContextMenu', width: 40, type: KeyType.SPECIAL },
+  ControlRight: { id: 'ControlRight', width: 63, type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
 };
 
 const specialKeysLinux: { [key: string]: KeyCap } = {
-  Backspace: { id: 'Backspace', width: 83,type: KeyType.SPECIAL, label: 'BackSpace', labelPosition: 'center-right' },
-  Tab: { id: 'Tab', width: 63,type: KeyType.SPECIAL, label: 'Tab', labelPosition: 'center-left' },
-  CapsLock: { id: 'CapsLock', width: 70,type: KeyType.SPECIAL, label: 'CapsLock', labelPosition: 'center-left' },
-  Enter: { id: 'Enter', width: 95,type: KeyType.SPECIAL, label: 'Return', labelPosition: 'center-right' },
-  ShiftLeft: { id: 'ShiftLeft', width: 92,type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-left' },
-  ShiftRight: { id: 'ShiftRight', width: 115,type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-right' },
-  ControlLeft: { id: 'ControlLeft', width: 63,type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
-  MetaLeft: { id: 'MetaLeft', width: 40,type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
-  Fn: { id: 'Fn', width: 40,type: KeyType.SPECIAL, label: 'Fn', labelPosition: 'center' },
-  Space: { id: 'Space', width: 247,type: KeyType.SPECIAL },
-  AltLeft: { id: 'AltLeft', width: 40,type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
-  AltRight: { id: 'AltRight', width: 40,type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
-  MetaRight: { id: 'MetaRight', width: 40,type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
-  ContextMenu: { id: 'ContextMenu', width: 40,type: KeyType.SPECIAL },
-  ControlRight: { id: 'ControlRight', width: 63,type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
+  Backspace: { id: 'Backspace', width: 83, type: KeyType.SPECIAL, label: 'BackSpace', labelPosition: 'center-right' },
+  Tab: { id: 'Tab', width: 63, type: KeyType.SPECIAL, label: 'Tab', labelPosition: 'center-left' },
+  CapsLock: { id: 'CapsLock', width: 70, type: KeyType.SPECIAL, label: 'CapsLock', labelPosition: 'center-left' },
+  Enter: { id: 'Enter', width: 95, type: KeyType.SPECIAL, label: 'Return', labelPosition: 'center-right' },
+  ShiftLeft: { id: 'ShiftLeft', width: 92, type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-left' },
+  ShiftRight: { id: 'ShiftRight', width: 115, type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-right' },
+  ControlLeft: { id: 'ControlLeft', width: 63, type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
+  MetaLeft: { id: 'MetaLeft', width: 40, type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
+  Fn: { id: 'Fn', width: 40, type: KeyType.SPECIAL, label: 'Fn', labelPosition: 'center' },
+  Space: { id: 'Space', width: 247, type: KeyType.SPECIAL },
+  AltLeft: { id: 'AltLeft', width: 40, type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
+  AltRight: { id: 'AltRight', width: 40, type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
+  MetaRight: { id: 'MetaRight', width: 40, type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
+  ContextMenu: { id: 'ContextMenu', width: 40, type: KeyType.SPECIAL },
+  ControlRight: { id: 'ControlRight', width: 63, type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
 };
 
 const specialKeysMacOS: { [key: string]: KeyCap } = {
-  Backspace: { id: 'Backspace', width: 83,type: KeyType.SPECIAL, label: 'BackSpace', labelPosition: 'center-right' },
-  Tab: { id: 'Tab', width: 63,type: KeyType.SPECIAL, label: 'Tab', labelPosition: 'center-left' },
-  CapsLock: { id: 'CapsLock', width: 70,type: KeyType.SPECIAL, label: 'CapsLock', labelPosition: 'center-left' },
-  Enter: { id: 'Enter', width: 95,type: KeyType.SPECIAL, label: 'Return', labelPosition: 'center-right' },
-  ShiftLeft: { id: 'ShiftLeft', width: 92,type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-left' },
-  ShiftRight: { id: 'ShiftRight', width: 115,type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-right' },
-  ControlLeft: { id: 'ControlLeft', width: 63,type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
-  MetaLeft: { id: 'MetaLeft', width: 40,type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
-  Fn: { id: 'Fn', width: 40,type: KeyType.SPECIAL, label: 'Fn', labelPosition: 'center' },
-  Space: { id: 'Space', width: 247,type: KeyType.SPECIAL },
-  AltLeft: { id: 'AltLeft', width: 40,type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
-  AltRight: { id: 'AltRight', width: 40,type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
-  MetaRight: { id: 'MetaRight', width: 40,type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
-  ContextMenu: { id: 'ContextMenu', width: 40,type: KeyType.SPECIAL },
-  ControlRight: { id: 'ControlRight', width: 63,type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
+  Backspace: { id: 'Backspace', width: 83, type: KeyType.SPECIAL, label: 'BackSpace', labelPosition: 'center-right' },
+  Tab: { id: 'Tab', width: 63, type: KeyType.SPECIAL, label: 'Tab', labelPosition: 'center-left' },
+  CapsLock: { id: 'CapsLock', width: 70, type: KeyType.SPECIAL, label: 'CapsLock', labelPosition: 'center-left' },
+  Enter: { id: 'Enter', width: 95, type: KeyType.SPECIAL, label: 'Return', labelPosition: 'center-right' },
+  ShiftLeft: { id: 'ShiftLeft', width: 92, type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-left' },
+  ShiftRight: { id: 'ShiftRight', width: 115, type: KeyType.SPECIAL, label: 'Shift', labelPosition: 'center-right' },
+  ControlLeft: { id: 'ControlLeft', width: 63, type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
+  MetaLeft: { id: 'MetaLeft', width: 40, type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
+  Fn: { id: 'Fn', width: 40, type: KeyType.SPECIAL, label: 'Fn', labelPosition: 'center' },
+  Space: { id: 'Space', width: 247, type: KeyType.SPECIAL },
+  AltLeft: { id: 'AltLeft', width: 40, type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
+  AltRight: { id: 'AltRight', width: 40, type: KeyType.SPECIAL, label: 'Alt', labelPosition: 'center' },
+  MetaRight: { id: 'MetaRight', width: 40, type: KeyType.SPECIAL, label: 'Meta', labelPosition: 'center' },
+  ContextMenu: { id: 'ContextMenu', width: 40, type: KeyType.SPECIAL },
+  ControlRight: { id: 'ControlRight', width: 63, type: KeyType.SPECIAL, label: 'Ctrl', labelPosition: 'center' },
 };
 
 export const createAnsiKeyboardLayout = (system: System): VirtualKeyboardLayout => {
   let specialKeys = null;
 
-  if (system === System.windows) {
+  if (system === System.Windows) {
     specialKeys = specialKeysWindows;
-  } else if (system === System.linux) {
+  } else if (system === System.Linux) {
     specialKeys = specialKeysMacOS;
-  } else if (system === System.macos) {
+  } else if (system === System.Macos) {
     specialKeys = specialKeysLinux;
   } else {
     specialKeys = specialKeysWindows;

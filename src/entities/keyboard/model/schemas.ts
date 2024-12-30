@@ -1,10 +1,11 @@
 import { z } from 'zod';
 
 import { KeyFingerMappingSchema } from '@/entities/keyFingerMapping';
-import { KeyboardFormat, LayoutId, System } from '@/entities/keyboard';
+import { System } from '@/entities/keyboard';
+import { KeyboardFormat, KeyboardLayoutId } from '@/shared/types';
 
 export const KeyboardConfigurationSchema = z.object({
-  keyboardLayoutId: z.nativeEnum(LayoutId),
+  keyboardLayoutId: z.nativeEnum(KeyboardLayoutId),
   keyboardFormat: z.nativeEnum(KeyboardFormat),
   system: z.nativeEnum(System),
 });

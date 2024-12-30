@@ -1,456 +1,458 @@
 /**
  * https://w3c.github.io/uievents-code/#code-value-tables
  */
-import { KeyModifier, KeyType, Layout } from './../../../../entities/keyboardLayout';
 
-export const us_qwerty: Layout = {
+import { KeyboardLayout, KeyModifier, KeyType } from "@/shared/types";
+
+
+export const us_qwerty: KeyboardLayout = {
   [KeyModifier.DEFAULT]: {
     Backquote: {
-      key: '`',
+      char: '`',
       type: KeyType.SYMBOL,
     },
     Digit1: {
-      key: '1',
+      char: '1',
       type: KeyType.DIGIT,
     },
     Digit2: {
-      key: '2',
+      char: '2',
       type: KeyType.DIGIT,
     },
     Digit3: {
-      key: '3',
+      char: '3',
       type: KeyType.DIGIT,
     },
     Digit4: {
-      key: '4',
+      char: '4',
       type: KeyType.DIGIT,
     },
     Digit5: {
-      key: '5',
+      char: '5',
       type: KeyType.DIGIT,
     },
     Digit6: {
-      key: '6',
+      char: '6',
       type: KeyType.DIGIT,
     },
     Digit7: {
-      key: '7',
+      char: '7',
       type: KeyType.DIGIT,
     },
     Digit8: {
-      key: '8',
+      char: '8',
       type: KeyType.DIGIT,
     },
     Digit9: {
-      key: '9',
+      char: '9',
       type: KeyType.DIGIT,
     },
     Digit0: {
-      key: '0',
+      char: '0',
       type: KeyType.DIGIT,
     },
     Minus: {
-      key: '-',
+      char: '-',
       type: KeyType.SYMBOL,
     },
     Equal: {
-      key: '=',
+      char: '=',
       type: KeyType.SYMBOL,
     },
     Backspace: {
-      key: 'Backspace',
+      char: 'Backspace',
       type: KeyType.SPECIAL,
     },
     Tab: {
-      key: 'Tab',
+      char: 'Tab',
       type: KeyType.SPECIAL,
     },
     KeyQ: {
-      key: 'q',
+      char: 'q',
       type: KeyType.LETTER,
     },
     KeyW: {
-      key: 'w',
+      char: 'w',
       type: KeyType.LETTER,
     },
     KeyE: {
-      key: 'e',
+      char: 'e',
       type: KeyType.LETTER,
     },
     KeyR: {
-      key: 'r',
+      char: 'r',
       type: KeyType.LETTER,
     },
     KeyT: {
-      key: 't',
+      char: 't',
       type: KeyType.LETTER,
     },
     KeyY: {
-      key: 'y',
+      char: 'y',
       type: KeyType.LETTER,
     },
     KeyU: {
-      key: 'u',
+      char: 'u',
       type: KeyType.LETTER,
     },
     KeyI: {
-      key: 'i',
+      char: 'i',
       type: KeyType.LETTER,
     },
     KeyO: {
-      key: 'o',
+      char: 'o',
       type: KeyType.LETTER,
     },
     KeyP: {
-      key: 'p',
+      char: 'p',
       type: KeyType.LETTER,
     },
     BracketLeft: {
-      key: '[',
+      char: '[',
       type: KeyType.SYMBOL,
     },
     BracketRight: {
-      key: ']',
+      char: ']',
       type: KeyType.SYMBOL,
     },
     Backslash: {
-      key: '\\',
+      char: '\\',
       type: KeyType.SYMBOL,
     },
     CapsLock: {
-      key: 'CapsLock',
+      char: 'CapsLock',
       type: KeyType.SPECIAL,
     },
     KeyA: {
-      key: 'a',
+      char: 'a',
       type: KeyType.LETTER,
     },
     KeyS: {
-      key: 's',
+      char: 's',
       type: KeyType.LETTER,
     },
     KeyD: {
-      key: 'd',
+      char: 'd',
       type: KeyType.LETTER,
     },
     KeyF: {
-      key: 'f',
+      char: 'f',
       type: KeyType.LETTER,
     },
     KeyG: {
-      key: 'g',
+      char: 'g',
       type: KeyType.LETTER,
     },
     KeyH: {
-      key: 'h',
+      char: 'h',
       type: KeyType.LETTER,
     },
     KeyJ: {
-      key: 'j',
+      char: 'j',
       type: KeyType.LETTER,
     },
     KeyK: {
-      key: 'k',
+      char: 'k',
       type: KeyType.LETTER,
     },
     KeyL: {
-      key: 'l',
+      char: 'l',
       type: KeyType.LETTER,
     },
     Semicolon: {
-      key: ';',
+      char: ';',
       type: KeyType.SYMBOL,
     },
     Quote: {
-      key: "'",
+      char: "'",
       type: KeyType.SYMBOL,
     },
     Enter: {
-      key: 'Enter',
+      char: 'Enter',
       type: KeyType.SPECIAL,
     },
     ShiftLeft: {
-      key: 'Shift',
+      char: 'Shift',
       type: KeyType.SPECIAL,
     },
     IntlBackslash: {
-      key: '\\',
+      char: '\\',
       type: KeyType.SYMBOL,
     },
     KeyZ: {
-      key: 'z',
+      char: 'z',
       type: KeyType.LETTER,
     },
     KeyX: {
-      key: 'x',
+      char: 'x',
       type: KeyType.LETTER,
     },
     KeyC: {
-      key: 'c',
+      char: 'c',
       type: KeyType.LETTER,
     },
     KeyV: {
-      key: 'v',
+      char: 'v',
       type: KeyType.LETTER,
     },
     KeyB: {
-      key: 'b',
+      char: 'b',
       type: KeyType.LETTER,
     },
     KeyN: {
-      key: 'n',
+      char: 'n',
       type: KeyType.LETTER,
     },
     KeyM: {
-      key: 'm',
+      char: 'm',
       type: KeyType.LETTER,
     },
     Comma: {
-      key: ',',
+      char: ',',
       type: KeyType.SYMBOL,
     },
     Period: {
-      key: '.',
+      char: '.',
       type: KeyType.SYMBOL,
     },
     Slash: {
-      key: '/',
+      char: '/',
       type: KeyType.SYMBOL,
     },
     ShiftRight: {
-      key: 'Shift',
+      char: 'Shift',
       type: KeyType.SPECIAL,
     },
     ControlLeft: {
-      key: 'Ctrl',
+      char: 'Ctrl',
       type: KeyType.SPECIAL,
     },
     Fn: {
-      key: '',
+      char: '',
       type: KeyType.SPECIAL,
     },
     MetaLeft: {
-      key: '',
+      char: '',
       type: KeyType.SPECIAL,
     },
     AltLeft: {
-      key: 'Alt',
+      char: 'Alt',
       type: KeyType.SPECIAL,
     },
     Space: {
-      key: '',
+      char: '',
       type: KeyType.SPECIAL,
     },
     AltRight: {
-      key: 'Alt',
+      char: 'Alt',
       type: KeyType.SPECIAL,
     },
     MetaRight: {
-      key: '',
+      char: '',
       type: KeyType.SPECIAL,
     },
     ContextMenu: {
-      key: '',
+      char: '',
       type: KeyType.SPECIAL,
     },
     ControlRight: {
-      key: 'Ctrl',
+      char: 'Ctrl',
       type: KeyType.SPECIAL,
     },
   },
   [KeyModifier.SHIFT]: {
     Backquote: {
-      key: '~',
+      char: '~',
       type: KeyType.SYMBOL,
     },
     Digit1: {
-      key: '!',
+      char: '!',
       type: KeyType.SYMBOL,
     },
     Digit2: {
-      key: '@',
+      char: '@',
       type: KeyType.SYMBOL,
     },
     Digit3: {
-      key: '#',
+      char: '#',
       type: KeyType.SYMBOL,
     },
     Digit4: {
-      key: '$',
+      char: '$',
       type: KeyType.SYMBOL,
     },
     Digit5: {
-      key: '%',
+      char: '%',
       type: KeyType.SYMBOL,
     },
     Digit6: {
-      key: '^',
+      char: '^',
       type: KeyType.SYMBOL,
     },
     Digit7: {
-      key: '&',
+      char: '&',
       type: KeyType.SYMBOL,
     },
     Digit8: {
-      key: '*',
+      char: '*',
       type: KeyType.SYMBOL,
     },
     Digit9: {
-      key: '(',
+      char: '(',
       type: KeyType.SYMBOL,
     },
     Digit0: {
-      key: ')',
+      char: ')',
       type: KeyType.SYMBOL,
     },
     Minus: {
-      key: '_',
+      char: '_',
       type: KeyType.SYMBOL,
     },
     Equal: {
-      key: '+',
+      char: '+',
       type: KeyType.SYMBOL,
     },
     KeyQ: {
-      key: 'Q',
+      char: 'Q',
       type: KeyType.LETTER,
     },
     KeyW: {
-      key: 'W',
+      char: 'W',
       type: KeyType.LETTER,
     },
     KeyE: {
-      key: 'E',
+      char: 'E',
       type: KeyType.LETTER,
     },
     KeyR: {
-      key: 'R',
+      char: 'R',
       type: KeyType.LETTER,
     },
     KeyT: {
-      key: 'T',
+      char: 'T',
       type: KeyType.LETTER,
     },
     KeyY: {
-      key: 'Y',
+      char: 'Y',
       type: KeyType.LETTER,
     },
     KeyU: {
-      key: 'U',
+      char: 'U',
       type: KeyType.LETTER,
     },
     KeyI: {
-      key: 'I',
+      char: 'I',
       type: KeyType.LETTER,
     },
     KeyO: {
-      key: 'O',
+      char: 'O',
       type: KeyType.LETTER,
     },
     KeyP: {
-      key: 'P',
+      char: 'P',
       type: KeyType.LETTER,
     },
     BracketLeft: {
-      key: '{',
+      char: '{',
       type: KeyType.SYMBOL,
     },
     BracketRight: {
-      key: '}',
+      char: '}',
       type: KeyType.SYMBOL,
     },
     Backslash: {
-      key: '|',
+      char: '|',
       type: KeyType.SYMBOL,
     },
 
     KeyA: {
-      key: 'A',
+      char: 'A',
       type: KeyType.LETTER,
     },
     KeyS: {
-      key: 'S',
+      char: 'S',
       type: KeyType.LETTER,
     },
     KeyD: {
-      key: 'D',
+      char: 'D',
       type: KeyType.LETTER,
     },
     KeyF: {
-      key: 'F',
+      char: 'F',
       type: KeyType.LETTER,
     },
     KeyG: {
-      key: 'G',
+      char: 'G',
       type: KeyType.LETTER,
     },
     KeyH: {
-      key: 'H',
+      char: 'H',
       type: KeyType.LETTER,
     },
     KeyJ: {
-      key: 'J',
+      char: 'J',
       type: KeyType.LETTER,
     },
     KeyK: {
-      key: 'K',
+      char: 'K',
       type: KeyType.LETTER,
     },
     KeyL: {
-      key: 'L',
+      char: 'L',
       type: KeyType.LETTER,
     },
     Semicolon: {
-      key: ':',
+      char: ':',
       type: KeyType.SYMBOL,
     },
     Quote: {
-      key: '"',
+      char: '"',
       type: KeyType.SYMBOL,
     },
 
     IntlBackslash: {
-      key: '|',
+      char: '|',
       type: KeyType.SYMBOL,
     },
     KeyZ: {
-      key: 'Z',
+      char: 'Z',
       type: KeyType.LETTER,
     },
     KeyX: {
-      key: 'X',
+      char: 'X',
       type: KeyType.LETTER,
     },
     KeyC: {
-      key: 'C',
+      char: 'C',
       type: KeyType.LETTER,
     },
     KeyV: {
-      key: 'V',
+      char: 'V',
       type: KeyType.LETTER,
     },
     KeyB: {
-      key: 'B',
+      char: 'B',
       type: KeyType.LETTER,
     },
     KeyN: {
-      key: 'N',
+      char: 'N',
       type: KeyType.LETTER,
     },
     KeyM: {
-      key: 'M',
+      char: 'M',
       type: KeyType.LETTER,
     },
     Comma: {
-      key: '<',
+      char: '<',
       type: KeyType.SYMBOL,
     },
     Period: {
-      key: '>',
+      char: '>',
       type: KeyType.SYMBOL,
     },
     Slash: {
-      key: '?',
+      char: '?',
       type: KeyType.SYMBOL,
     },
   },

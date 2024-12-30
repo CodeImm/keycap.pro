@@ -1,11 +1,12 @@
-import { KeyboardFormat, LayoutLanguage } from '@/entities/keyboard';
+import {  LayoutLanguage } from '@/entities/keyboard';
 import { System } from '@/entities/keyboard';
 import type { SelectOption } from '@/shared/components';
+import { KeyboardFormat } from '@/shared/types';
 
 export const systemOptions: SelectOption<System>[] = [
-  { value: System.windows, label: 'Windows' },
-  { value: System.macos, label: 'MacOS' },
-  { value: System.linux, label: 'Linux' },
+  { value: System.Windows, label: 'Windows' },
+  { value: System.Macos, label: 'MacOS' },
+  { value: System.Linux, label: 'Linux' },
 ];
 
 export const keyboardLayoutLanguageOptions: SelectOption<LayoutLanguage>[] = [

@@ -4,17 +4,16 @@ import Box, { BoxProps } from '@mui/material/Box';
 
 import {
   DEFAULT_HOMING_KEYS,
-  FingerColorMapping,
-  KeyFingerMappingScheme
 } from '@/entities/keyFingerMapping';
 
 import Inner from './Inner';
 import KeyboardRow from './KeyboardRow';
 import Rect from './Rect';
 
+import { FingerColorMapping, KeyboardFormat, KeyboardLayoutId, KeyCode, KeyFingerMapping } from '@/shared/types';
 import { DEFAULT_EXCLUDED_KEYS } from '../../config';
 import { getLayoutById, getVirtualKeyboardLayout } from '../../lib';
-import type { KeyboardFormat, LayoutId, LayoutKeyId, System, VirtualKeyboardRowName } from '../../model/types';
+import type { System, VirtualKeyboardRowName } from '../../model/types';
 
 const VIEW_BOX = [0, 0, 639, 226];
 const ROW_HEIGHT = 40;
@@ -22,11 +21,11 @@ const ROW_GAP = 2;
 
 interface Props extends BoxProps {
   system: System;
-  layoutId: LayoutId;
+  layoutId: KeyboardLayoutId;
   keyboardFormat: KeyboardFormat;
-  excludedKeys?: LayoutKeyId[];
-  homingKeys?: LayoutKeyId[];
-  keyFingerMapping?: KeyFingerMappingScheme;
+  excludedKeys?: KeyCode[];
+  homingKeys?: KeyCode[];
+  keyFingerMapping?: KeyFingerMapping;
   fingerColorMapping?: FingerColorMapping;
   onClick?: (e: any) => void;
 }

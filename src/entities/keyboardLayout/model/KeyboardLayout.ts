@@ -1,8 +1,7 @@
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
 
-import type { LayoutKeyId } from '@/entities/keyboard';
-
-import { KeyModifier, KeyType, KeyboardLayoutId } from './types';
+import type { KeyCode, KeyModifier } from '@/shared/types';
+import { KeyboardLayoutId, KeyType } from '@/shared/types';
 
 @modelOptions({ schemaOptions: { _id: false } })
 class LayoutKeyInfo {
@@ -13,7 +12,7 @@ class LayoutKeyInfo {
   public type!: KeyType;
 
   @prop({ type: String })
-  public alternate?: LayoutKeyId;
+  public alternate?: KeyCode;
 }
 
 export class KeyboardLayout {
@@ -22,7 +21,7 @@ export class KeyboardLayout {
 
   // TODO: уточнить тип, если возможно
   @prop({ type: Object, _id: false, required: true })
-  public layoutKeys!: Record<KeyModifier, Record<LayoutKeyId, LayoutKeyInfo>>;
+  public layoutKeys!: Record<KeyModifier, Record<KeyCode, LayoutKeyInfo>>;
 }
 
 const KeyboardLayoutModel = getModelForClass(KeyboardLayout, { schemaOptions: { timestamps: true } });

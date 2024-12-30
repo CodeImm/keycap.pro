@@ -7,15 +7,16 @@ import { useTranslations } from 'next-intl';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import { Keyboard, KeyboardFormat, LayoutId, LayoutLanguage, System } from '@/entities/keyboard';
+import { Keyboard, LayoutLanguage, System } from '@/entities/keyboard';
 import { Select } from '@/shared/components';
+import { KeyboardFormat, KeyboardLayoutId } from '@/shared/types';
 
 import { keyboardLayoutLanguageOptions, keyboardLayoutTypeOptions, systemOptions } from '../config';
 import { getDefaultLayoutConfig, getLayoutIdOptions } from '../lib';
 
 type ValueOfLayoutLanguageOption = (typeof keyboardLayoutLanguageOptions)[number]['value'];
 type ValueOfLayoutTypeOption = (typeof keyboardLayoutTypeOptions)[number]['value'];
-type ValueOfLayoutIdOption = LayoutId;
+type ValueOfLayoutIdOption = KeyboardLayoutId;
 
 interface IFormInput {
   system: System;
@@ -42,7 +43,7 @@ export function KeyboardLayoutConfigurationForm({ defaultValues, actions }: Prop
   const [layoutConfig, setLayoutConfig] = useState<IFormInput>(defaultValues);
 
   const handleLayoutChange = useCallback(
-    (name: keyof IFormInput, value: System | LayoutId | LayoutLanguage | KeyboardFormat) => {
+    (name: keyof IFormInput, value: System | KeyboardLayoutId | LayoutLanguage | KeyboardFormat) => {
       setLayoutConfig((prev) => {
         const newConfig = { ...prev, [name]: value };
 
@@ -103,7 +104,7 @@ export function KeyboardLayoutConfigurationForm({ defaultValues, actions }: Prop
           name="layoutId"
           label={t('layoutId')}
           value={layoutConfig.layoutId}
-          onChange={(e) => handleLayoutChange('layoutId', e.target.value as LayoutId)}
+          onChange={(e) => handleLayoutChange('layoutId', e.target.value as KeyboardLayoutId)}
           options={keyboardLayoutIdOptions}
           size="small"
           sx={{ minWidth: '150px' }}
