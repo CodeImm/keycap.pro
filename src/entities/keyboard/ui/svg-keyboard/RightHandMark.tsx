@@ -1,37 +1,51 @@
-import Box, { BoxProps } from '@mui/material/Box';
+import React from 'react';
 
-import Text from './Text';
+import { Box, BoxProps } from '@mui/material';
 
-interface Props extends BoxProps<'polygon'> {
-  width: number;
-  height: number;
+interface RightHandMark extends BoxProps<'g'> {
+  size?: number;
+  color?: string;
+  label?: string;
 }
 
-export default function RightHandMark({ width, height, ...props }: Props) {
+const RightHandMark = ({ size = 10, color = '#ACACAC', label = '', sx, ...props }: RightHandMark) => {
+  const getPathWithRoundedCorner = (x: number, y: number, size: number, radius: number) => `
+  M ${x + radius},${y} 
+  L ${x + size},${y} 
+  L ${x + size},${y + size} 
+  L ${x},${y + size} 
+  L ${x},${y + radius} 
+  Q ${x},${y} ${x + radius},${y} 
+  Z
+`;
+
+  const pathData = getPathWithRoundedCorner(props.x - size, props.y - size, size, size / 2);
+
   return (
-    <>
-      <Box
-        component="polygon"
-        points={`${width} ${height - 15}, ${width} ${height}, ${
-          width - 15
-        } ${height}`}
-        sx={{ strokeWidth: 1, stroke: 'none', fill: '#ACACAC' }}
-        {...props}
-      />
-      <Text
-        x={width - 6}
-        y={height - 2}
-        fill="#fff"
-        textRendering="optimizeLegibility"
-        sx={{
-          fontSize: '6px',
-          cursor: 'inherit',
-          // color: '#fff',
-          userSelect: 'none',
-        }}
-      >
-        R
-      </Text>
-    </>
+    <Box
+      component="g"
+      sx={{
+        ...sx,
+      }}
+      {...props}
+    >
+      <Box component="path" d={pathData} fill={color} />
+      {label && (
+        <Box
+          component="text"
+          x={props.x - size / 2}
+          y={props.y - size / 2 + 1}
+          fill="#FFF"
+          fontSize={size / 2 + 1}
+          dominantBaseline="middle"
+          textAnchor="middle"
+          textRendering="optimizeLegibility"
+        >
+          {label}
+        </Box>
+      )}
+    </Box>
   );
-}
+};
+
+export default RightHandMark;

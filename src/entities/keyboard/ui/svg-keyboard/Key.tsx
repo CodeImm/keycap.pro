@@ -5,9 +5,11 @@ import Box, { BoxProps } from '@mui/material/Box';
 import { KeyCode } from '@/shared/types';
 
 import HomeMark from './HomeMark';
+import RightHandMark from './RightHandMark';
 import Text from './Text';
 
 import { KeycapLegends, LegendCoordinates } from '../..';
+import { extractBottomRightCoordinates } from '../../lib/svg';
 
 interface KeyProps extends BoxProps {
   id: string;
@@ -40,6 +42,8 @@ function Key({
   sx,
   ...props
 }: KeyProps) {
+  const { x: lastX, y: lastY } = extractBottomRightCoordinates(d);
+
   return (
     <Box id={id} component="svg" x={x} y={y} sx={{ visibility: visible ? 'visible' : 'hidden', ...sx }} {...props}>
       <Box component="path" d={d} fill={fill} transform={`rotate(${rotate})`} />
@@ -127,7 +131,7 @@ function Key({
         )}
       </>
       {homing && <HomeMark />}
-      {/* {rightHandMark && <RightHandMark width={width} height={height} />} */}
+      {rightHandMark && <RightHandMark x={lastX} y={lastY} label="R" size={8} />}
     </Box>
   );
 }

@@ -65,11 +65,11 @@ export const optimized: KeyFingerMapping = {
 
   // Row
   ControlLeft: Finger.LEFT_PINKIE,
-  //    'MetaLeft': ,
+  MetaLeft: Finger.LEFT_PINKIE,
   AltLeft: Finger.LEFT_MIDDLE,
   Space: [Finger.LEFT_THUMB, Finger.RIGHT_THUMB],
   AltRight: Finger.RIGHT_RING,
-  //    'MetaRight': ,
-  //  'ContextMenu': ,
+  MetaRight: Finger.RIGHT_RING,
+  ContextMenu: Finger.RIGHT_RING,
   ControlRight: Finger.RIGHT_PINKIE,
 };

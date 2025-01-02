@@ -82,7 +82,9 @@ const keyShapesANSI = {
 const keyShapesISO = {
   ...keyShapesANSI,
   ShiftLeft: `M 0 0 H ${KEYCAP_WIDTH * 1.25} V ${KEYCAP_HEIGHT} H 0 Z`,
-  Enter: `M 0 0 H ${KEYCAP_WIDTH * 1.5} V ${KEYCAP_HEIGHT * 2 + ROW_GAP} H ${KEYCAP_WIDTH*0.25} V ${KEYCAP_HEIGHT} H 0 Z`,
+  Enter: `M 0 0 H ${KEYCAP_WIDTH * 1.5} V ${KEYCAP_HEIGHT * 2 + ROW_GAP} H ${
+    KEYCAP_WIDTH * 0.25
+  } V ${KEYCAP_HEIGHT} H 0 Z`,
 };
 
 export const getWidthFromPath = (d: string) => {
@@ -124,3 +126,73 @@ export const generateRow = (keys: KeyCode[], rowIndex: number, isISO: boolean = 
 
   return rowKeys;
 };
+
+export function extractBottomRightCoordinates(pathD: string): { x: number; y: number } {
+  const commands = pathD.match(/[MLHVZmlhvz][^MLHVZmlhvz]*/g);
+
+  if (!commands) {
+    throw new Error("Invalid pathD string");
+  }
+
+  let currentX = 0,
+    currentY = 0; // Текущие координаты
+  let startX = 0,
+    startY = 0; // Координаты начала контура
+  let maxX = -Infinity,
+    maxY = -Infinity; // Максимальные координаты
+
+  for (const command of commands) {
+    const type = command[0]; // Тип команды
+    const params = command
+      .slice(1)
+      .trim()
+      .split(/[\s,]+/)
+      .map(Number);
+
+    switch (type) {
+      case 'M': // Absolute Move To
+        [currentX, currentY] = params;
+        startX = currentX;
+        startY = currentY;
+        break;
+      case 'm': // Relative Move To
+        currentX += params[0];
+        currentY += params[1];
+        startX = currentX;
+        startY = currentY;
+        break;
+      case 'L': // Absolute Line To
+        [currentX, currentY] = params;
+        break;
+      case 'l': // Relative Line To
+        currentX += params[0];
+        currentY += params[1];
+        break;
+      case 'H': // Absolute Horizontal Line To
+        currentX = params[0];
+        break;
+      case 'h': // Relative Horizontal Line To
+        currentX += params[0];
+        break;
+      case 'V': // Absolute Vertical Line To
+        currentY = params[0];
+        break;
+      case 'v': // Relative Vertical Line To
+        currentY += params[0];
+        break;
+      case 'Z': // Close Path
+      case 'z': // Close Path
+        currentX = startX;
+        currentY = startY;
+        break;
+      default:
+        throw new Error(`Unsupported path command: ${type}`);
+    }
+
+    // Обновление максимальных координат
+    maxX = Math.max(maxX, currentX);
+    maxY = Math.max(maxY, currentY);
+  }
+
+  return { x: maxX, y: maxY };
+}
