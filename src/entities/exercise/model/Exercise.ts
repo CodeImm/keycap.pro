@@ -1,14 +1,13 @@
 import type { Ref } from '@typegoose/typegoose';
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
 
-import type { LayoutKeyId } from '@/entities/keyboard';
-import { KeyModifier } from '@/entities/keyboardLayout';
-import { KeyboardLayout } from '@/entities/keyboardLayout/model/KeyboardLayout';
+import { KeyboardLayout } from '@/entities/keyboard/model/KeyboardLayout';
+import { type KeyCode, KeyModifier } from '@/shared/types';
 
 @modelOptions({ schemaOptions: { _id: false } })
 class Char {
   @prop({ type: String, required: true })
-  public code!: LayoutKeyId;
+  public code!: KeyCode;
 
   @prop({ type: String, required: true })
   public modifier!: KeyModifier;

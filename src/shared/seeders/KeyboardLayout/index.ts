@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
-import { KeyboardLayoutId } from '@/entities/keyboardLayout';
-import KeyboardLayoutModel from '@/entities/keyboardLayout/model/KeyboardLayout';
+import KeyboardLayoutModel from '@/entities/keyboard/model/KeyboardLayout';
 
 import { jcuken } from './data/jcuken';
 import { us_qwerty } from './data/us_qwerty';
 
 import dbConnect from '../../config/mongodb/dbConnect';
+import { KeyboardLayoutId } from '@/shared/types';
 
 export async function seedKeyboardLayouts() {
   try {

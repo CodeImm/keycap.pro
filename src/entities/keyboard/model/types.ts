@@ -2,26 +2,32 @@ import { ReactNode } from 'react';
 
 import { z } from 'zod';
 
-import { KeyboardLayoutId, KeyCode } from '@/shared/types';
+import { KeyCode, KeyboardLayoutId } from '@/shared/types';
+
 import { SaveKeyboardSettingsRequestSchema } from './schemas';
 
-type KeyLabelPosition = 'center' | 'bottom' | 'center-left' | 'center-right';
+export type KeycapLegendPosition =
+  | 'leftTop'
+  | 'leftBottom'
+  | 'leftCenter'
+  | 'center'
+  | 'top'
+  | 'bottom'
+  | 'rightTop'
+  | 'rightBottom'
+  | 'rightCenter';
 
-export type VirtualKeyboardRowName = 'row1' | 'row2' | 'row3' | 'row4' | 'row5';
 export interface KeyCap {
   id: KeyCode;
   width: number;
   type?: 'special';
   label?: string;
-  labelPosition?: KeyLabelPosition;
+  labelPosition?: KeycapLegendPosition;
   icon?: ReactNode;
-  iconPosition?: KeyLabelPosition;
+  iconPosition?: KeycapLegendPosition;
   indicator?: ReactNode;
-  indicatorPosition?: KeyLabelPosition;
+  indicatorPosition?: KeycapLegendPosition;
 }
-export type VirtualKeyboardLayout = {
-  [key in VirtualKeyboardRowName]: KeyCap[];
-};
 
 export enum System {
   Macos = 'macos',
@@ -43,6 +49,23 @@ export enum LayoutLanguage {
   English = 'english',
   Russian = 'russian',
 }
+
+export interface KeyGeometry {
+  id: KeyCode;
+  d: string;
+  x: number;
+  y: number;
+  rotate: string;
+  legendCoordinates: LegendCoordinates;
+}
+
+export type LegendCoordinates = { [key in KeycapLegendPosition]: { x: number; y: number } };
+
+export type KeycapLegends = {
+  [key in KeyCode]?: {
+    [position in KeycapLegendPosition]?: string;
+  };
+};
 
 export type LayoutProfiles = {
   id: KeyboardLayoutId;

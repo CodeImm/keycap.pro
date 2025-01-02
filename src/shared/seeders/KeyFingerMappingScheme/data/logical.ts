@@ -1,8 +1,6 @@
-import { KeyFingerMappingScheme } from './../../../../entities/keyFingerMapping';
+import { Finger, KeyFingerMapping } from '@/shared/types';
 
-import { Finger } from '@/shared/types';
-
-export const logical: KeyFingerMappingScheme = {
+export const logical: KeyFingerMapping = {
   Backquote: Finger.LEFT_PINKIE,
   Digit1: Finger.LEFT_PINKIE,
   Digit2: Finger.LEFT_RING,
@@ -69,8 +67,7 @@ export const logical: KeyFingerMappingScheme = {
   ControlLeft: Finger.LEFT_PINKIE,
   //    'MetaLeft': ,
   AltLeft: Finger.LEFT_MIDDLE,
-  Space_Left: Finger.LEFT_THUMB,
-  Space_Right: Finger.RIGHT_THUMB,
+  Space: [Finger.LEFT_THUMB, Finger.RIGHT_THUMB],
   AltRight: Finger.RIGHT_RING,
   //    'MetaRight': ,
   //  'ContextMenu': ,

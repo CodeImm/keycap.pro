@@ -21,8 +21,9 @@ export enum KeyModifier {
   FN = 'fn', // С зажатым Fn
 }
 
+// TODO: уточнить тип Finger | Finger[]
 export type KeyFingerMapping = {
-  [key in KeyCode]?: Finger[];
+  [key in KeyCode]?: Finger | Finger[];
 };
 
 export type KeyboardGeometry = {

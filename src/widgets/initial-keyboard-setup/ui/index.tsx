@@ -4,12 +4,12 @@ import { useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
-import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
 import { getKeyFingerMappingById } from '@/entities/keyboard/lib';
 import { KeyFingerMappingForm } from '@/features/configure-finger-zones';
 import { KeyboardLayoutConfigurationForm } from '@/features/configure-keyboard-layout';
 import { StepControlPanel, StepperControls } from '@/shared/components';
 import { useRouter } from '@/shared/navigation';
+import { KeyFingerMapping } from '@/shared/types';
 
 import api from '../api';
 import { mapKeyboardSetupToApi } from '../api/mappers/mapKeyboardSetupToApi';
@@ -37,7 +37,7 @@ export function InitialKeyboardSetup() {
     },
   });
 
-  function handleSubmit(data: KeyFingerMappingScheme) {
+  function handleSubmit(data: KeyFingerMapping) {
     console.log({
       keyFingerMappingSchema: data,
       layout: keyboardConfig.layoutConfig,

@@ -2,24 +2,21 @@ import { memo } from 'react';
 
 import Box, { BoxProps } from '@mui/material/Box';
 
+import { KeyCode } from '@/shared/types';
+
 import HomeMark from './HomeMark';
-import RightHandMark from './RightHandMark';
 import Text from './Text';
 
-const labelPadding = 5;
-const labelOffset = 0;
+import { KeycapLegends, LegendCoordinates } from '../..';
 
 interface KeyProps extends BoxProps {
   id: string;
   x: number;
   y: number;
-  width: number;
-  height: number;
-  centerLabel?: string;
-  topLeftLabel?: string;
-  bottomLeftLabel?: string;
-  bottomRightLabel?: string;
-  centerLeftLabel?: string;
+  d: string;
+  rotate: string;
+  legendCoordinates: LegendCoordinates;
+  legend?: KeycapLegends[KeyCode];
   homing?: boolean;
   visible?: boolean;
   fill?: string;
@@ -31,13 +28,10 @@ function Key({
   id,
   x,
   y,
-  width,
-  height,
-  centerLabel,
-  topLeftLabel,
-  bottomLeftLabel,
-  bottomRightLabel,
-  centerLeftLabel,
+  d,
+  rotate,
+  legendCoordinates,
+  legend,
   homing = false,
   visible = true,
   fill = '#efefee',
@@ -48,77 +42,92 @@ function Key({
 }: KeyProps) {
   return (
     <Box id={id} component="svg" x={x} y={y} sx={{ visibility: visible ? 'visible' : 'hidden', ...sx }} {...props}>
-      <Box component="path" d={`M 0 0 H ${width} V ${height} H 0 Z`} fill={fill} />
+      <Box component="path" d={d} fill={fill} transform={`rotate(${rotate})`} />
       <>
-        {centerLabel && (
+        {legend?.center && (
           <Text
-            x={width / 2}
-            y={height / 2}
+            x={legendCoordinates.center.x}
+            y={legendCoordinates.center.y}
             dominantBaseline="middle"
             textAnchor="middle"
             fill={fontColor}
             textRendering="optimizeLegibility"
             sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
           >
-            {centerLabel}
+            {legend.center}
           </Text>
         )}
-        {topLeftLabel && (
+        {legend?.leftTop && (
           <Text
-            x={labelPadding}
-            y={labelPadding}
+            x={legendCoordinates.leftTop.x}
+            y={legendCoordinates.leftTop.y}
             dominantBaseline="text-before-edge"
             textAnchor="start"
             textRendering="optimizeLegibility"
             sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
           >
-            {topLeftLabel}
+            {legend.leftTop}
           </Text>
         )}
-        {bottomLeftLabel && (
+        {legend?.leftBottom && (
           <Text
-            x={labelPadding}
-            y={height - labelPadding}
+            x={legendCoordinates.leftBottom.x}
+            y={legendCoordinates.leftBottom.y}
             dominantBaseline="text-after-edge"
             textAnchor="start"
             fill={fontColor}
             textRendering="optimizeLegibility"
             sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
           >
-            {bottomLeftLabel}
+            {legend.leftBottom}
           </Text>
         )}
-        {bottomRightLabel && (
+        {legend?.rightBottom && (
           <Text
-            x={width - labelPadding}
-            y={height - labelPadding}
+            x={legendCoordinates.rightBottom.x}
+            y={legendCoordinates.rightBottom.y}
             dominantBaseline="text-after-edge"
             textAnchor="end"
             fill={fontColor}
             textRendering="optimizeLegibility"
             sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
           >
-            {bottomRightLabel}
+            {legend.rightBottom}
           </Text>
         )}
-        {centerLeftLabel && (
+        {legend?.leftCenter && (
           <>
             <Text
-              x={labelPadding + labelOffset}
-              y={height / 2}
+              x={legendCoordinates.leftCenter.x}
+              y={legendCoordinates.leftCenter.y}
               dominantBaseline="middle"
               textAnchor="start"
               fill={fontColor}
               textRendering="optimizeLegibility"
               sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
             >
-              {centerLeftLabel}
+              {legend.leftCenter}
+            </Text>
+          </>
+        )}
+        {legend?.rightCenter && (
+          <>
+            <Text
+              x={legendCoordinates.rightCenter.x}
+              y={legendCoordinates.rightCenter.y}
+              dominantBaseline="middle"
+              textAnchor="end"
+              fill={fontColor}
+              textRendering="optimizeLegibility"
+              sx={{ fontSize: '11px', cursor: 'inherit', userSelect: 'none' }}
+            >
+              {legend.rightCenter}
             </Text>
           </>
         )}
       </>
       {homing && <HomeMark />}
-      {rightHandMark && <RightHandMark width={width} height={height} />}
+      {/* {rightHandMark && <RightHandMark width={width} height={height} />} */}
     </Box>
   );
 }

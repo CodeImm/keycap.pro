@@ -2,22 +2,19 @@ import { useMemo } from 'react';
 
 import Box, { BoxProps } from '@mui/material/Box';
 
-import {
-  DEFAULT_HOMING_KEYS,
-} from '@/entities/keyFingerMapping';
+import { DEFAULT_HOMING_KEYS } from '@/entities/keyFingerMapping';
+import { FingerColorMapping, KeyCode, KeyFingerMapping, KeyboardFormat, KeyboardLayoutId } from '@/shared/types';
 
 import Inner from './Inner';
 import KeyboardRow from './KeyboardRow';
 import Rect from './Rect';
 
-import { FingerColorMapping, KeyboardFormat, KeyboardLayoutId, KeyCode, KeyFingerMapping } from '@/shared/types';
-import { DEFAULT_EXCLUDED_KEYS } from '../../config';
-import { getLayoutById, getVirtualKeyboardLayout } from '../../lib';
-import type { System, VirtualKeyboardRowName } from '../../model/types';
+import { ansi, iso } from '../../config/geometry';
+import { getLayoutById } from '../../lib';
+import { getKeycapLegends } from '../../lib/getKeycapLegends';
+import type { System } from '../../model/types';
 
 const VIEW_BOX = [0, 0, 639, 226];
-const ROW_HEIGHT = 40;
-const ROW_GAP = 2;
 
 interface Props extends BoxProps {
   system: System;
@@ -34,7 +31,7 @@ export function Keyboard({
   system,
   layoutId,
   keyboardFormat,
-  excludedKeys = DEFAULT_EXCLUDED_KEYS,
+  excludedKeys = [], //= DEFAULT_EXCLUDED_KEYS,
   homingKeys = DEFAULT_HOMING_KEYS,
   keyFingerMapping,
   fingerColorMapping,
@@ -42,13 +39,12 @@ export function Keyboard({
   sx,
   ...props
 }: Props) {
-  const virtualKeyboardLayout = useMemo(
-    () => getVirtualKeyboardLayout(keyboardFormat, system),
-    [keyboardFormat, system]
-  );
+  const keyboardGeometry = useMemo(() => (keyboardFormat === 'iso' ? iso : ansi), [keyboardFormat]);
 
   const layout = useMemo(() => getLayoutById(layoutId), [layoutId]);
 
+  const keycapLegends = useMemo(() => getKeycapLegends(layout, system), [system, layout]);
+  console.log({ keycapLegends });
   return (
     <Box
       component="svg"
@@ -66,13 +62,12 @@ export function Keyboard({
     >
       <Rect x={0} y={0} rx={9} ry={9} width={639} height={226} fill="#cccccc" />
       <Inner x={5} y={8}>
-        {(Object.keys(virtualKeyboardLayout) as VirtualKeyboardRowName[]).map((rowName, index) => (
+        {keyboardGeometry.map((row, index) => (
           <KeyboardRow
-            key={rowName as string}
-            y={(ROW_HEIGHT + ROW_GAP) * index}
-            rowKeys={virtualKeyboardLayout[rowName]}
+            key={index}
+            rowKeys={row}
             layout={layout}
-            keyboardFormat={keyboardFormat}
+            legends={keycapLegends}
             excludedKeys={excludedKeys}
             homingKeys={homingKeys}
             keyFingerMapping={keyFingerMapping}
