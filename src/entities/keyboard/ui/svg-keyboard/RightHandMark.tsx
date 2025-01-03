@@ -3,12 +3,14 @@ import React from 'react';
 import { Box, BoxProps } from '@mui/material';
 
 interface RightHandMark extends BoxProps<'g'> {
+  x: number;
+  y: number;
   size?: number;
   color?: string;
   label?: string;
 }
 
-const RightHandMark = ({ size = 10, color = '#ACACAC', label = '', sx, ...props }: RightHandMark) => {
+const RightHandMark = ({ x, y, size = 10, color = '#ACACAC', label = '', sx, ...props }: RightHandMark) => {
   const getPathWithRoundedCorner = (x: number, y: number, size: number, radius: number) => `
   M ${x + radius},${y} 
   L ${x + size},${y} 
@@ -19,12 +21,13 @@ const RightHandMark = ({ size = 10, color = '#ACACAC', label = '', sx, ...props 
   Z
 `;
 
-  const pathData = getPathWithRoundedCorner(props.x - size, props.y - size, size, size / 2);
+  const pathData = getPathWithRoundedCorner(x - size, y - size, size, size / 2);
 
   return (
     <Box
       component="g"
       sx={{
+        userSelect: 'none',
         ...sx,
       }}
       {...props}
@@ -33,8 +36,8 @@ const RightHandMark = ({ size = 10, color = '#ACACAC', label = '', sx, ...props 
       {label && (
         <Box
           component="text"
-          x={props.x - size / 2}
-          y={props.y - size / 2 + 1}
+          x={x - size / 2}
+          y={y - size / 2 + 1}
           fill="#FFF"
           fontSize={size / 2 + 1}
           dominantBaseline="middle"

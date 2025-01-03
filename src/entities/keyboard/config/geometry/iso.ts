@@ -1,4 +1,4 @@
-import { generateRow } from '../../lib/svg';
+import { generateRow } from '../../lib/geometry';
 
 const iso = [
   /** row 1 */

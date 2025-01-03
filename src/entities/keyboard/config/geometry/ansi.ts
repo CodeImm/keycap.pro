@@ -1,4 +1,4 @@
-import { generateRow } from '../../lib/svg';
+import { generateRow } from '../../lib/geometry';
 
 const ansi = [
   /** row 1 */
