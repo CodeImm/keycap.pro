@@ -61,7 +61,8 @@ const iso = [
       'Quote',
       'IntlBackslash',
     ],
-    2
+    2,
+    true
   ),
   /** row 4 */
   generateRow(
@@ -85,7 +86,7 @@ const iso = [
   ),
   /** row 5 */
   generateRow(
-    ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'MetaRight', 'ContextMenu', 'ControlRight'],
+    ['ControlLeft', 'Fn', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'MetaRight', 'ContextMenu', 'ControlRight'],
     4,
     true
   ),

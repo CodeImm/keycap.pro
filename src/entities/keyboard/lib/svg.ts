@@ -41,7 +41,8 @@ const keyShapesANSI = {
   BracketLeft: standardKeyShape,
   BracketRight: standardKeyShape,
   Backslash: `M 0 0 H ${KEYCAP_WIDTH * 1.5} V ${KEYCAP_HEIGHT} H 0 Z`,
-  CapsLock: `M 0 0 H ${KEYCAP_WIDTH * 1.75} V ${KEYCAP_HEIGHT} H 0 Z`,
+  // CapsLock: `M 0 0 H ${KEYCAP_WIDTH * 1.75} V ${KEYCAP_HEIGHT} H 0 Z`,
+  CapsLock: `M 0 0 H ${KEYCAP_WIDTH * 1.75 + 2} V ${KEYCAP_HEIGHT} H 0 Z`,
   KeyA: standardKeyShape,
   KeyS: standardKeyShape,
   KeyD: standardKeyShape,
@@ -54,7 +55,8 @@ const keyShapesANSI = {
   Semicolon: standardKeyShape,
   Quote: standardKeyShape,
   Enter: `M 0 0 H ${KEYCAP_WIDTH * 2.25} V ${KEYCAP_HEIGHT} H 0 Z`,
-  ShiftLeft: `M 0 0 H ${KEYCAP_WIDTH * 2.25} V ${KEYCAP_HEIGHT} H 0 Z`,
+  // ShiftLeft: `M 0 0 H ${KEYCAP_WIDTH * 2.25} V ${KEYCAP_HEIGHT} H 0 Z`,
+  ShiftLeft: `M 0 0 H ${KEYCAP_WIDTH * 2.25 + 4} V ${KEYCAP_HEIGHT} H 0 Z`,
   IntlBackslash: standardKeyShape,
   KeyZ: standardKeyShape,
   KeyX: standardKeyShape,
@@ -67,11 +69,13 @@ const keyShapesANSI = {
   Period: standardKeyShape,
   Slash: standardKeyShape,
   ShiftRight: `M 0 0 H ${KEYCAP_WIDTH * 2.75} V ${KEYCAP_HEIGHT} H 0 Z`,
-  ControlLeft: `M 0 0 H ${KEYCAP_WIDTH * 1.25} V ${KEYCAP_HEIGHT} H 0 Z`,
+  // ControlLeft: `M 0 0 H ${KEYCAP_WIDTH * 1.25} V ${KEYCAP_HEIGHT} H 0 Z`,
+  ControlLeft: `M 0 0 H ${KEYCAP_WIDTH * 1.25 + 2} V ${KEYCAP_HEIGHT} H 0 Z`,
   Fn: standardKeyShape,
   MetaLeft: `M 0 0 H ${KEYCAP_WIDTH * 1.25} V ${KEYCAP_HEIGHT} H 0 Z`,
   AltLeft: `M 0 0 H ${KEYCAP_WIDTH * 1.25} V ${KEYCAP_HEIGHT} H 0 Z`,
-  Space: `M 0 0 H ${KEYCAP_WIDTH * 6.25} V ${KEYCAP_HEIGHT} H 0 Z`,
+  // Space: `M 0 0 H ${KEYCAP_WIDTH * 6.25} V ${KEYCAP_HEIGHT} H 0 Z`,
+  Space: `M 0 0 H ${KEYCAP_WIDTH * 6.25 - 32} V ${KEYCAP_HEIGHT} H 0 Z`,
   AltRight: `M 0 0 H ${KEYCAP_WIDTH * 1.25} V ${KEYCAP_HEIGHT} H 0 Z`,
   MetaRight: `M 0 0 H ${KEYCAP_WIDTH * 1.25} V ${KEYCAP_HEIGHT} H 0 Z`,
   ContextMenu: `M 0 0 H ${KEYCAP_WIDTH * 1.25} V ${KEYCAP_HEIGHT} H 0 Z`,
@@ -81,10 +85,12 @@ const keyShapesANSI = {
 // ISO Key Shapes
 const keyShapesISO = {
   ...keyShapesANSI,
-  ShiftLeft: `M 0 0 H ${KEYCAP_WIDTH * 1.25} V ${KEYCAP_HEIGHT} H 0 Z`,
+  ShiftLeft: `M 0 0 H ${KEYCAP_WIDTH * 1.25 + 2} V ${KEYCAP_HEIGHT} H 0 Z`,
   Enter: `M 0 0 H ${KEYCAP_WIDTH * 1.5} V ${KEYCAP_HEIGHT * 2 + ROW_GAP} H ${
     KEYCAP_WIDTH * 0.25
   } V ${KEYCAP_HEIGHT} H 0 Z`,
+  // revert
+  CapsLock: `M 0 0 H ${KEYCAP_WIDTH * 1.75} V ${KEYCAP_HEIGHT} H 0 Z`,
 };
 
 export const getWidthFromPath = (d: string) => {
@@ -131,7 +137,7 @@ export function extractBottomRightCoordinates(pathD: string): { x: number; y: nu
   const commands = pathD.match(/[MLHVZmlhvz][^MLHVZmlhvz]*/g);
 
   if (!commands) {
-    throw new Error("Invalid pathD string");
+    throw new Error('Invalid pathD string');
   }
 
   let currentX = 0,

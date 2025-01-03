@@ -53,7 +53,7 @@ const ansi = [
   ),
   /** row 5 */
   generateRow(
-    ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'MetaRight', 'ContextMenu', 'ControlRight'],
+    ['ControlLeft', 'Fn', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'MetaRight', 'ContextMenu', 'ControlRight'],
     4
   ),
 ];
