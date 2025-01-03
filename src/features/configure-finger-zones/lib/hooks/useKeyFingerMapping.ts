@@ -20,10 +20,25 @@ export function useKeyFingerMapping({ defaultValues, selectedFinger }: Props): U
   const [keyFingerMapping, setKeyFingerMapping] = useState<KeyFingerMapping>(defaultValues);
 
   const updateKeyFingerMapping = useCallback((keyCode: KeyCode, finger: Finger) => {
-    setKeyFingerMapping((currentMapping) => ({
-      ...currentMapping,
-      [keyCode]: [finger],
-    }));
+    setKeyFingerMapping((currentMapping) => {
+      const newMapping = { ...currentMapping };
+
+      const baseKey = keyCode.replace(/_(\d+)$/, '') as KeyCode;
+      const suffix = keyCode.match(/_(\d+)$/)?.[1];
+
+      if (suffix) {
+        const index = parseInt(suffix, 10) - 1;
+        const existingFingers = newMapping[baseKey] ? [...newMapping[baseKey]] : [];
+
+        existingFingers[index] = finger;
+
+        newMapping[baseKey] = existingFingers;
+      } else {
+        newMapping[baseKey] = [finger];
+      }
+
+      return newMapping;
+    });
   }, []);
 
   const handleReset = (id: Exclude<KeyFingerMappingSchemeId, 'custom'> = 'optimized') => {
@@ -32,7 +47,7 @@ export function useKeyFingerMapping({ defaultValues, selectedFinger }: Props): U
 
   const handleKeyFingerChange = useCallback(
     (keyCode: KeyCode | undefined | any) => {
-      if (keyCode && keyCodes.includes(keyCode) && !DEFAULT_EXCLUDED_KEYS.includes(keyCode)) {
+      if (keyCode && keyCodes.includes(keyCode.replace(/_\d$/, '')) && !DEFAULT_EXCLUDED_KEYS.includes(keyCode)) {
         updateKeyFingerMapping(keyCode, selectedFinger);
       }
     },

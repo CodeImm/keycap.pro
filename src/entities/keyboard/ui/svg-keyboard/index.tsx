@@ -44,7 +44,7 @@ export function Keyboard({
   const layout = useMemo(() => getLayoutById(layoutId), [layoutId]);
 
   const keycapLegends = useMemo(() => getKeycapLegends(layout, system), [system, layout]);
-  console.log({ keycapLegends });
+
   return (
     <Box
       component="svg"

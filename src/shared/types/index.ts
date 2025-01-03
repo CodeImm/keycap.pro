@@ -23,7 +23,7 @@ export enum KeyModifier {
 
 // TODO: уточнить тип Finger | Finger[]
 export type KeyFingerMapping = {
-  [key in KeyCode]?: Finger | Finger[];
+  [key in KeyCode]?: Finger[];
 };
 
 export type KeyboardGeometry = {

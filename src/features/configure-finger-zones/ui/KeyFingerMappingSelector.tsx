@@ -9,17 +9,18 @@ import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import isEqual from 'lodash.isequal';
 
-import { FingerColorMapping, KeyFingerMappingScheme, KeyFingerMappingSchemeId } from '@/entities/keyFingerMapping';
-import { KeyboardFormat, LayoutId, System } from '@/entities/keyboard';
+import { KeyFingerMappingSchemeId } from '@/entities/keyFingerMapping';
+import { System } from '@/entities/keyboard';
 import { getKeyFingerMappingById } from '@/entities/keyboard/lib/getKeyFingerMappingById';
+import { FingerColorMapping, KeyFingerMapping, KeyboardFormat, KeyboardLayoutId } from '@/shared/types';
 
 interface Props {
   system: System;
   keyFingerMappingIdList: Exclude<KeyFingerMappingSchemeId, 'custom'>[];
   fingerColorMapping: FingerColorMapping;
-  layoutId: LayoutId;
+  layoutId: KeyboardLayoutId;
   keyboardFormat: KeyboardFormat;
-  customKeyFingerMapping: KeyFingerMappingScheme;
+  customKeyFingerMapping: KeyFingerMapping;
   defaultValue: KeyFingerMappingSchemeId;
   onChange: (value: KeyFingerMappingSchemeId) => void;
 }
