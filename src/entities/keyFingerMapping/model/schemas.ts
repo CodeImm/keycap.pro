@@ -18,15 +18,21 @@ export const HomeRowSchema = z
   .refine(
     (data) => {
       const values = Object.values(data).filter((value) => value !== undefined);
-      const uniqueValues = new Set(values);
 
-      return values.length === uniqueValues.size;
+      const nonSpaceValues = values.filter((value) => value !== 'Space');
+      const uniqueNonSpaceValues = new Set(nonSpaceValues);
+
+      const areNonSpaceValuesUnique = nonSpaceValues.length === uniqueNonSpaceValues.size;
+
+      const spaceValuesCount = values.length - nonSpaceValues.length;
+
+      return areNonSpaceValuesUnique && spaceValuesCount <= 2;
     },
     {
-      message: 'Values must be unique',
+      message: 'Values must be unique, but "Space" can be used twice.',
     }
   );
 
-export const KeyFingerMappingSchema = z.record(z.enum(keyCodes), z.nativeEnum(Finger));
+export const KeyFingerMappingSchema = z.record(z.enum(keyCodes), z.array(z.nativeEnum(Finger)));
 
 export type HomeRow = z.infer<typeof HomeRowSchema>;

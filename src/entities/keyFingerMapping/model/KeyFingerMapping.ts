@@ -3,7 +3,7 @@ import crypto from 'crypto';
 
 import { Finger, KeyCode } from '@/shared/types';
 
-import { KeyFingerMappingSchemeType, } from './types';
+import { KeyFingerMappingSchemeType } from './types';
 
 @pre<KeyFingerMapping>('save', function () {
   this.hash = this.generateHash();
@@ -24,18 +24,19 @@ export class KeyFingerMapping {
   @prop({ type: String, required: false })
   public hash!: string;
 
+  // TODO: есть дубляж функции
   private generateHash(): string {
     const hash = crypto.createHash('sha256');
     const sortedKeys = Object.keys(this.keyFingerMappingScheme).sort() as KeyCode[];
     const sortedScheme = sortedKeys.reduce((acc: any, key) => {
       acc[key] = this.keyFingerMappingScheme[key];
       return acc;
-    }, {});
+    }, {} as KeyFingerMapping);
+
     hash.update(JSON.stringify(sortedScheme));
     return hash.digest('hex');
   }
 }
-
 
 const KeyFingerMappingModel = getModelForClass(KeyFingerMapping, { schemaOptions: { timestamps: true } });
 
