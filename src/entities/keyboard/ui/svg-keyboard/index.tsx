@@ -31,7 +31,7 @@ export function Keyboard({
   system,
   layoutId,
   keyboardFormat,
-  excludedKeys = [], //= DEFAULT_EXCLUDED_KEYS,
+  excludedKeys = [],
   homingKeys = DEFAULT_HOMING_KEYS,
   keyFingerMapping,
   fingerColorMapping,

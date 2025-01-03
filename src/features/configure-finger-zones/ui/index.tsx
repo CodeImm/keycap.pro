@@ -3,7 +3,7 @@
 import Box from '@mui/material/Box';
 
 import { DEFAULT_FINGER_COLOR_MAPPING as defaultFingerColorMapping } from '@/entities/keyFingerMapping';
-import { Keyboard, System } from '@/entities/keyboard';
+import { DEFAULT_EXCLUDED_KEYS, Keyboard, System } from '@/entities/keyboard';
 import { KeyFingerMapping, KeyboardFormat, KeyboardLayoutId } from '@/shared/types';
 
 import FingerSelectionForm from './FingerSelectionForm';
@@ -62,6 +62,7 @@ export function KeyFingerMappingForm({ defaultValues, system, keyboardFormat, la
         <Keyboard
           system={system}
           layoutId={layoutId}
+          excludedKeys={DEFAULT_EXCLUDED_KEYS}
           keyboardFormat={keyboardFormat}
           fingerColorMapping={defaultFingerColorMapping}
           keyFingerMapping={keyFingerMapping}

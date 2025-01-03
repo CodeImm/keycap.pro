@@ -65,11 +65,11 @@ export const logical: KeyFingerMapping = {
 
   // Row
   ControlLeft: Finger.LEFT_PINKIE,
-  MetaLeft: Finger.LEFT_PINKIE,
-  AltLeft: Finger.LEFT_MIDDLE,
+  // MetaLeft: Finger.LEFT_PINKIE,
+  AltLeft: Finger.LEFT_RING,
   Space: [Finger.LEFT_THUMB, Finger.RIGHT_THUMB],
-  AltRight: Finger.RIGHT_RING,
-  MetaRight: Finger.RIGHT_RING,
-  ContextMenu: Finger.RIGHT_RING,
+  AltRight: Finger.RIGHT_MIDDLE,
+  // MetaRight: Finger.RIGHT_RING,
+  // ContextMenu: Finger.RIGHT_RING,
   ControlRight: Finger.RIGHT_PINKIE,
 };
