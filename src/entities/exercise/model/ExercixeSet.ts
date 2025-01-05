@@ -15,7 +15,7 @@ export class ExerciseSet {
   public exercises!: Ref<Exercise>[];
 
   @prop({ ref: 'KeyboardProfile', required: true })
-  public keyboardProfileId!: Ref<KeyboardProfile>;
+  public keyboardProfile!: Ref<KeyboardProfile>;
 
   @prop({ type: Number, required: true })
   public version!: number;
