@@ -1,8 +1,6 @@
 import { KeyFingerMappingSchemeType } from './../../../entities/keyFingerMapping';
 import KeyFingerMappingModel from './../../../entities/keyFingerMapping/model/KeyFingerMapping';
 
-import mongoose from 'mongoose';
-
 import { generateHash } from '@/entities/keyFingerMapping/lib';
 
 import { logical } from './data/logical';
@@ -18,13 +16,13 @@ export async function seedKeyFingerMappingSchemes() {
 
     const keyFingerMappingsSchemes = [
       {
-        name: 'Logical Finger Mapping',
+        name: 'logical',
         description: 'Mapping of keys to fingers for the logical layout.',
         schemeType: KeyFingerMappingSchemeType.Standard,
         keyFingerMappingScheme: logical,
       },
       {
-        name: 'Optimized Finger Mapping',
+        name: 'optimized',
         description: 'Mapping of keys to fingers for the optimized layout.',
         schemeType: KeyFingerMappingSchemeType.Standard,
         keyFingerMappingScheme: optimized,
@@ -35,14 +33,17 @@ export async function seedKeyFingerMappingSchemes() {
       item.hash = generateHash(item.keyFingerMappingScheme);
     });
 
-    await KeyFingerMappingModel.insertMany(keyFingerMappingsSchemes);
+    const keyFingerMappings = await KeyFingerMappingModel.insertMany(keyFingerMappingsSchemes);
 
     console.log('Database seeded successfully!');
+
+    return keyFingerMappings;
   } catch (error) {
     console.error('Error seeding database:', error);
-  } finally {
-    await mongoose.disconnect();
   }
+  // finally {
+  //   await mongoose.disconnect();
+  // }
 }
 
-seedKeyFingerMappingSchemes();
+// seedKeyFingerMappingSchemes();

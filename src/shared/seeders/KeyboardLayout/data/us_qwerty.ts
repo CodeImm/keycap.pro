@@ -2,11 +2,11 @@
  * https://w3c.github.io/uievents-code/#code-value-tables
  */
 
-import { KeyboardLayout, KeyModifier, KeyType } from "@/shared/types";
+import { KeyboardLayout, ModifierKey, KeyType } from "@/shared/types";
 
 
 export const us_qwerty: KeyboardLayout = {
-  [KeyModifier.DEFAULT]: {
+  [ModifierKey.DEFAULT]: {
     Backquote: {
       char: '`',
       type: KeyType.SYMBOL,
@@ -260,7 +260,7 @@ export const us_qwerty: KeyboardLayout = {
       type: KeyType.SPECIAL,
     },
   },
-  [KeyModifier.SHIFT]: {
+  [ModifierKey.SHIFT]: {
     Backquote: {
       char: '~',
       type: KeyType.SYMBOL,

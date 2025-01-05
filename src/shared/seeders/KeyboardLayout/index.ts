@@ -17,11 +17,11 @@ export async function seedKeyboardLayouts() {
     const keyboardLayouts = [
       {
         layoutId: KeyboardLayoutId.UsQwerty,
-        layoutKeys: us_qwerty,
+        layoutMap: us_qwerty,
       },
       {
         layoutId: KeyboardLayoutId.Jcuken,
-        layoutKeys: jcuken,
+        layoutMap: jcuken,
       },
     ];
 

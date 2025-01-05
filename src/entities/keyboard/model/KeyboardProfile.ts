@@ -22,7 +22,7 @@ export class KeyboardProfile {
 
   @prop({
     type: Object,
-    required: false,
+    required: true,
     validate: {
       validator: (value: unknown) => {
         const result = HomeRowSchema.safeParse(value);
@@ -33,7 +33,7 @@ export class KeyboardProfile {
     },
     default: DEFAULT_HOME_ROW,
   })
-  public homeRow?: HomeRow;
+  public homeRow!: HomeRow;
 }
 
 const KeyboardProfileModel = getModelForClass(KeyboardProfile, { schemaOptions: { timestamps: true } });

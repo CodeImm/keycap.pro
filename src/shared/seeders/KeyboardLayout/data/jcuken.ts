@@ -1,10 +1,10 @@
 /**
  * https://w3c.github.io/uievents-code/#code-value-tables
  */
-import { KeyModifier, KeyType, KeyboardLayout } from '@/shared/types';
+import { ModifierKey, KeyType, KeyboardLayout } from '@/shared/types';
 
 export const jcuken: KeyboardLayout = {
-  [KeyModifier.DEFAULT]: {
+  [ModifierKey.DEFAULT]: {
     Backquote: {
       char: 'ё',
       type: KeyType.LETTER,
@@ -110,7 +110,7 @@ export const jcuken: KeyboardLayout = {
     Backslash: {
       char: '\\',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'IntlBackslash', modifier: KeyModifier.DEFAULT }],
+      alternates: [{ code: 'IntlBackslash', modifier: ModifierKey.DEFAULT }],
     },
     CapsLock: { char: 'CapsLock', type: KeyType.SPECIAL },
     KeyA: {
@@ -162,7 +162,7 @@ export const jcuken: KeyboardLayout = {
     IntlBackslash: {
       char: '\\',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'Backslash', modifier: KeyModifier.DEFAULT }],
+      alternates: [{ code: 'Backslash', modifier: ModifierKey.DEFAULT }],
     },
     KeyZ: {
       char: 'я',
@@ -218,7 +218,7 @@ export const jcuken: KeyboardLayout = {
     ContextMenu: { char: '', type: KeyType.SPECIAL },
     ControlRight: { char: 'Ctrl', type: KeyType.SPECIAL },
   },
-  [KeyModifier.SHIFT]: {
+  [ModifierKey.SHIFT]: {
     Backquote: {
       char: 'Ё',
       type: KeyType.LETTER,
@@ -323,7 +323,7 @@ export const jcuken: KeyboardLayout = {
     Backslash: {
       char: '/',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'IntlBackslash', modifier: KeyModifier.SHIFT }],
+      alternates: [{ code: 'IntlBackslash', modifier: ModifierKey.SHIFT }],
     },
 
     KeyA: {
@@ -374,7 +374,7 @@ export const jcuken: KeyboardLayout = {
     IntlBackslash: {
       char: '/',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'Backslash', modifier: KeyModifier.SHIFT }],
+      alternates: [{ code: 'Backslash', modifier: ModifierKey.SHIFT }],
     },
     KeyZ: {
       char: 'Я',

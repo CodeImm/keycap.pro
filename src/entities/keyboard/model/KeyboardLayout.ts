@@ -1,27 +1,26 @@
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
 
-import type { KeyCode, KeyModifier } from '@/shared/types';
-import { KeyboardLayoutId, KeyType } from '@/shared/types';
+import type { KeyCode, KeyInput, ModifierKey } from '@/shared/types';
+import { KeyType, KeyboardLayoutId } from '@/shared/types';
 
 @modelOptions({ schemaOptions: { _id: false } })
-class LayoutKeyInfo {
+class KeyDefinition {
   @prop({ required: true, type: String })
-  public key!: string;
+  public char!: string;
 
   @prop({ required: true, enum: KeyType, type: String })
   public type!: KeyType;
 
-  @prop({ type: String })
-  public alternate?: KeyCode;
+  @prop({ type: () => [{ code: String, modifier: String }] })
+  public alternates?: KeyInput[];
 }
 
 export class KeyboardLayout {
   @prop({ enum: KeyboardLayoutId, type: String, required: false })
   public layoutId?: KeyboardLayoutId;
 
-  // TODO: уточнить тип, если возможно
   @prop({ type: Object, _id: false, required: true })
-  public layoutKeys!: Record<KeyModifier, Record<KeyCode, LayoutKeyInfo>>;
+  public layoutMap!: Record<ModifierKey, Record<KeyCode, KeyDefinition>>;
 }
 
 const KeyboardLayoutModel = getModelForClass(KeyboardLayout, { schemaOptions: { timestamps: true } });

@@ -2,11 +2,11 @@
  * https://w3c.github.io/uievents-code/#code-value-tables
  */
 
-import { KeyboardLayout, KeyModifier, KeyType } from "@/shared/types";
+import { KeyboardLayout, ModifierKey, KeyType } from "@/shared/types";
 
 
 export const dvorak: KeyboardLayout = {
-  [KeyModifier.DEFAULT]: {
+  [ModifierKey.DEFAULT]: {
     Backquote: {
       char: '`',
       type: KeyType.SYMBOL,
@@ -112,7 +112,7 @@ export const dvorak: KeyboardLayout = {
     Backslash: {
       char: '\\',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'IntlBackslash', modifier: KeyModifier.DEFAULT }]
+      alternates: [{ code: 'IntlBackslash', modifier: ModifierKey.DEFAULT }]
     },
     CapsLock: { char: 'CapsLock', type: KeyType.SPECIAL },
     KeyA: {
@@ -164,7 +164,7 @@ export const dvorak: KeyboardLayout = {
     IntlBackslash: {
       char: '\\',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'Backslash', modifier: KeyModifier.DEFAULT }]
+      alternates: [{ code: 'Backslash', modifier: ModifierKey.DEFAULT }]
     },
     KeyZ: {
       char: ';',
@@ -220,7 +220,7 @@ export const dvorak: KeyboardLayout = {
     ContextMenu: { char: '', type: KeyType.SPECIAL },
     ControlRight: { char: 'Ctrl', type: KeyType.SPECIAL },
   },
-  [KeyModifier.SHIFT]: {
+  [ModifierKey.SHIFT]: {
     Backquote: {
       char: '~',
       type: KeyType.SYMBOL,
@@ -325,7 +325,7 @@ export const dvorak: KeyboardLayout = {
     Backslash: {
       char: '|',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'IntlBackslash', modifier: KeyModifier.SHIFT }]
+      alternates: [{ code: 'IntlBackslash', modifier: ModifierKey.SHIFT }]
     },
 
     KeyA: {
@@ -376,7 +376,7 @@ export const dvorak: KeyboardLayout = {
     IntlBackslash: {
       char: '|',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'Backslash', modifier: KeyModifier.SHIFT }]
+      alternates: [{ code: 'Backslash', modifier: ModifierKey.SHIFT }]
     },
     KeyZ: {
       char: ':',

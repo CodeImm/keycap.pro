@@ -1,10 +1,10 @@
 /**
  * https://w3c.github.io/uievents-code/#code-value-tables
  */
-import { KeyModifier, KeyType, KeyboardLayout } from '@/shared/types';
+import { ModifierKey, KeyType, KeyboardLayout } from '@/shared/types';
 
 export const workman: KeyboardLayout = {
-  [KeyModifier.DEFAULT]: {
+  [ModifierKey.DEFAULT]: {
     Backquote: { char: '`', type: KeyType.SYMBOL },
     Digit1: { char: '1', type: KeyType.DIGIT },
     Digit2: { char: '2', type: KeyType.DIGIT },
@@ -35,7 +35,7 @@ export const workman: KeyboardLayout = {
     Backslash: {
       char: '\\',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'IntlBackslash', modifier: KeyModifier.DEFAULT }],
+      alternates: [{ code: 'IntlBackslash', modifier: ModifierKey.DEFAULT }],
     },
     CapsLock: { char: 'CapsLock', type: KeyType.SPECIAL },
     KeyA: { char: 'a', type: KeyType.LETTER },
@@ -54,7 +54,7 @@ export const workman: KeyboardLayout = {
     IntlBackslash: {
       char: '\\',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'Backslash', modifier: KeyModifier.DEFAULT }],
+      alternates: [{ code: 'Backslash', modifier: ModifierKey.DEFAULT }],
     },
     KeyZ: { char: 'z', type: KeyType.LETTER },
     KeyX: { char: 'x', type: KeyType.LETTER },
@@ -80,7 +80,7 @@ export const workman: KeyboardLayout = {
     ContextMenu: { char: '', type: KeyType.SPECIAL },
     ControlRight: { char: 'Ctrl', type: KeyType.SPECIAL },
   },
-  [KeyModifier.SHIFT]: {
+  [ModifierKey.SHIFT]: {
     Backquote: { char: '~', type: KeyType.SYMBOL },
     Digit1: { char: '!', type: KeyType.SYMBOL },
     Digit2: { char: '@', type: KeyType.SYMBOL },
@@ -109,7 +109,7 @@ export const workman: KeyboardLayout = {
     Backslash: {
       char: '|',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'IntlBackslash', modifier: KeyModifier.SHIFT }],
+      alternates: [{ code: 'IntlBackslash', modifier: ModifierKey.SHIFT }],
     },
     KeyA: { char: 'A', type: KeyType.LETTER },
     KeyS: { char: 'S', type: KeyType.LETTER },
@@ -125,7 +125,7 @@ export const workman: KeyboardLayout = {
     IntlBackslash: {
       char: '|',
       type: KeyType.SYMBOL,
-      alternates: [{ code: 'Backslash', modifier: KeyModifier.SHIFT }],
+      alternates: [{ code: 'Backslash', modifier: ModifierKey.SHIFT }],
     },
     KeyZ: { char: 'Z', type: KeyType.LETTER },
     KeyX: { char: 'X', type: KeyType.LETTER },

@@ -11,7 +11,7 @@ export enum Finger {
   RIGHT_PINKIE,
 }
 
-export enum KeyModifier {
+export enum ModifierKey {
   DEFAULT = 'default', // Обычное состояние клавиши (без модификаторов)
   SHIFT = 'shift', // С зажатым Shift
   ALT = 'alt', // С зажатым Alt
@@ -40,16 +40,15 @@ export enum KeyType {
   SPECIAL = 'special',
 }
 
-export type AlternateKey = {
+export type KeyInput = {
   code: KeyCode;
-  modifier: KeyModifier;
+  modifier: ModifierKey;
 };
 
-export type KeyCodeMap = { [key in KeyCode]: { char: string; type: KeyType; alternates?: AlternateKey[] } };
+export type KeyCodeMap = { [key in KeyCode]: { char: string; type: KeyType; alternates?: KeyInput[] } };
 
-// TODO: alternates - клавиши могут быть с модификаторами {code: , modifier:}
 export type KeyboardLayout = {
-  [key in KeyModifier]?: KeyCodeMap;
+  [key in ModifierKey]?: KeyCodeMap;
 };
 
 export const keyCodes = [

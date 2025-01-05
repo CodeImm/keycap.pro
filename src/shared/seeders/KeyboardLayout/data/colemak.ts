@@ -1,10 +1,10 @@
 /**
  * https://w3c.github.io/uievents-code/#code-value-tables
  */
-import { KeyModifier, KeyType, KeyboardLayout } from '@/shared/types';
+import { ModifierKey, KeyType, KeyboardLayout } from '@/shared/types';
 
 export const colemak: KeyboardLayout = {
-  [KeyModifier.DEFAULT]: {
+  [ModifierKey.DEFAULT]: {
     Backquote: { char: '`', type: KeyType.SYMBOL },
     Digit1: { char: '1', type: KeyType.DIGIT },
     Digit2: { char: '2', type: KeyType.DIGIT },
@@ -16,7 +16,7 @@ export const colemak: KeyboardLayout = {
     Digit8: { char: '8', type: KeyType.DIGIT },
     Digit9: { char: '9', type: KeyType.DIGIT },
     Digit0: { char: '0', type: KeyType.DIGIT },
-    Minus: { char: '-', type: KeyType.SYMBOL, alternates: [{ code: 'IntlBackslash', modifier: KeyModifier.DEFAULT }] },
+    Minus: { char: '-', type: KeyType.SYMBOL, alternates: [{ code: 'IntlBackslash', modifier: ModifierKey.DEFAULT }] },
     Equal: { char: '=', type: KeyType.SYMBOL },
     Backspace: { char: 'Backspace', type: KeyType.SPECIAL },
     Tab: { char: 'Tab', type: KeyType.SPECIAL },
@@ -47,7 +47,7 @@ export const colemak: KeyboardLayout = {
     Quote: { char: "'", type: KeyType.SYMBOL },
     Enter: { char: 'Enter', type: KeyType.SPECIAL },
     ShiftLeft: { char: 'Shift', type: KeyType.SPECIAL },
-    IntlBackslash: { char: '-', type: KeyType.SYMBOL, alternates: [{ code: 'Minus', modifier: KeyModifier.DEFAULT }] },
+    IntlBackslash: { char: '-', type: KeyType.SYMBOL, alternates: [{ code: 'Minus', modifier: ModifierKey.DEFAULT }] },
     KeyZ: { char: 'z', type: KeyType.LETTER },
     KeyX: { char: 'x', type: KeyType.LETTER },
     KeyC: { char: 'c', type: KeyType.LETTER },
@@ -72,7 +72,7 @@ export const colemak: KeyboardLayout = {
     ContextMenu: { char: '', type: KeyType.SPECIAL },
     ControlRight: { char: 'Ctrl', type: KeyType.SPECIAL },
   },
-  [KeyModifier.SHIFT]: {
+  [ModifierKey.SHIFT]: {
     Backquote: { char: '~', type: KeyType.SYMBOL },
     Digit1: { char: '!', type: KeyType.SYMBOL },
     Digit2: { char: '@', type: KeyType.SYMBOL },
@@ -84,7 +84,7 @@ export const colemak: KeyboardLayout = {
     Digit8: { char: '*', type: KeyType.SYMBOL },
     Digit9: { char: '(', type: KeyType.SYMBOL },
     Digit0: { char: ')', type: KeyType.SYMBOL },
-    Minus: { char: '_', type: KeyType.SYMBOL, alternates: [{ code: 'IntlBackslash', modifier: KeyModifier.SHIFT }] },
+    Minus: { char: '_', type: KeyType.SYMBOL, alternates: [{ code: 'IntlBackslash', modifier: ModifierKey.SHIFT }] },
     Equal: { char: '+', type: KeyType.SYMBOL },
     KeyQ: { char: 'Q', type: KeyType.LETTER },
     KeyW: { char: 'W', type: KeyType.LETTER },
@@ -110,7 +110,7 @@ export const colemak: KeyboardLayout = {
     KeyL: { char: 'I', type: KeyType.LETTER },
     Semicolon: { char: 'O', type: KeyType.LETTER },
     Quote: { char: '"', type: KeyType.SYMBOL },
-    IntlBackslash: { char: '_', type: KeyType.SYMBOL, alternates: [{ code: 'Minus', modifier: KeyModifier.SHIFT }] },
+    IntlBackslash: { char: '_', type: KeyType.SYMBOL, alternates: [{ code: 'Minus', modifier: ModifierKey.SHIFT }] },
     KeyZ: { char: 'Z', type: KeyType.LETTER },
     KeyX: { char: 'X', type: KeyType.LETTER },
     KeyC: { char: 'C', type: KeyType.LETTER },
