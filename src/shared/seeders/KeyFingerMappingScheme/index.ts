@@ -1,7 +1,6 @@
-import { KeyFingerMappingSchemeType } from './../../../entities/keyFingerMapping';
-import KeyFingerMappingModel from './../../../entities/keyFingerMapping/model/KeyFingerMapping';
-
+import { KeyFingerMappingSchemeType } from '@/entities/keyFingerMapping';
 import { generateHash } from '@/entities/keyFingerMapping/lib';
+import KeyFingerMappingModel from '@/entities/keyFingerMapping/model/KeyFingerMapping';
 
 import { logical } from './data/logical';
 import { optimized } from './data/optimized';

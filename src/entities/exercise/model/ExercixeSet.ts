@@ -17,7 +17,7 @@ export class ExerciseSet {
   @prop({ ref: 'KeyboardProfile', required: true })
   public keyboardProfile!: Ref<KeyboardProfile>;
 
-  @prop({ type: Number, required: true })
+  @prop({ type: Number, required: true, default: 0 })
   public version!: number;
 
   @prop({ type: Boolean, default: true })

@@ -12,7 +12,8 @@
     "prettier:fix": "prettier --write .",
     "lint:fixall": "npm run lint:fix && npm run prettier:fix",
     "seed": "npx tsx ./src/shared/seeders/KeyFingerMappingScheme/index.ts",
-    "seed:layouts": "npx tsx ./src/shared/seeders/KeyboardLayout/index.ts"
+    "seed:layouts": "npx tsx ./src/shared/seeders/KeyboardLayout/index.ts",
+    "seed:all": "npx tsx ./src/shared/seeders/index.ts"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",

@@ -5,7 +5,8 @@ import type { HomeRow } from '@/entities/keyFingerMapping';
 import { DEFAULT_HOME_ROW, HomeRowSchema } from '@/entities/keyFingerMapping';
 import { KeyFingerMapping } from '@/entities/keyFingerMapping/model/KeyFingerMapping';
 import { FormFactor } from '@/entities/keyboard';
-import { KeyboardFormat, KeyboardLayoutId } from '@/shared/types';
+import { KeyboardLayout } from '@/entities/keyboard/model/KeyboardLayout';
+import { KeyboardFormat } from '@/shared/types';
 
 export class KeyboardProfile {
   @prop({ enum: FormFactor, type: String, default: FormFactor.SixtyPercent })
@@ -14,11 +15,11 @@ export class KeyboardProfile {
   @prop({ enum: KeyboardFormat, type: String, required: true })
   public format!: KeyboardFormat;
 
-  @prop({ enum: KeyboardLayoutId, type: String, required: true })
-  public layout!: KeyboardLayoutId;
+  @prop({ ref: 'KeyboardLayout', required: true })
+  public layout!: Ref<KeyboardLayout>;
 
   @prop({ ref: 'KeyFingerMapping', required: true })
-  public keyFingerMappingSchemeId!: Ref<KeyFingerMapping>;
+  public keyFingerMappingScheme!: Ref<KeyFingerMapping>;
 
   @prop({
     type: Object,
@@ -26,7 +27,7 @@ export class KeyboardProfile {
     validate: {
       validator: (value: unknown) => {
         const result = HomeRowSchema.safeParse(value);
-        
+
         return result.success;
       },
       message: 'Invalid home row configuration',

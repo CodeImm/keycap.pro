@@ -16,8 +16,8 @@ class KeyDefinition {
 }
 
 export class KeyboardLayout {
-  @prop({ enum: KeyboardLayoutId, type: String, required: false })
-  public layoutId?: KeyboardLayoutId;
+  @prop({ enum: KeyboardLayoutId, type: String, required: true, unique: true, index: true })
+  public layoutId!: KeyboardLayoutId;
 
   @prop({ type: Object, _id: false, required: true })
   public layoutMap!: Record<ModifierKey, Record<KeyCode, KeyDefinition>>;

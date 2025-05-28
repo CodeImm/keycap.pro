@@ -64,11 +64,13 @@ export async function POST(req: Request) {
       );
       // console.log({ profileExists });
       if (profileExists) {
+        // TODO: возможно нужно обновить userprofile
         return new Response('Profile already linked to user', { status: 400 });
       }
       const newUserKeyboardProfile = new UserKeyboardProfileModel({
         userId,
         keyboardProfileId: keyboardProfile._id,
+        // TODO: учтановить актуальную версию currentExerciseSetId
       });
       await newUserKeyboardProfile.save();
       // console.log({ newUserKeyboardProfile });
@@ -81,7 +83,7 @@ export async function POST(req: Request) {
       });
       keyboardProfile = await newProfile.save();
       // console.log({ savedProfile });
-
+      // TODO: генерация упражнений, создание exerciseSet
       const userKeyboardProfile = new UserKeyboardProfileModel({
         userId,
         keyboardProfileId: keyboardProfile._id,

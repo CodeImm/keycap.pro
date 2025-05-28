@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
 import KeyboardLayoutModel from '@/entities/keyboard/model/KeyboardLayout';
+import { KeyboardLayoutId } from '@/shared/types';
 
 import { jcuken } from './data/jcuken';
 import { us_qwerty } from './data/us_qwerty';
 
 import dbConnect from '../../config/mongodb/dbConnect';
-import { KeyboardLayoutId } from '@/shared/types';
 
 export async function seedKeyboardLayouts() {
   try {
@@ -25,9 +25,8 @@ export async function seedKeyboardLayouts() {
       },
     ];
 
-    await KeyboardLayoutModel.insertMany(keyboardLayouts);
-
     console.log('Database seeded successfully!');
+    return await KeyboardLayoutModel.insertMany(keyboardLayouts);
   } catch (error) {
     console.error('Error seeding database:', error);
   } finally {
