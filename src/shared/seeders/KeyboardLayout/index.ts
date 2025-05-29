@@ -16,6 +16,7 @@ export async function seedKeyboardLayouts() {
 
     const keyboardLayouts = [
       {
+        // TODO: проблемы когда пользователь сможет создавать свои раскладки
         layoutId: KeyboardLayoutId.UsQwerty,
         layoutMap: us_qwerty,
       },
@@ -25,13 +26,17 @@ export async function seedKeyboardLayouts() {
       },
     ];
 
+    const insertedLayouts = await KeyboardLayoutModel.insertMany(keyboardLayouts);
+
     console.log('Database seeded successfully!');
-    return await KeyboardLayoutModel.insertMany(keyboardLayouts);
+
+    return insertedLayouts;
   } catch (error) {
     console.error('Error seeding database:', error);
+    throw error; // Rethrow to allow caller to handle
   } finally {
     await mongoose.disconnect();
   }
 }
 
-seedKeyboardLayouts();
+// seedKeyboardLayouts();

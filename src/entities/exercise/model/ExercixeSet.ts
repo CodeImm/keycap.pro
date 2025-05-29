@@ -5,11 +5,11 @@ import { KeyboardProfile } from '@/entities/keyboard/model/KeyboardProfile';
 import { Exercise } from './Exercise';
 
 export class ExerciseSet {
-  @prop({ type: String })
-  public name?: string;
+  // @prop({ type: String })
+  // public name?: string;
 
-  @prop({ type: String })
-  public description?: string;
+  // @prop({ type: String })
+  // public description?: string;
 
   @prop({ ref: 'Exercise', required: true })
   public exercises!: Ref<Exercise>[];

@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 import { KeyFingerMappingSchemeModel, KeyFingerMappingSchemeType } from '@/entities/keyFingerMapping';
 
 import { logical } from './data/logical';
@@ -14,16 +16,12 @@ export async function seedKeyFingerMappingSchemes() {
 
     const keyFingerMappingSchemes = [
       {
-        schemeId: KeyFingerMappingSchemeType.LOGICAL,
-        name: 'Logical',
-        description: 'Mapping of keys to fingers for the logical layout.',
+        schemeType: KeyFingerMappingSchemeType.LOGICAL,
         keyFingerMappingScheme: logical,
         hash: KeyFingerMappingSchemeModel.generateHash(logical),
       },
       {
-        schemeId: KeyFingerMappingSchemeType.OPTIMIZED,
-        name: 'Optimized',
-        description: 'Mapping of keys to fingers for the optimized layout.',
+        schemeType: KeyFingerMappingSchemeType.OPTIMIZED,
         keyFingerMappingScheme: optimized,
         hash: KeyFingerMappingSchemeModel.generateHash(optimized),
       },
@@ -37,5 +35,9 @@ export async function seedKeyFingerMappingSchemes() {
   } catch (error) {
     console.error('Error seeding KeyFingerMappingSchemes:', error);
     throw error; // Rethrow to allow caller to handle
+  } finally {
+    await mongoose.disconnect();
   }
 }
+
+// seedKeyFingerMappingSchemes();

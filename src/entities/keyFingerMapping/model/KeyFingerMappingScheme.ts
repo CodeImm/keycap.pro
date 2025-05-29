@@ -10,7 +10,7 @@ import { KeyFingerMappingSchemeType } from './types';
 })
 export class KeyFingerMappingScheme {
   @prop({ type: String, enum: KeyFingerMappingSchemeType, required: true })
-  public schemeId!: KeyFingerMappingSchemeType;
+  public schemeType!: KeyFingerMappingSchemeType;
 
   @prop({ type: Object, required: true })
   public keyFingerMappingScheme!: KeyFingerMapping;

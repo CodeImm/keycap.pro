@@ -17,13 +17,10 @@ package "Exercise Module" {
 
   entity "ExerciseSet" {
     ' Groups exercises for a specific keyboard profile
-    * name : String
-    description : String
     * exercises : Ref<Exercise>[] <<FK, array>>
     * keyboardProfile : Ref<KeyboardProfile> <<FK>>
-    * profileHash : String <<unique>>
-    version : Number <<default: 0>>
-    generated : Boolean <<default: true>>
+    * version : Number <<default: 0>>
+    * generated : Boolean <<default: true>>
     --
     timestamps : Date
   }
@@ -59,7 +56,6 @@ package "Keyboard Module" {
     --
     * formFactor : FormFactor <<enum>>
     * format : KeyboardFormat <<enum>>
-    isCustom : Boolean <<default: false>>
     --
     timestamps : Date
   }
@@ -82,7 +78,7 @@ package "Keyboard Module" {
 
   entity "KeyFingerMappingScheme" {
     ' Maps keys to fingers for typing
-    * schemeId : KeyFingerMappingSchemeType <<enum>>
+    * schemeType : KeyFingerMappingSchemeType <<enum>>
     * keyFingerMappingScheme : Object <<KeyFingerMapping>>
     * hash : String <<unique>>
     --
@@ -173,9 +169,9 @@ package "User Module" {
 
   entity "KeyboardSettings" {
     ' User-specific keyboard settings
-    system : System <<enum>>
-    keyboardProfileIds : Ref<KeyboardProfile>[] <<FK, array>>
-    ? activeKeyboardProfileId : Ref<KeyboardProfile> <<FK>>
+    * system : System <<enum>>
+    * keyboardProfileIds : Ref<KeyboardProfile>[] <<FK, array>>
+    * activeKeyboardProfileId : Ref<KeyboardProfile> <<FK>>
   }
 
   entity "UserKeyboardProfile" {
@@ -244,6 +240,6 @@ KeyboardLayout::layoutId -- KeyboardLayoutId
 
 KeyDefinition::type -- KeyType
 
-KeyFingerMappingScheme::schemeId -- KeyFingerMappingSchemeType
+KeyFingerMappingScheme::schemeType -- KeyFingerMappingSchemeType
 
 @enduml

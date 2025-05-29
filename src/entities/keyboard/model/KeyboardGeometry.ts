@@ -13,7 +13,7 @@ export class KeyboardGeometry {
   @prop({ type: String, enum: KeyboardFormat, required: true }) // Обязательный формат
   public format!: KeyboardFormat;
 
-  @prop({ type: Boolean, default: false }) // Для будущих кастомных геометрий
+  @prop({ type: Boolean, default: true }) // Для будущих кастомных геометрий
   public isCustom!: boolean;
 }
 

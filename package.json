@@ -13,6 +13,8 @@
     "lint:fixall": "npm run lint:fix && npm run prettier:fix",
     "seed": "npx tsx ./src/shared/seeders/KeyFingerMappingScheme/index.ts",
     "seed:layouts": "npx tsx ./src/shared/seeders/KeyboardLayout/index.ts",
+    "seed:schemes": "npx tsx ./src/shared//seeders/KeyFingerMappingScheme/index.ts",
+    "seed:geometries": "npx tsx ./src/shared//seeders/KeyboardGeometry/index.ts",
     "seed:all": "npx tsx ./src/shared/seeders/index.ts"
   },
   "dependencies": {
