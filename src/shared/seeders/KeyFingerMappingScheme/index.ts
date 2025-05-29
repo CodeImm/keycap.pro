@@ -1,6 +1,4 @@
-import { KeyFingerMappingSchemeType } from '@/entities/keyFingerMapping';
-import { generateHash } from '@/entities/keyFingerMapping/lib';
-import KeyFingerMappingModel from '@/entities/keyFingerMapping/model/KeyFingerMapping';
+import { KeyFingerMappingSchemeModel, KeyFingerMappingSchemeType } from '@/entities/keyFingerMapping';
 
 import { logical } from './data/logical';
 import { optimized } from './data/optimized';
@@ -11,38 +9,33 @@ export async function seedKeyFingerMappingSchemes() {
   try {
     await dbConnect();
 
-    await KeyFingerMappingModel.deleteMany();
+    // Clear existing schemes
+    await KeyFingerMappingSchemeModel.deleteMany({});
 
-    const keyFingerMappingsSchemes = [
+    const keyFingerMappingSchemes = [
       {
-        name: 'logical',
+        schemeId: KeyFingerMappingSchemeType.LOGICAL,
+        name: 'Logical',
         description: 'Mapping of keys to fingers for the logical layout.',
-        schemeType: KeyFingerMappingSchemeType.Standard,
         keyFingerMappingScheme: logical,
+        hash: KeyFingerMappingSchemeModel.generateHash(logical),
       },
       {
-        name: 'optimized',
+        schemeId: KeyFingerMappingSchemeType.OPTIMIZED,
+        name: 'Optimized',
         description: 'Mapping of keys to fingers for the optimized layout.',
-        schemeType: KeyFingerMappingSchemeType.Standard,
         keyFingerMappingScheme: optimized,
+        hash: KeyFingerMappingSchemeModel.generateHash(optimized),
       },
     ];
 
-    keyFingerMappingsSchemes.forEach((item) => {
-      item.hash = generateHash(item.keyFingerMappingScheme);
-    });
+    const insertedSchemes = await KeyFingerMappingSchemeModel.insertMany(keyFingerMappingSchemes);
 
-    const keyFingerMappings = await KeyFingerMappingModel.insertMany(keyFingerMappingsSchemes);
+    console.log('KeyFingerMappingSchemes seeded successfully:', insertedSchemes.length);
 
-    console.log('Database seeded successfully!');
-
-    return keyFingerMappings;
+    return insertedSchemes;
   } catch (error) {
-    console.error('Error seeding database:', error);
+    console.error('Error seeding KeyFingerMappingSchemes:', error);
+    throw error; // Rethrow to allow caller to handle
   }
-  // finally {
-  //   await mongoose.disconnect();
-  // }
 }
-
-// seedKeyFingerMappingSchemes();

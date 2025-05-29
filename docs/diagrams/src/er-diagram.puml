@@ -1,5 +1,5 @@
 @startuml
-' ER Diagram for Keyboard Trainer System
+' ER Diagram for Keyboard Trainer System (Updated for KeyFingerMappingScheme)
 ' Organizes entities by logical modules for clarity
 
 package "Exercise Module" {
@@ -18,11 +18,12 @@ package "Exercise Module" {
   entity "ExerciseSet" {
     ' Groups exercises for a specific keyboard profile
     * name : String
-    * description : String
+    description : String
     * exercises : Ref<Exercise>[] <<FK, array>>
     * keyboardProfile : Ref<KeyboardProfile> <<FK>>
-    * version : Number <<default: 0>>
-    * generated : Boolean <<default: true>>
+    * profileHash : String <<unique>>
+    version : Number <<default: 0>>
+    generated : Boolean <<default: true>>
     --
     timestamps : Date
   }
@@ -30,7 +31,7 @@ package "Exercise Module" {
   entity "KeyInput" {
     ' Defines a key press with code and modifier
     * code : KeyCode
-    * modifier : ModifierKey
+    modifier : ModifierKey ?
   }
 
   enum "ExerciseType" {
@@ -44,11 +45,21 @@ package "Exercise Module" {
 package "Keyboard Module" {
   entity "KeyboardProfile" {
     ' Defines user-specific keyboard configuration
-    * formFactor : FormFactor <<enum, default: SixtyPercent>>
-    * format : KeyboardFormat <<enum>>
+    * geometry : Ref<KeyboardGeometry> <<FK>>
     * layout : Ref<KeyboardLayout> <<FK>>
-    * keyFingerMappingScheme : Ref<KeyFingerMapping> <<FK>>
+    * keyFingerMappingScheme : Ref<KeyFingerMappingScheme> <<FK>>
     * homeRow : HomeRow <<default: DEFAULT_HOME_ROW>>
+    --
+    timestamps : Date
+  }
+
+  entity "KeyboardGeometry" {
+    ' Defines physical geometry of the keyboard
+    * geometryId : String <<unique>>
+    --
+    * formFactor : FormFactor <<enum>>
+    * format : KeyboardFormat <<enum>>
+    isCustom : Boolean <<default: false>>
     --
     timestamps : Date
   }
@@ -56,8 +67,8 @@ package "Keyboard Module" {
   entity "KeyboardLayout" {
     ' Defines keyboard layout with key mappings
     * layoutId : KeyboardLayoutId <<enum, unique, index>>
-    --
     * layoutMap : Record<ModifierKey, Record<KeyCode, KeyDefinition>>
+    isCustom : Boolean <<default: false>>
     --
     timestamps : Date
   }
@@ -66,16 +77,24 @@ package "Keyboard Module" {
     ' Defines key characteristics for a layout
     * char : String
     * type : KeyType <<enum>>
-    * alternates : KeyInput[] <<array>>
+    alternates : KeyInput[] <<array>>
   }
 
-  entity "KeyFingerMapping" {
+  entity "KeyFingerMappingScheme" {
     ' Maps keys to fingers for typing
-    * schemeType : KeyFingerMappingSchemeType <<enum, default: Custom>>
-    * name : String
-    * description : String
-    * keyFingerMappingScheme : Map<KeyCode, Finger[]> <<map>>
-    * hash : String
+    * schemeId : KeyFingerMappingSchemeType <<enum>>
+    * keyFingerMappingScheme : Object <<KeyFingerMapping>>
+    * hash : String <<unique>>
+    --
+    timestamps : Date
+  }
+
+  entity "UserKeyFingerMapping" {
+    ' Links user to a scheme with custom title
+    * userId : Ref<User> <<FK>>
+    * title : String
+    description : String
+    * schemeId : Ref<KeyFingerMappingScheme> <<FK>>
     --
     timestamps : Date
   }
@@ -93,11 +112,6 @@ package "Keyboard Module" {
     FortyPercent
     FiftyPercent
     EightyPercent
-  }
-
-  enum "LayoutLanguage" {
-    English
-    Russian
   }
 
   enum "KeyboardFormat" {
@@ -121,7 +135,8 @@ package "Keyboard Module" {
   }
 
   enum "KeyFingerMappingSchemeType" {
-    Standard
+    Optimized
+    Logical
     Custom
   }
 }
@@ -131,36 +146,36 @@ package "User Module" {
     ' Represents a user with authentication and settings
     * github_id : Number <<unique>>
     * google_id : Number <<unique>>
-    * email : String <<unique, sparse>>
-    * emailVerified : Date
-    * imageURL : String
-    * role : Role <<enum, default: User>>
-    * settings : Settings
-    * lastLogin : Date
-    * firstName : String
-    * lastName : String
-    * dateOfBirth : Date
-    * gender : Gender <<enum>>
-    * username : String <<unique, sparse>>
-    * locale : String
-    * registrationCompleted : Date
-    * keyboardSettings : KeyboardSettings
-    * timeZone : String
+    ? email : String <<unique, sparse>>
+    ? emailVerified : Date
+    ? imageURL : String
+    role : Role <<enum, default: User>>
+    settings : Settings
+    ? lastLogin : Date
+    ? firstName : String
+    ? lastName : String
+    ? dateOfBirth : Date
+    ? gender : Gender <<enum>>
+    ? username : String <<unique, sparse>>
+    ? locale : String
+    ? registrationCompleted : Date
+    keyboardSettings : KeyboardSettings
+    ? timeZone : String
     --
     timestamps : Date
   }
 
   entity "Settings" {
     ' User-specific settings
-    * theme : String
-    * notifications : Boolean
+    theme : String
+    notifications : Boolean
   }
 
   entity "KeyboardSettings" {
     ' User-specific keyboard settings
-    * system : System <<enum>>
-    * keyboardProfileIds : Ref<KeyboardProfile>[] <<FK, array>>
-    * activeKeyboardProfileId : Ref<KeyboardProfile> <<FK>>
+    system : System <<enum>>
+    keyboardProfileIds : Ref<KeyboardProfile>[] <<FK, array>>
+    ? activeKeyboardProfileId : Ref<KeyboardProfile> <<FK>>
   }
 
   entity "UserKeyboardProfile" {
@@ -168,6 +183,15 @@ package "User Module" {
     * userId : Ref<User> <<FK>>
     * keyboardProfileId : Ref<KeyboardProfile> <<FK>>
     * currentExerciseSetId : Ref<ExerciseSet> <<FK>>
+    --
+    timestamps : Date
+  }
+
+  entity "Session" {
+    ' Represents a user session, used in authentication
+    * userId : Ref<User> <<FK>>
+    * token : String
+    * expires : Date
     --
     timestamps : Date
   }
@@ -195,16 +219,31 @@ Exercise ||--o{ KeyInput : contains
 Exercise ||--o{ KeyboardLayout : references
 ExerciseSet ||--o{ Exercise : references
 ExerciseSet ||--o{ KeyboardProfile : references
+KeyboardProfile ||--o{ KeyboardGeometry : references
 KeyboardProfile ||--o{ KeyboardLayout : references
-KeyboardProfile ||--o{ KeyFingerMapping : references
+KeyboardProfile ||--o{ KeyFingerMappingScheme : references
 KeyboardProfile ||--o{ HomeRow : contains
 KeyboardLayout ||--o{ KeyDefinition : contains
+UserKeyFingerMapping ||--o{ User : created by
+UserKeyFingerMapping ||--o{ KeyFingerMappingScheme : references
 KeyDefinition ||--o{ KeyInput : contains
+KeyFingerMappingScheme ||--o{ User : created by
 User ||--o{ Settings : contains
 User ||--o{ KeyboardSettings : contains
 KeyboardSettings ||--o{ KeyboardProfile : references
 UserKeyboardProfile ||--o{ User : references
 UserKeyboardProfile ||--o{ KeyboardProfile : references
 UserKeyboardProfile ||--o{ ExerciseSet : references
+Session ||--o{ User : references
+
+' Enum dependencies (as type references)
+KeyboardGeometry::formFactor -- FormFactor
+KeyboardGeometry::format -- KeyboardFormat
+
+KeyboardLayout::layoutId -- KeyboardLayoutId
+
+KeyDefinition::type -- KeyType
+
+KeyFingerMappingScheme::schemeId -- KeyFingerMappingSchemeType
 
 @enduml

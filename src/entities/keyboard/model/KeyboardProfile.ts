@@ -3,23 +3,20 @@ import { getModelForClass, prop } from '@typegoose/typegoose';
 
 import type { HomeRow } from '@/entities/keyFingerMapping';
 import { DEFAULT_HOME_ROW, HomeRowSchema } from '@/entities/keyFingerMapping';
-import { KeyFingerMapping } from '@/entities/keyFingerMapping/model/KeyFingerMapping';
-import { FormFactor } from '@/entities/keyboard';
+import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping/model/KeyFingerMappingScheme';
 import { KeyboardLayout } from '@/entities/keyboard/model/KeyboardLayout';
-import { KeyboardFormat } from '@/shared/types';
+
+import { KeyboardGeometry } from './KeyboardGeometry';
 
 export class KeyboardProfile {
-  @prop({ enum: FormFactor, type: String, default: FormFactor.SixtyPercent })
-  public formFactor!: FormFactor;
-
-  @prop({ enum: KeyboardFormat, type: String, required: true })
-  public format!: KeyboardFormat;
+  @prop({ ref: 'KeyboardGeometry', required: true }) // Ссылка на геометрию
+  public geometry!: Ref<KeyboardGeometry>;
 
   @prop({ ref: 'KeyboardLayout', required: true })
   public layout!: Ref<KeyboardLayout>;
 
   @prop({ ref: 'KeyFingerMapping', required: true })
-  public keyFingerMappingScheme!: Ref<KeyFingerMapping>;
+  public keyFingerMappingScheme!: Ref<KeyFingerMappingScheme>;
 
   @prop({
     type: Object,

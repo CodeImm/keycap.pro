@@ -21,9 +21,7 @@ export enum ModifierKey {
   FN = 'fn', // С зажатым Fn
 }
 
-export type KeyFingerMapping = {
-  [key in KeyCode]?: Finger[];
-};
+export type KeyFingerMapping = Partial<Record<KeyCode, Finger[]>>;
 
 export type KeyboardGeometry = {
   [key in KeyCode]?: string;

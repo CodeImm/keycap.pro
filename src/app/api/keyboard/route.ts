@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 
 import { KeyFingerMappingSchemeType, generateHash } from '@/entities/keyFingerMapping';
-import KeyFingerMappingModel from '@/entities/keyFingerMapping/model/KeyFingerMapping';
+import KeyFingerMappingSchemeModel from '@/entities/keyFingerMapping/model/KeyFingerMappingScheme';
 import { SaveKeyboardSettingsRequest } from '@/entities/keyboard';
 import KeyboardProfileModel from '@/entities/keyboard/model/KeyboardProfile';
 import { SaveKeyboardSettingsRequestSchema } from '@/entities/keyboard/model/schemas';
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
     const hash = generateHash(body.keyFingerMappingSchema);
     // console.log(hash);
-    const existingScheme = await KeyFingerMappingModel.findOne({
+    const existingScheme = await KeyFingerMappingSchemeModel.findOne({
       hash,
     });
     // console.log({ existingScheme });
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
     if (existingScheme) {
       keyFingerMappingSchemeId = existingScheme._id;
     } else {
-      const newScheme = new KeyFingerMappingModel({
+      const newScheme = new KeyFingerMappingSchemeModel({
         schemeType: KeyFingerMappingSchemeType.Custom,
         keyFingerMappingScheme: body.keyFingerMappingSchema,
       });
