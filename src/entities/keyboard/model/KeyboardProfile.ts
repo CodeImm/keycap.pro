@@ -9,13 +9,13 @@ import { KeyboardLayout } from '@/entities/keyboard/model/KeyboardLayout';
 import { KeyboardGeometry } from './KeyboardGeometry';
 
 export class KeyboardProfile {
-  @prop({ ref: 'KeyboardGeometry', required: true }) // Ссылка на геометрию
+  @prop({ ref: () => KeyboardGeometry, required: true })
   public geometry!: Ref<KeyboardGeometry>;
 
-  @prop({ ref: 'KeyboardLayout', required: true })
+  @prop({ ref: () => KeyboardLayout, required: true })
   public layout!: Ref<KeyboardLayout>;
 
-  @prop({ ref: 'KeyFingerMapping', required: true })
+  @prop({ ref: () => KeyFingerMappingScheme, required: true })
   public keyFingerMappingScheme!: Ref<KeyFingerMappingScheme>;
 
   @prop({

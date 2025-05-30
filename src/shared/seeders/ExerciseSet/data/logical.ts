@@ -1,7 +1,7 @@
 import { ExerciseType } from '@/entities/exercise';
-import { ModifierKey } from '@/shared/types';
+import { KeyInput, ModifierKey } from '@/shared/types';
 
-export const exercisesForOptimizedKeyFingerMappings = [
+export const exercisesForLogicalKeyFingerMappings: { keys: KeyInput[] }[] = [
   {
     // layout
     keys: [

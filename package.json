@@ -15,6 +15,7 @@
     "seed:schemes": "npx tsx ./src/shared//seeders/KeyFingerMappingScheme/index.ts",
     "seed:geometries": "npx tsx ./src/shared//seeders/KeyboardGeometry/index.ts",
     "seed:profiles": "npx tsx ./src/shared//seeders/KeyboardProfile/index.ts",
+    "seed:exerciseSets": "npx tsx ./src/shared//seeders/ExerciseSet/index.ts",
     "seed:all": "npx tsx ./src/shared/seeders/index.ts"
   },
   "dependencies": {

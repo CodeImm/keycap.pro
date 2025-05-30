@@ -1,43 +1,57 @@
 import type { Ref } from '@typegoose/typegoose';
-import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
+import { getModelForClass, prop } from '@typegoose/typegoose';
 
+import type { HomeRow } from '@/entities/keyFingerMapping';
+import { DEFAULT_HOME_ROW, HomeRowSchema } from '@/entities/keyFingerMapping';
+import { KeyboardGeometry } from '@/entities/keyboard';
 // import { createHash } from 'crypto';
-import { KeyboardLayout } from '@/entities/keyboard/model/KeyboardLayout';
-import { type KeyCode, ModifierKey } from '@/shared/types';
+import { type KeyFingerMapping } from '@/shared/types';
+import { KeyInput } from '@/shared/types';
 
 import { ExerciseType } from './types';
 
-@modelOptions({ schemaOptions: { _id: false } })
-class KeyInput {
-  @prop({ type: String, required: true })
-  public сode!: KeyCode;
+// @modelOptions({ schemaOptions: { _id: false } })
+// class KeyInput {
+//   @prop({ type: String, required: true })
+//   public сode!: KeyCode;
 
-  @prop({ type: String, required: true })
-  public modifier!: ModifierKey;
-}
+//   @prop({ type: String, enum: ModifierKey, required: true })
+//   public modifier!: ModifierKey;
+// }
 
 export class Exercise {
-  @prop({ ref: 'KeyboardLayout', required: true })
-  public layout!: Ref<KeyboardLayout>;
+  @prop({ required: true, ref: () => KeyboardGeometry })
+  public geometry!: Ref<KeyboardGeometry>;
 
-  @prop({ type: () => KeyInput, required: true })
-  public keys!: KeyInput[];
+  @prop({
+    type: Object,
+    required: true,
+    validate: {
+      validator: (value: unknown) => {
+        const result = HomeRowSchema.safeParse(value);
 
-  @prop({ type: String, required: true, unique: true })
-  public slug!: string;
+        return result.success;
+      },
+      message: 'Invalid home row configuration',
+    },
+    default: DEFAULT_HOME_ROW,
+  })
+  public homeRow!: HomeRow;
+
+  @prop({ type: () => [Object], required: true })
+  public keyInputs!: KeyInput[];
+
+  @prop({ required: true, type: Object })
+  public keyFingerMapping!: Partial<KeyFingerMapping>;
 
   @prop({ type: String, required: true, enum: ExerciseType })
   public type!: ExerciseType;
 
-  @prop({ required: true, unique: true })
+  @prop({ type: String, required: true, unique: true })
   public hash!: string; // Поле для хранения хэша
 
-  // Метод для генерации хэша
-  // public static generateHash(exercise: Partial<Exercise>): string {
-  //   const hash = createHash('sha256');
-  //   hash.update(`${exercise.name}-${exercise.layout}-${exercise.keyboardProfile}`);
-  //   return hash.digest('hex');
-  // }
+  // @prop({ type: Number })
+  // public difficulty?: number;
 }
 
 const ExerciseModel = getModelForClass(Exercise, { schemaOptions: { timestamps: true } });

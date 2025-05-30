@@ -3,24 +3,35 @@
 ' Organizes entities by logical modules for clarity
 
 package "Exercise Module" {
-  entity "Exercise" {
-    ' Represents a single exercise with key inputs and layout
-    * slug : String <<unique>>
-    --
-    * layout : Ref<KeyboardLayout> <<FK>>
-    * keys : KeyInput[] <<array>>
-    * type : ExerciseType <<enum>>
-    * hash : String <<unique>>
+  entity "ExerciseSet" {
+    * keyboardProfile : Ref<KeyboardProfile> <<FK>>
+    * version : Number <<default: 0>>
+    * generated : Boolean <<default: true>>
+    ' * title : String
+    ' description : String
     --
     timestamps : Date
   }
 
-  entity "ExerciseSet" {
-    ' Groups exercises for a specific keyboard profile
-    * exercises : Ref<Exercise>[] <<FK, array>>
-    * keyboardProfile : Ref<KeyboardProfile> <<FK>>
-    * version : Number <<default: 0>>
-    * generated : Boolean <<default: true>>
+  entity "ExerciseSetExercise" {
+    * exerciseSet : Ref<ExerciseSet> <<FK>>
+    * exercise : Ref<Exercise> <<FK>>
+    order : Number <<default: 0>>
+    --
+    timestamps : Date
+  }
+
+  entity "Exercise" {
+    * id : String <<unique>>
+    ' * slug : String <<unique>>
+    --
+    * geometry : Ref<KeyboardGeometry> <<FK>>
+    * homeRow : String[] <<array>>
+    * keyInputs : KeyInput[] <<array>>
+    * keyFingerMapping : Object
+    * type : ExerciseType <<enum>>
+    * hash : String <<unique>>
+    difficulty : Number
     --
     timestamps : Date
   }
@@ -241,5 +252,6 @@ KeyboardLayout::layoutId -- KeyboardLayoutId
 KeyDefinition::type -- KeyType
 
 KeyFingerMappingScheme::schemeType -- KeyFingerMappingSchemeType
-
+ExerciseSet ||--o{ ExerciseSetExercise : exerciseSet
+Exercise ||--o{ ExerciseSetExercise : exercise
 @enduml

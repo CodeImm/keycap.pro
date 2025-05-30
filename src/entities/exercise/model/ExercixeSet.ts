@@ -2,7 +2,6 @@ import type { Ref } from '@typegoose/typegoose';
 import { getModelForClass, prop } from '@typegoose/typegoose';
 
 import { KeyboardProfile } from '@/entities/keyboard/model/KeyboardProfile';
-import { Exercise } from './Exercise';
 
 export class ExerciseSet {
   // @prop({ type: String })
@@ -10,9 +9,6 @@ export class ExerciseSet {
 
   // @prop({ type: String })
   // public description?: string;
-
-  @prop({ ref: 'Exercise', required: true })
-  public exercises!: Ref<Exercise>[];
 
   @prop({ ref: 'KeyboardProfile', required: true })
   public keyboardProfile!: Ref<KeyboardProfile>;
