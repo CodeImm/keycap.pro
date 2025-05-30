@@ -1,75 +1,79 @@
-import ExerciseModel from './../../../entities/exercise/model/Exercise';
-import ExerciseSetModel from './../../../entities/exercise/model/ExercixeSet';
-import KeyboardProfileModel from './../../../entities/keyboard/model/KeyboardProfile';
-
 import mongoose from 'mongoose';
 
-import { KeyboardFormat, KeyboardLayoutId } from '@/shared/types';
+
+
+import { KeyFingerMappingSchemeModel } from '@/entities/keyFingerMapping';
+import { FormFactor, KeyboardGeometryModel } from '@/entities/keyboard';
+import KeyboardLayoutModel from '@/entities/keyboard/model/KeyboardLayout';
+import KeyboardProfileModel from '@/entities/keyboard/model/KeyboardProfile';
+import { KeyboardFormat } from '@/shared/types';
+
+
 
 import dbConnect from '../../config/mongodb/dbConnect';
-import { exercisesForOptimizedKeyFingerMappings } from '../Exercise';
 
-export async function seedKeyboardProfiles(keyFingerMappings: any, keyboardLayouts: any) {
+
+const STANDARD_LAYOUT_IDS = {
+  UsQwerty: 'us_qwerty',
+  // Dvorak: 'dvorak',
+  // Colemak: 'colemak',
+  // Workman: 'workman',
+  // Jcuken: 'jcuken',
+} as const;
+
+const STANDARD_KEY_FINGER_MAPPING_SCHEMES = {
+  Optimized: 'optimized',
+  Logical: 'logical',
+} as const;
+
+export async function seedKeyboardProfiles() {
   try {
     await dbConnect();
 
-    await KeyboardProfileModel.deleteMany();
-    await ExerciseModel.deleteMany();
-    await ExerciseSetModel.deleteMany();
+    // Получаем стандартные геометрии, раскладки и схемы
+    const geometries = await KeyboardGeometryModel.find({
+      formFactor: FormFactor.SixtyPercent,
+      format: { $in: [KeyboardFormat.Ansi, KeyboardFormat.Iso] },
+    });
+    const layouts = await KeyboardLayoutModel.find({
+      layoutId: { $in: Object.values(STANDARD_LAYOUT_IDS) },
+    });
+    const keyFingerMappings = await KeyFingerMappingSchemeModel.find({
+      schemeType: { $in: Object.values(STANDARD_KEY_FINGER_MAPPING_SCHEMES) },
+    });
 
-    const savedExercises = [];
-
-    for (const { id, name } of keyFingerMappings) {
-      console.log(id, name);
-
-      const keyboardLayoutId = keyboardLayouts.find((k) => k.layoutId === KeyboardLayoutId.UsQwerty)._id;
-
-      const keyboardProfilesForKeyFingerMapping = [
-        {
-          // formFactor: FormFactor.SixtyPercent,
-          format: KeyboardFormat.Ansi,
-          layout: keyboardLayoutId,
-          keyFingerMappingScheme: id,
-          // homeRow: DEFAULT_HOME_ROW,
-        },
-        {
-          // formFactor: FormFactor.SixtyPercent,
-          format: KeyboardFormat.Iso,
-          layout: keyboardLayoutId,
-          keyFingerMappingScheme: id,
-          // homeRow: DEFAULT_HOME_ROW,
-        },
-      ];
-
-      const keyboardProfiles = await KeyboardProfileModel.insertMany(keyboardProfilesForKeyFingerMapping);
-      console.log('Keyboard profiles inserted successfully!', keyboardProfiles);
-
-      console.log(keyboardLayoutId);
-
-      if (savedExercises.length === 0) {
-        exercisesForOptimizedKeyFingerMappings.map((e) => ({
-          ...e,
-          layout: keyboardLayoutId,
-        }));
-        savedExercises = await ExerciseModel.insertMany(exercisesForOptimizedKeyFingerMappings);
-        console.log('Keyboard exercises inserted successfully!', savedExercises);
-      }
-
-      const exerciseSets = keyboardProfiles.map((k) => ({
-        name: '',
-        description: '',
-        exercises: savedExercises.map((s) => s._id),
-        keyboardProfile: k._id,
-      }));
-
-      const savedExerciseSets = await ExerciseSetModel.insertMany(exerciseSets);
-      console.log('Keyboard exerciseSets inserted successfully!', savedExerciseSets);
+    if (geometries.length === 0 || layouts.length === 0 || keyFingerMappings.length === 0) {
+      console.warn(
+        'Required data not found. Please seed KeyboardGeometry, KeyboardLayout, and KeyFingerMappingScheme first.'
+      );
+      return [];
     }
 
-    console.log('Test!');
+    // Очищаем существующие профили (только для тестовых данных)
+    await KeyboardProfileModel.deleteMany({});
+
+    // Создаем профили, комбинируя все геометрии, раскладки и схемы
+    const keyboardProfiles = geometries.flatMap((geometry) =>
+      layouts
+        .map((layout) =>
+          keyFingerMappings.map((mapping) => ({
+            geometry: geometry._id,
+            layout: layout._id,
+            keyFingerMappingScheme: mapping._id,
+          }))
+        )
+        .flat()
+    );
+
+    const insertedProfiles = await KeyboardProfileModel.insertMany(keyboardProfiles);
+    console.log('KeyboardProfiles seeded successfully:', insertedProfiles.length);
+    return insertedProfiles;
   } catch (error) {
-    console.error('Error seeding database:', error);
+    console.error('Error seeding KeyboardProfiles:', error);
+    throw error;
   } finally {
     await mongoose.disconnect();
   }
 }
+
+seedKeyboardProfiles();

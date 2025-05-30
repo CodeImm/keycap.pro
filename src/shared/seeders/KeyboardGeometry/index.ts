@@ -14,14 +14,14 @@ export async function seedKeyboardGeometries() {
 
     const keyboardGeometries = [
       {
-        geometryId: `${FormFactor.FiftyPercent}_${KeyboardFormat.Ansi}`,
-        formFactor: FormFactor.FiftyPercent,
+        geometryId: `${FormFactor.SixtyPercent}_${KeyboardFormat.Ansi}`,
+        formFactor: FormFactor.SixtyPercent,
         format: KeyboardFormat.Ansi,
         isCustom: false,
       },
       {
-        geometryId: `${FormFactor.FiftyPercent}_${KeyboardFormat.Iso}`,
-        formFactor: FormFactor.FiftyPercent,
+        geometryId: `${FormFactor.SixtyPercent}_${KeyboardFormat.Iso}`,
+        formFactor: FormFactor.SixtyPercent,
         format: KeyboardFormat.Iso,
         isCustom: false,
       },
@@ -40,4 +40,4 @@ export async function seedKeyboardGeometries() {
   }
 }
 
-// seedKeyboardGeometries();
+seedKeyboardGeometries();
