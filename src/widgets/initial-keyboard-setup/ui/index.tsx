@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { KeyFingerMappingSchemeType } from '@/entities/keyFingerMapping';
 import { getKeyFingerMappingById } from '@/entities/keyboard/lib';
 import { KeyFingerMappingForm } from '@/features/configure-finger-zones';
 import { KeyboardLayoutConfigurationForm } from '@/features/configure-keyboard-layout';
@@ -24,8 +25,9 @@ export function InitialKeyboardSetup() {
 
   const [keyboardConfig, setKeyboardConfig] = useState({
     layoutConfig: defaultKeyboardLayoutConfig,
-    keyFingerMapping: getKeyFingerMappingById('optimized'),
+    keyFingerMapping: getKeyFingerMappingById(KeyFingerMappingSchemeType.OPTIMIZED),
   });
+  console.log(keyboardConfig);
 
   function handleConfigChange(data: any, property: keyof typeof keyboardConfig) {
     setKeyboardConfig((prev) => ({ ...prev, [property]: data }));

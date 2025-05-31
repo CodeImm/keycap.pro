@@ -3,7 +3,7 @@ import { getModelForClass, prop } from '@typegoose/typegoose';
 
 import type { HomeRow } from '@/entities/keyFingerMapping';
 import { DEFAULT_HOME_ROW, HomeRowSchema } from '@/entities/keyFingerMapping';
-import { KeyboardGeometry } from '@/entities/keyboard';
+import { KeyboardGeometry } from '@/entities/keyboard/model/KeyboardGeometry';
 // import { createHash } from 'crypto';
 import { type KeyFingerMapping } from '@/shared/types';
 import { KeyInput } from '@/shared/types';

@@ -4,6 +4,7 @@ import { Types } from 'mongoose';
 
 import { System } from '@/entities/keyboard';
 import { KeyboardProfile } from '@/entities/keyboard/model/KeyboardProfile';
+import { UserKeyboardProfile } from '@/entities/userKeyboardProfile/model/UserKeyboardProfileModel';
 
 import { Gender, Role } from './types';
 
@@ -19,11 +20,11 @@ export class KeyboardSettings {
   @prop({ enum: System, required: true })
   public system!: string;
 
-  @prop({ type: [Types.ObjectId], ref: 'KeyboardProfile', required: true })
-  public keyboardProfileIds!: Ref<KeyboardProfile>[];
+  @prop({ ref: () => UserKeyboardProfile, required: true })
+  public activeUserKeyboardProfile!: Ref<UserKeyboardProfile>;
 
-  @prop({ type: Types.ObjectId, ref: 'KeyboardProfile', required: true })
-  public activeKeyboardProfileId!: Ref<KeyboardProfile>;
+  @prop({ ref: () => UserKeyboardProfile, required: true, type: () => [UserKeyboardProfile] })
+  public availableUserKeyboardProfiles!: Ref<UserKeyboardProfile>[];
 }
 
 class Permissions {

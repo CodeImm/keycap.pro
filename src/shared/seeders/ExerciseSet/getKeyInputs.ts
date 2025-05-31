@@ -1,6 +1,6 @@
 import { KeyFingerMappingSchemeType } from '@/entities/keyFingerMapping';
 import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping/model/KeyFingerMappingScheme';
-import { KeyboardGeometry } from '@/entities/keyboard';
+import { KeyboardGeometry } from '@/entities/keyboard/model/KeyboardGeometry';
 import { KeyboardLayout } from '@/entities/keyboard/model/KeyboardLayout';
 import { KeyInput } from '@/shared/types';
 

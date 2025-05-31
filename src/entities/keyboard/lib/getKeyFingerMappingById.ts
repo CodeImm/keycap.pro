@@ -1,8 +1,8 @@
-import { KeyFingerMappingSchemeId } from '@/entities/keyFingerMapping';
+import { KeyFingerMappingSchemeType } from '@/entities/keyFingerMapping';
 import { logical } from '@/shared/seeders/KeyFingerMappingScheme/data/logical';
 import { optimized } from '@/shared/seeders/KeyFingerMappingScheme/data/optimized';
 
-export function getKeyFingerMappingById(id: Exclude<KeyFingerMappingSchemeId, 'custom'>) {
+export function getKeyFingerMappingById(id: Exclude<KeyFingerMappingSchemeType, 'custom'>) {
   switch (id) {
     case 'logical':
       return logical;

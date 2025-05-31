@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
-import { FormFactor, KeyboardGeometryModel } from '@/entities/keyboard';
+import { FormFactor } from '@/entities/keyboard';
+import KeyboardGeometryModel from '@/entities/keyboard/model/KeyboardGeometry';
 import { KeyboardFormat } from '@/shared/types';
 
 import dbConnect from '../../config/mongodb/dbConnect';

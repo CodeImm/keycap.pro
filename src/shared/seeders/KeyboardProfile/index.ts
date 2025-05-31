@@ -1,17 +1,13 @@
 import mongoose from 'mongoose';
 
-
-
-import { KeyFingerMappingSchemeModel } from '@/entities/keyFingerMapping';
-import { FormFactor, KeyboardGeometryModel } from '@/entities/keyboard';
+import KeyFingerMappingSchemeModel from '@/entities/keyFingerMapping/model/KeyFingerMappingScheme';
+import { FormFactor } from '@/entities/keyboard';
+import KeyboardGeometryModel from '@/entities/keyboard/model/KeyboardGeometry';
 import KeyboardLayoutModel from '@/entities/keyboard/model/KeyboardLayout';
 import KeyboardProfileModel from '@/entities/keyboard/model/KeyboardProfile';
 import { KeyboardFormat } from '@/shared/types';
 
-
-
 import dbConnect from '../../config/mongodb/dbConnect';
-
 
 const STANDARD_LAYOUT_IDS = {
   UsQwerty: 'us_qwerty',

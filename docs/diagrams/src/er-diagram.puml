@@ -151,6 +151,7 @@ package "Keyboard Module" {
 package "User Module" {
   entity "User" {
     ' Represents a user with authentication and settings
+      * id: ObjectId ' Unique identifier for the user
     * github_id : Number <<unique>>
     * google_id : Number <<unique>>
     ? email : String <<unique, sparse>>
@@ -166,8 +167,8 @@ package "User Module" {
     ? username : String <<unique, sparse>>
     ? locale : String
     ? registrationCompleted : Date
-    keyboardSettings : KeyboardSettings
     ? timeZone : String
+    * keyboardSettings: KeyboardSettings ' Embedded user-specific keyboard settings
     --
     timestamps : Date
   }
@@ -178,20 +179,22 @@ package "User Module" {
     notifications : Boolean
   }
 
+
+
   entity "KeyboardSettings" {
-    ' User-specific keyboard settings
-    * system : System <<enum>>
-    * keyboardProfileIds : Ref<KeyboardProfile>[] <<FK, array>>
-    * activeKeyboardProfileId : Ref<KeyboardProfile> <<FK>>
+    ' Embedded user-specific keyboard settings within User entity
+    * system: System <<enum>> ' Operating system type (e.g., Windows, macOS)
+    * activeUserKeyboardProfile: Ref<UserKeyboardProfile> <<ObjectId>> ' Reference to active user keyboard profile
+    * availableUserKeyboardProfiles: [Ref<UserKeyboardProfile>] <<ObjectId>> ' List of all user keyboard profiles
   }
 
   entity "UserKeyboardProfile" {
-    ' Links user to keyboard profile and exercise set
-    * userId : Ref<User> <<FK>>
-    * keyboardProfileId : Ref<KeyboardProfile> <<FK>>
-    * currentExerciseSetId : Ref<ExerciseSet> <<FK>>
+    ' Links a user to a keyboard profile and exercise set
+    * user: Ref<User> <<ObjectId>> ' Reference to User
+    * keyboardProfile: Ref<KeyboardProfile> <<ObjectId>> ' Reference to KeyboardProfile
+    * currentExerciseSet: Ref<ExerciseSet> <<ObjectId>> ' Reference to current ExerciseSet
     --
-    timestamps : Date
+    timestamps: true ' Automatically adds createdAt and updatedAt fields
   }
 
   entity "Session" {

@@ -19,10 +19,10 @@ export default async function ExercisesPage({ params: { locale } }: Props) {
   if (user && !user.registrationCompleted) {
     redirect(paths.profile.setup);
   }
-
+  console.log(JSON.stringify(user));
   return (
     <Container maxWidth="md">
-      {user?.keyboardSettings?.activeKeyboardProfileId ? <>Exercises</> : <InitialKeyboardSetup />}
+      {user?.keyboardSettings?.activeUserKeyboardProfile ? <>Exercises</> : <InitialKeyboardSetup />}
     </Container>
   );
 }

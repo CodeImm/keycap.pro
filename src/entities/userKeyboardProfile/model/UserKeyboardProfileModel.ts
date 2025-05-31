@@ -5,15 +5,15 @@ import { ExerciseSet } from '@/entities/exercise/model/ExercixeSet';
 import { KeyboardProfile } from '@/entities/keyboard/model/KeyboardProfile';
 import { User } from '@/entities/user/model/User';
 
-class UserKeyboardProfile {
-  @prop({ ref: 'User', required: true })
-  public userId!: Ref<User>;
+export class UserKeyboardProfile {
+  @prop({ ref: 'User', required: true, index: true })
+  public user!: Ref<User>;
 
-  @prop({ ref: 'KeyboardProfile', required: true })
-  public keyboardProfileId!: Ref<KeyboardProfile>;
+  @prop({ ref: () => KeyboardProfile, required: true })
+  public keyboardProfile!: Ref<KeyboardProfile>;
 
-  @prop({ ref: 'ExerciseSet', required: true })
-  public currentExerciseSetId!: Ref<ExerciseSet>;
+  @prop({ ref: () => ExerciseSet, required: true })
+  public currentExerciseSet!: Ref<ExerciseSet>;
 
   // Здесь можно добавить дополнительные поля, если необходимо
 }

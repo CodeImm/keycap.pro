@@ -12,7 +12,7 @@ export class KeyFingerMappingScheme {
   @prop({ type: String, enum: KeyFingerMappingSchemeType, required: true })
   public schemeType!: KeyFingerMappingSchemeType;
 
-  @prop({ type: Object, required: true })
+  @prop({ required: true })
   public keyFingerMappingScheme!: KeyFingerMapping;
 
   @prop({ type: String, required: true })
