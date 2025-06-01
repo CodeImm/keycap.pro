@@ -8,7 +8,7 @@ class ExerciseSetExercise {
   @prop({ required: true, ref: () => ExerciseSet })
   public exerciseSet!: Ref<ExerciseSet>;
 
-  @prop({ required: true, ref: () => Exercise })
+  @prop({ required: true, ref: () => Exercise, index: true })
   public exercise!: Ref<Exercise>;
 
   @prop({ type: Number, default: 0 })

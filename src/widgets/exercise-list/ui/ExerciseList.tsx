@@ -1,8 +1,10 @@
 'use client';
 
-import { Box, Chip, List, ListItem, ListItemSecondaryAction, ListItemText, Typography } from '@mui/material';
+import { Box, List, Typography } from '@mui/material';
 
-import { KeyInput, KeyboardLayout } from '@/shared/types';
+import { KeyboardLayout } from '@/shared/types';
+
+import { ExerciseItem } from './ExerciseItem';
 
 import api from '../api';
 
@@ -19,10 +21,6 @@ const STYLES = {
   container: { maxWidth: 600, mx: 'auto', mt: 4 },
   listItem: { mb: 1, border: 1, borderColor: 'grey.300', borderRadius: 1 },
 } as const;
-
-function restoreCharactersFromKeyInputs(keyInputs: KeyInput[], layout: KeyboardLayout): string {
-  return keyInputs.map((key) => layout[key.modifier]?.[key.code]?.char ?? '').join('');
-}
 
 function LoadingState() {
   return <div>{MESSAGES.LOADING}</div>;
@@ -54,19 +52,6 @@ function EmptyState() {
   );
 }
 
-function ExerciseItem({ exercise, layout }: { exercise: any; layout: KeyboardLayout }) {
-  const exerciseText = restoreCharactersFromKeyInputs(exercise.keyInputs, layout);
-
-  return (
-    <ListItem key={exercise._id} button sx={STYLES.listItem}>
-      <ListItemText primary={`${MESSAGES.EXERCISE_PREFIX} ${exercise.order + 1}`} secondary={exerciseText} />
-      <ListItemSecondaryAction>
-        <Chip label={`#${exercise.order + 1}`} color="primary" size="small" />
-      </ListItemSecondaryAction>
-    </ListItem>
-  );
-}
-
 function ExercisesList({ exercises, layout }: { exercises: any[]; layout: KeyboardLayout }) {
   return (
     <Box sx={STYLES.container}>
@@ -81,7 +66,7 @@ function ExercisesList({ exercises, layout }: { exercises: any[]; layout: Keyboa
     </Box>
   );
 }
-
+// TODO: переделать на серверный компонент
 export function ExerciseList() {
   const { data, isLoading, error } = api.useGetExercises();
 

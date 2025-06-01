@@ -54,7 +54,7 @@ package "Exercise Module" {
     --
     * user : Ref<User> <<FK>>
     * exercise : Ref<Exercise> <<FK>>
-    * layout : Ref<KeyboardGeometry> <<FK>>
+    * layout : Ref<KeyboardLayout> <<FK>>
     logs : Log[] <<array>>
     --
     createdAt : Date

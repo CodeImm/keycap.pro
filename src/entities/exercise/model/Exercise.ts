@@ -53,6 +53,7 @@ export class Exercise {
   // @prop({ type: Number })
   // public difficulty?: number;
 }
+// TODO: перенести type в ExerciseSet?
 
 const ExerciseModel = getModelForClass(Exercise, { schemaOptions: { timestamps: true } });
 
