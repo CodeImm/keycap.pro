@@ -39,19 +39,83 @@ package "Exercise Module" {
   entity "KeyInput" {
     ' Defines a key press with code and modifier
     * code : KeyCode
-    modifier : ModifierKey ?
+    * modifier : ModifierKey
   }
 
   enum "ExerciseType" {
-    Basic
-    Combination
-    Speed
-    Custom
+    basic
+    combination
+    speed
+    custom
+  }
+
+  entity "ExerciseLog" {
+    * _id : ObjectId <<PK>>
+    --
+    * user : Ref<User> <<FK>>
+    * exercise : Ref<Exercise> <<FK>>
+    * layout : Ref<KeyboardGeometry> <<FK>>
+    logs : Log[] <<array>>
+    --
+    createdAt : Date
+    updatedAt : Date
+  }
+
+  entity "Log" {
+    * type : ExerciseLogType
+    * timecode : Number
+    reaction : Number
+    target : KeyDefinition
+    pressedKey : PressedKey
+    isBlindly : Boolean
+  }
+
+  entity "KeyDefinition" {
+    * code : KeyCode
+    * modifier : ModifierKey
+    * key : String
+    * type : KeyType
+    finger : Number
+    alternate : KeyboardEvent['key']
+  }
+
+  entity "PressedKey" {
+    * code : KeyCode
+    * modifier : ModifierKey
+    * key : String
+  }
+
+  enum "ExerciseLogType" {
+    start
+    pause
+    continue
+    finish
+    correctKeystroke
+    wrongKeystroke
+    blot
+  }
+
+
+  enum "ModifierKey" {
+    default
+    shift
+    alt
+    ctrl
+    capslock
+    meta
+    fn
+  }
+
+    enum "KeyType" {
+    letter
+    digit
+    symbol
+    special
   }
 }
 
 package "Keyboard Module" {
-  entity "KeyboardProfile" {
+  entity KeyboardProfile {
     ' Defines user-specific keyboard configuration
     * geometry : Ref<KeyboardGeometry> <<FK>>
     * layout : Ref<KeyboardLayout> <<FK>>
@@ -78,13 +142,6 @@ package "Keyboard Module" {
     isCustom : Boolean <<default: false>>
     --
     timestamps : Date
-  }
-
-  entity "KeyDefinition" {
-    ' Defines key characteristics for a layout
-    * char : String
-    * type : KeyType <<enum>>
-    alternates : KeyInput[] <<array>>
   }
 
   entity "KeyFingerMappingScheme" {
@@ -121,7 +178,7 @@ package "Keyboard Module" {
     EightyPercent
   }
 
-  enum "KeyboardFormat" {
+  enum KeyboardFormat {
     Iso
     Ansi
   }
@@ -134,12 +191,6 @@ package "Keyboard Module" {
     Jcuken
   }
 
-  enum "KeyType" {
-    LETTER
-    DIGIT
-    SYMBOL
-    SPECIAL
-  }
 
   enum "KeyFingerMappingSchemeType" {
     Optimized
@@ -233,7 +284,6 @@ KeyboardProfile ||--o{ KeyboardGeometry : references
 KeyboardProfile ||--o{ KeyboardLayout : references
 KeyboardProfile ||--o{ KeyFingerMappingScheme : references
 KeyboardProfile ||--o{ HomeRow : contains
-KeyboardLayout ||--o{ KeyDefinition : contains
 UserKeyFingerMapping ||--o{ User : created by
 UserKeyFingerMapping ||--o{ KeyFingerMappingScheme : references
 KeyDefinition ||--o{ KeyInput : contains
@@ -252,9 +302,23 @@ KeyboardGeometry::format -- KeyboardFormat
 
 KeyboardLayout::layoutId -- KeyboardLayoutId
 
-KeyDefinition::type -- KeyType
 
 KeyFingerMappingScheme::schemeType -- KeyFingerMappingSchemeType
 ExerciseSet ||--o{ ExerciseSetExercise : exerciseSet
 Exercise ||--o{ ExerciseSetExercise : exercise
+
+ExerciseLog ||--o{ Log : contains
+Log ||--o| KeyDefinition : targets
+Log ||--o| PressedKey : presses
+ExerciseLog ||--o| User : performed by
+ExerciseLog ||--o| Exercise : logs
+ExerciseLog ||--o| KeyboardGeometry : uses layout
+
+Exercise::type -- ExerciseType
+KeyInput::modifier -- ModifierKey
+KeyDefinition::type -- KeyType
+KeyDefinition::modifier -- ModifierKey
+PressedKey::modifier -- ModifierKey
+
+Log::type -- ExerciseLogType
 @enduml
