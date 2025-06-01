@@ -1,7 +1,5 @@
 import { Types } from 'mongoose';
 
-
-
 import ExerciseSetModel from '@/entities/exercise/model/ExercixeSet';
 // Исправлено: 'ExercixeSet' -> 'ExerciseSet'
 import KeyFingerMappingSchemeModel from '@/entities/keyFingerMapping/model/KeyFingerMappingScheme';
@@ -14,7 +12,6 @@ import UserModel from '@/entities/user/model/User';
 import UserKeyboardProfileModel from '@/entities/userKeyboardProfile/model/UserKeyboardProfileModel';
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import dbConnect from '@/shared/config/mongodb/dbConnect';
-
 
 // Тип для ответа API
 interface ApiResponse {
