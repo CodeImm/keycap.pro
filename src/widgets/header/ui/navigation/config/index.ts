@@ -9,6 +9,5 @@ export const items: Item[] = [
   { text: 'home', href: paths.home },
   { text: 'exercises', href: paths.exercises },
   { text: 'statistics', href: paths.statistics },
-  { text: 'testing', href: paths.testing },
-  { text: 'admin', href: paths.admin },
+  { text: 'testing', href: paths.testing }
 ];

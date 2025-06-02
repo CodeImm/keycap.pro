@@ -2,49 +2,37 @@ import { ReactNode } from 'react';
 
 import { z } from 'zod';
 
-import { baseKeyIds } from '@/shared/types';
+import { KeyCode, KeyboardLayoutId } from '@/shared/types';
 
 import { SaveKeyboardSettingsRequestSchema } from './schemas';
 
-export const layoutKeyIds = [...baseKeyIds, 'Space'] as const;
-export type LayoutKeyId = (typeof layoutKeyIds)[number];
+export type KeycapLegendPosition =
+  | 'leftTop'
+  | 'leftBottom'
+  | 'leftCenter'
+  | 'center'
+  | 'top'
+  | 'bottom'
+  | 'rightTop'
+  | 'rightBottom'
+  | 'rightCenter';
 
-export type LayoutKeyType = 'letter' | 'symbol' | 'special' | 'digit';
-
-export type LayoutKeyInfo = {
-  [key in LayoutKeyId]?: {
-    key: string;
-    type: LayoutKeyType;
-    alternate?: LayoutKeyId;
-  };
-};
-
-export type ShiftState = 'shift' | 'default';
-
-export type Layout = { [key in ShiftState]: LayoutKeyInfo };
-
-type KeyLabelPosition = 'center' | 'bottom' | 'center-left' | 'center-right';
-
-export type VirtualKeyboardRowName = 'row1' | 'row2' | 'row3' | 'row4' | 'row5';
 export interface KeyCap {
-  id: LayoutKeyId;
+  id: KeyCode;
   width: number;
   type?: 'special';
   label?: string;
-  labelPosition?: KeyLabelPosition;
+  labelPosition?: KeycapLegendPosition;
   icon?: ReactNode;
-  iconPosition?: KeyLabelPosition;
+  iconPosition?: KeycapLegendPosition;
   indicator?: ReactNode;
-  indicatorPosition?: KeyLabelPosition;
+  indicatorPosition?: KeycapLegendPosition;
 }
-export type VirtualKeyboardLayout = {
-  [key in VirtualKeyboardRowName]: KeyCap[];
-};
 
 export enum System {
-  macos = 'macos',
-  windows = 'windows',
-  linux = 'linux',
+  Macos = 'macos',
+  Windows = 'windows',
+  Linux = 'linux',
 }
 
 export enum FormFactor {
@@ -57,32 +45,30 @@ export enum FormFactor {
   EightyPercent = '80%', // 80%
 }
 
-export enum Format {
-  ISO = 'iso',
-  ANSI = 'ansi',
+export enum LayoutLanguage {
+  English = 'english',
+  Russian = 'russian',
 }
 
-export const layoutLanguages = ['english', 'russian'] as const;
-export type LayoutLanguage = (typeof layoutLanguages)[number];
-
-export enum LayoutId {
-  UsQwerty = 'us_qwerty',
-  Dvorak = 'dvorak',
-  Colemak = 'colemak',
-  Workman = 'workman',
-  Jcuken = 'jcuken',
+export interface KeyGeometry {
+  id: KeyCode;
+  d: string;
+  x: number;
+  y: number;
+  rotate: string;
+  legendCoordinates: LegendCoordinates;
 }
 
-export const keyboardFormats = ['iso', 'ansi'] as const;
-export type KeyboardFormat = (typeof keyboardFormats)[number];
+export type LegendCoordinates = { [key in KeycapLegendPosition]: { x: number; y: number } };
 
-// export enum KeyboardFormat {
-//   Iso = 'iso',
-//   Ansi = 'ansi',
-// }
+export type KeycapLegends = {
+  [key in KeyCode]?: {
+    [position in KeycapLegendPosition]?: string;
+  };
+};
 
 export type LayoutProfiles = {
-  id: LayoutId;
+  id: KeyboardLayoutId;
   name: string;
   language: LayoutLanguage;
   system: System;

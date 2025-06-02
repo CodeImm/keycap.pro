@@ -5,6 +5,7 @@ import { Container } from '@mui/material';
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import { redirect } from '@/shared/navigation';
 import { paths } from '@/shared/routing';
+import { ExerciseList } from '@/widgets/exercise-list';
 import { InitialKeyboardSetup } from '@/widgets/initial-keyboard-setup';
 
 type Props = {
@@ -19,10 +20,10 @@ export default async function ExercisesPage({ params: { locale } }: Props) {
   if (user && !user.registrationCompleted) {
     redirect(paths.profile.setup);
   }
-
+  console.log(JSON.stringify(user));
   return (
     <Container maxWidth="md">
-      <InitialKeyboardSetup />
+      {user?.keyboardSettings?.activeUserKeyboardProfile ? <ExerciseList /> : <InitialKeyboardSetup />}
     </Container>
   );
 }

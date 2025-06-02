@@ -1,34 +1,44 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import {
-  KeyFingerMappingScheme,
-  KeyFingerMappingSchemeId,
-  keyIdsForFingerMappingScheme,
-} from '@/entities/keyFingerMapping';
-import type { LayoutKeyId } from '@/entities/keyboard';
+import { KeyFingerMappingSchemeId } from '@/entities/keyFingerMapping';
 import { DEFAULT_EXCLUDED_KEYS } from '@/entities/keyboard';
 import { getKeyFingerMappingById } from '@/entities/keyboard/lib';
-import { Finger } from '@/shared/types';
+import { Finger, KeyCode, KeyFingerMapping, keyCodes } from '@/shared/types';
 
 interface UseKeyFingerMapping {
-  keyFingerMapping: KeyFingerMappingScheme;
+  keyFingerMapping: KeyFingerMapping;
   handleKeyClick: (event: MouseEvent) => void;
   handleReset(id?: KeyFingerMappingSchemeId): void;
 }
 
 interface Props {
-  defaultValues: KeyFingerMappingScheme;
+  defaultValues: KeyFingerMapping;
   selectedFinger: Finger;
 }
 
 export function useKeyFingerMapping({ defaultValues, selectedFinger }: Props): UseKeyFingerMapping {
-  const [keyFingerMapping, setKeyFingerMapping] = useState<KeyFingerMappingScheme>(defaultValues);
+  const [keyFingerMapping, setKeyFingerMapping] = useState<KeyFingerMapping>(defaultValues);
 
-  const updateKeyFingerMapping = useCallback((keyId: LayoutKeyId, finger: Finger) => {
-    setKeyFingerMapping((currentMapping) => ({
-      ...currentMapping,
-      [keyId]: finger,
-    }));
+  const updateKeyFingerMapping = useCallback((keyCode: KeyCode, finger: Finger) => {
+    setKeyFingerMapping((currentMapping) => {
+      const newMapping = { ...currentMapping };
+
+      const baseKey = keyCode.replace(/_(\d+)$/, '') as KeyCode;
+      const suffix = keyCode.match(/_(\d+)$/)?.[1];
+
+      if (suffix) {
+        const index = parseInt(suffix, 10) - 1;
+        const existingFingers = newMapping[baseKey] ? [...newMapping[baseKey]] : [];
+
+        existingFingers[index] = finger;
+
+        newMapping[baseKey] = existingFingers;
+      } else {
+        newMapping[baseKey] = [finger];
+      }
+
+      return newMapping;
+    });
   }, []);
 
   const handleReset = (id: Exclude<KeyFingerMappingSchemeId, 'custom'> = 'optimized') => {
@@ -36,9 +46,9 @@ export function useKeyFingerMapping({ defaultValues, selectedFinger }: Props): U
   };
 
   const handleKeyFingerChange = useCallback(
-    (id: LayoutKeyId | undefined | any) => {
-      if (id && keyIdsForFingerMappingScheme.includes(id) && !DEFAULT_EXCLUDED_KEYS.includes(id)) {
-        updateKeyFingerMapping(id, selectedFinger);
+    (keyCode: KeyCode | undefined | any) => {
+      if (keyCode && keyCodes.includes(keyCode.replace(/_\d$/, '')) && !DEFAULT_EXCLUDED_KEYS.includes(keyCode)) {
+        updateKeyFingerMapping(keyCode, selectedFinger);
       }
     },
     [selectedFinger, updateKeyFingerMapping]
@@ -48,13 +58,13 @@ export function useKeyFingerMapping({ defaultValues, selectedFinger }: Props): U
     const { target } = event;
     const id = (target as SVGElement)?.closest('svg')?.id;
 
-    handleKeyFingerChange(id as LayoutKeyId);
+    handleKeyFingerChange(id as KeyCode);
   };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const { code } = event;
-      handleKeyFingerChange(code as LayoutKeyId);
+      handleKeyFingerChange(code as KeyCode);
     };
 
     window.addEventListener('keydown', handleKeyDown);

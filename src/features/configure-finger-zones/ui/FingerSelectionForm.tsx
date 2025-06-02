@@ -7,8 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 
-import { FingerColorMapping } from '@/entities/keyFingerMapping';
-import { Finger } from '@/shared/types';
+import { Finger, FingerColorMapping } from '@/shared/types';
 
 import FingerFormControlLabel from './FingerFormControlLabel';
 import FingerRadio from './FingerRadio';

@@ -1,0 +1,324 @@
+@startuml
+' ER Diagram for Keyboard Trainer System (Updated for KeyFingerMappingScheme)
+' Organizes entities by logical modules for clarity
+
+package "Exercise Module" {
+  entity "ExerciseSet" {
+    * keyboardProfile : Ref<KeyboardProfile> <<FK>>
+    * version : Number <<default: 0>>
+    * generated : Boolean <<default: true>>
+    ' * title : String
+    ' description : String
+    --
+    timestamps : Date
+  }
+
+  entity "ExerciseSetExercise" {
+    * exerciseSet : Ref<ExerciseSet> <<FK>>
+    * exercise : Ref<Exercise> <<FK>>
+    order : Number <<default: 0>>
+    --
+    timestamps : Date
+  }
+
+  entity "Exercise" {
+    * id : String <<unique>>
+    ' * slug : String <<unique>>
+    --
+    * geometry : Ref<KeyboardGeometry> <<FK>>
+    * homeRow : String[] <<array>>
+    * keyInputs : KeyInput[] <<array>>
+    * keyFingerMapping : Object
+    * type : ExerciseType <<enum>>
+    * hash : String <<unique>>
+    difficulty : Number
+    --
+    timestamps : Date
+  }
+
+  entity "KeyInput" {
+    ' Defines a key press with code and modifier
+    * code : KeyCode
+    * modifier : ModifierKey
+  }
+
+  enum "ExerciseType" {
+    basic
+    combination
+    speed
+    custom
+  }
+
+  entity "ExerciseLog" {
+    * _id : ObjectId <<PK>>
+    --
+    * user : Ref<User> <<FK>>
+    * exercise : Ref<Exercise> <<FK>>
+    * layout : Ref<KeyboardLayout> <<FK>>
+    logs : Log[] <<array>>
+    --
+    createdAt : Date
+    updatedAt : Date
+  }
+
+  entity "Log" {
+    * type : ExerciseLogType
+    * timecode : Number
+    reaction : Number
+    target : KeyDefinition
+    pressedKey : PressedKey
+    isBlindly : Boolean
+  }
+
+  entity "KeyDefinition" {
+    * code : KeyCode
+    * modifier : ModifierKey
+    * key : String
+    * type : KeyType
+    finger : Number
+    alternate : KeyboardEvent['key']
+  }
+
+  entity "PressedKey" {
+    * code : KeyCode
+    * modifier : ModifierKey
+    * key : String
+  }
+
+  enum "ExerciseLogType" {
+    start
+    pause
+    continue
+    finish
+    correctKeystroke
+    wrongKeystroke
+    blot
+  }
+
+
+  enum "ModifierKey" {
+    default
+    shift
+    alt
+    ctrl
+    capslock
+    meta
+    fn
+  }
+
+    enum "KeyType" {
+    letter
+    digit
+    symbol
+    special
+  }
+}
+
+package "Keyboard Module" {
+  entity KeyboardProfile {
+    ' Defines user-specific keyboard configuration
+    * geometry : Ref<KeyboardGeometry> <<FK>>
+    * layout : Ref<KeyboardLayout> <<FK>>
+    * keyFingerMappingScheme : Ref<KeyFingerMappingScheme> <<FK>>
+    * homeRow : HomeRow <<default: DEFAULT_HOME_ROW>>
+    --
+    timestamps : Date
+  }
+
+  entity "KeyboardGeometry" {
+    ' Defines physical geometry of the keyboard
+    * geometryId : String <<unique>>
+    --
+    * formFactor : FormFactor <<enum>>
+    * format : KeyboardFormat <<enum>>
+    --
+    timestamps : Date
+  }
+
+  entity "KeyboardLayout" {
+    ' Defines keyboard layout with key mappings
+    * layoutId : KeyboardLayoutId <<enum, unique, index>>
+    * layoutMap : Record<ModifierKey, Record<KeyCode, KeyDefinition>>
+    isCustom : Boolean <<default: false>>
+    --
+    timestamps : Date
+  }
+
+  entity "KeyFingerMappingScheme" {
+    ' Maps keys to fingers for typing
+    * schemeType : KeyFingerMappingSchemeType <<enum>>
+    * keyFingerMappingScheme : Object <<KeyFingerMapping>>
+    * hash : String <<unique>>
+    --
+    timestamps : Date
+  }
+
+  entity "UserKeyFingerMapping" {
+    ' Links user to a scheme with custom title
+    * userId : Ref<User> <<FK>>
+    * title : String
+    description : String
+    * schemeId : Ref<KeyFingerMappingScheme> <<FK>>
+    --
+    timestamps : Date
+  }
+
+  entity "HomeRow" {
+    ' Defines home row configuration for typing
+    * configuration : Object
+  }
+
+  enum "FormFactor" {
+    Fullsize
+    TKL
+    SixtyPercent
+    SeventyFivePercent
+    FortyPercent
+    FiftyPercent
+    EightyPercent
+  }
+
+  enum KeyboardFormat {
+    Iso
+    Ansi
+  }
+
+  enum "KeyboardLayoutId" {
+    UsQwerty
+    Dvorak
+    Colemak
+    Workman
+    Jcuken
+  }
+
+
+  enum "KeyFingerMappingSchemeType" {
+    Optimized
+    Logical
+    Custom
+  }
+}
+
+package "User Module" {
+  entity "User" {
+    ' Represents a user with authentication and settings
+      * id: ObjectId ' Unique identifier for the user
+    * github_id : Number <<unique>>
+    * google_id : Number <<unique>>
+    ? email : String <<unique, sparse>>
+    ? emailVerified : Date
+    ? imageURL : String
+    role : Role <<enum, default: User>>
+    settings : Settings
+    ? lastLogin : Date
+    ? firstName : String
+    ? lastName : String
+    ? dateOfBirth : Date
+    ? gender : Gender <<enum>>
+    ? username : String <<unique, sparse>>
+    ? locale : String
+    ? registrationCompleted : Date
+    ? timeZone : String
+    * keyboardSettings: KeyboardSettings ' Embedded user-specific keyboard settings
+    --
+    timestamps : Date
+  }
+
+  entity "Settings" {
+    ' User-specific settings
+    theme : String
+    notifications : Boolean
+  }
+
+
+
+  entity "KeyboardSettings" {
+    ' Embedded user-specific keyboard settings within User entity
+    * system: System <<enum>> ' Operating system type (e.g., Windows, macOS)
+    * activeUserKeyboardProfile: Ref<UserKeyboardProfile> <<ObjectId>> ' Reference to active user keyboard profile
+    * availableUserKeyboardProfiles: [Ref<UserKeyboardProfile>] <<ObjectId>> ' List of all user keyboard profiles
+  }
+
+  entity "UserKeyboardProfile" {
+    ' Links a user to a keyboard profile and exercise set
+    * user: Ref<User> <<ObjectId>> ' Reference to User
+    * keyboardProfile: Ref<KeyboardProfile> <<ObjectId>> ' Reference to KeyboardProfile
+    * currentExerciseSet: Ref<ExerciseSet> <<ObjectId>> ' Reference to current ExerciseSet
+    --
+    timestamps: true ' Automatically adds createdAt and updatedAt fields
+  }
+
+  entity "Session" {
+    ' Represents a user session, used in authentication
+    * userId : Ref<User> <<FK>>
+    * token : String
+    * expires : Date
+    --
+    timestamps : Date
+  }
+
+  enum "System" {
+    Macos
+    Windows
+    Linux
+  }
+
+  enum "Role" {
+    User
+    Admin
+    Moderator
+  }
+
+  enum "Gender" {
+    Male
+    Female
+  }
+}
+
+' Relationships
+Exercise ||--o{ KeyInput : contains
+Exercise ||--o{ KeyboardLayout : references
+ExerciseSet ||--o{ Exercise : references
+ExerciseSet ||--o{ KeyboardProfile : references
+KeyboardProfile ||--o{ KeyboardGeometry : references
+KeyboardProfile ||--o{ KeyboardLayout : references
+KeyboardProfile ||--o{ KeyFingerMappingScheme : references
+KeyboardProfile ||--o{ HomeRow : contains
+UserKeyFingerMapping ||--o{ User : created by
+UserKeyFingerMapping ||--o{ KeyFingerMappingScheme : references
+KeyDefinition ||--o{ KeyInput : contains
+KeyFingerMappingScheme ||--o{ User : created by
+User ||--o{ Settings : contains
+User ||--o{ KeyboardSettings : contains
+KeyboardSettings ||--o{ KeyboardProfile : references
+UserKeyboardProfile ||--o{ User : references
+UserKeyboardProfile ||--o{ KeyboardProfile : references
+UserKeyboardProfile ||--o{ ExerciseSet : references
+Session ||--o{ User : references
+
+' Enum dependencies (as type references)
+KeyboardGeometry::formFactor -- FormFactor
+KeyboardGeometry::format -- KeyboardFormat
+
+KeyboardLayout::layoutId -- KeyboardLayoutId
+
+
+KeyFingerMappingScheme::schemeType -- KeyFingerMappingSchemeType
+ExerciseSet ||--o{ ExerciseSetExercise : exerciseSet
+Exercise ||--o{ ExerciseSetExercise : exercise
+
+ExerciseLog ||--o{ Log : contains
+Log ||--o| KeyDefinition : targets
+Log ||--o| PressedKey : presses
+ExerciseLog ||--o| User : performed by
+ExerciseLog ||--o| Exercise : logs
+ExerciseLog ||--o| KeyboardGeometry : uses layout
+
+Exercise::type -- ExerciseType
+KeyInput::modifier -- ModifierKey
+KeyDefinition::type -- KeyType
+KeyDefinition::modifier -- ModifierKey
+PressedKey::modifier -- ModifierKey
+
+Log::type -- ExerciseLogType
+@enduml

@@ -2,9 +2,9 @@
 
 import Box from '@mui/material/Box';
 
-import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
 import { DEFAULT_FINGER_COLOR_MAPPING as defaultFingerColorMapping } from '@/entities/keyFingerMapping';
-import { Keyboard, KeyboardFormat, LayoutId, System } from '@/entities/keyboard';
+import { DEFAULT_EXCLUDED_KEYS, Keyboard, System } from '@/entities/keyboard';
+import { KeyFingerMapping, KeyboardFormat, KeyboardLayoutId } from '@/shared/types';
 
 import FingerSelectionForm from './FingerSelectionForm';
 import KeyFingerMappingSelector from './KeyFingerMappingSelector';
@@ -12,14 +12,14 @@ import KeyFingerMappingSelector from './KeyFingerMappingSelector';
 import { useKeyFingerMapping, useSelectedFinger } from '../lib/hooks';
 
 interface CallbackActions {
-  getValues(): KeyFingerMappingScheme;
+  getValues(): KeyFingerMapping;
 }
 
 interface Props {
-  defaultValues: KeyFingerMappingScheme;
+  defaultValues: KeyFingerMapping;
   system: System;
   keyboardFormat: KeyboardFormat;
-  layoutId: LayoutId;
+  layoutId: KeyboardLayoutId;
   actions({ getValues }: CallbackActions): JSX.Element;
 }
 //TODO: submitButtonText по умолчанию с t
@@ -62,6 +62,7 @@ export function KeyFingerMappingForm({ defaultValues, system, keyboardFormat, la
         <Keyboard
           system={system}
           layoutId={layoutId}
+          excludedKeys={DEFAULT_EXCLUDED_KEYS}
           keyboardFormat={keyboardFormat}
           fingerColorMapping={defaultFingerColorMapping}
           keyFingerMapping={keyFingerMapping}

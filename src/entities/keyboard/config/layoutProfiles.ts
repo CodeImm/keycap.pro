@@ -1,123 +1,124 @@
-import { LayoutId, LayoutProfiles, System } from '../model/types';
+import { KeyboardLayoutId } from '@/shared/types';
+import { LayoutLanguage, LayoutProfiles, System } from '../model/types';
 
 export const layoutProfiles: LayoutProfiles[] = [
   /** Windows */
   // English
   {
-    id: LayoutId.UsQwerty,
+    id: KeyboardLayoutId.UsQwerty,
     name: 'QWERTY',
-    language: 'english',
-    system: System.windows,
+    language: LayoutLanguage.English,
+    system: System.Windows,
     emulated: true,
   },
   {
-    id: LayoutId.Dvorak,
+    id: KeyboardLayoutId.Dvorak,
     name: 'Dvorak',
-    language: 'english',
-    system: System.windows,
+    language: LayoutLanguage.English,
+    system: System.Windows,
     emulated: true,
   },
   {
-    id: LayoutId.Colemak,
+    id: KeyboardLayoutId.Colemak,
     name: 'Colemak',
-    language: 'english',
-    system: System.windows,
+    language: LayoutLanguage.English,
+    system: System.Windows,
     emulated: true,
   },
   {
-    id: LayoutId.Workman,
+    id: KeyboardLayoutId.Workman,
     name: 'Workman',
-    language: 'english',
-    system: System.windows,
+    language: LayoutLanguage.English,
+    system: System.Windows,
     emulated: true,
   },
 
   // Russian
   {
-    id: LayoutId.Jcuken,
+    id: KeyboardLayoutId.Jcuken,
     name: 'ЙЦУКЕН',
-    language: 'russian',
-    system: System.windows,
+    language: LayoutLanguage.Russian,
+    system: System.Windows,
     emulated: true,
   },
 
   /** Linux */
   // English
   {
-    id: LayoutId.UsQwerty,
+    id: KeyboardLayoutId.UsQwerty,
     name: 'QWERTY',
-    language: 'english',
-    system: System.linux,
+    language: LayoutLanguage.English,
+    system: System.Linux,
     emulated: true,
   },
   {
-    id: LayoutId.Dvorak,
+    id: KeyboardLayoutId.Dvorak,
     name: 'Dvorak',
-    language: 'english',
-    system: System.linux,
+    language: LayoutLanguage.English,
+    system: System.Linux,
     emulated: true,
   },
   {
-    id: LayoutId.Colemak,
+    id: KeyboardLayoutId.Colemak,
     name: 'Colemak',
-    language: 'english',
-    system: System.linux,
+    language: LayoutLanguage.English,
+    system: System.Linux,
     emulated: true,
   },
   {
-    id: LayoutId.Workman,
+    id: KeyboardLayoutId.Workman,
     name: 'Workman',
-    language: 'english',
-    system: System.linux,
+    language: LayoutLanguage.English,
+    system: System.Linux,
     emulated: true,
   },
 
   // Russian
   {
-    id: LayoutId.Jcuken,
+    id: KeyboardLayoutId.Jcuken,
     name: 'ЙЦУКЕН',
-    language: 'russian',
-    system: System.linux,
+    language: LayoutLanguage.Russian,
+    system: System.Linux,
     emulated: true,
   },
 
   /** MacOS */
   // English
   {
-    id: LayoutId.UsQwerty,
+    id: KeyboardLayoutId.UsQwerty,
     name: 'QWERTY',
-    language: 'english',
-    system: System.macos,
+    language: LayoutLanguage.English,
+    system: System.Macos,
     emulated: true,
   },
   {
-    id: LayoutId.Dvorak,
+    id: KeyboardLayoutId.Dvorak,
     name: 'Dvorak',
-    language: 'english',
-    system: System.macos,
+    language: LayoutLanguage.English,
+    system: System.Macos,
     emulated: true,
   },
   {
-    id: LayoutId.Colemak,
+    id: KeyboardLayoutId.Colemak,
     name: 'Colemak',
-    language: 'english',
-    system: System.macos,
+    language: LayoutLanguage.English,
+    system: System.Macos,
     emulated: true,
   },
   {
-    id: LayoutId.Workman,
+    id: KeyboardLayoutId.Workman,
     name: 'Workman',
-    language: 'english',
-    system: System.macos,
+    language: LayoutLanguage.English,
+    system: System.Macos,
     emulated: true,
   },
 
   // Russian
   {
-    id: LayoutId.Jcuken,
+    id: KeyboardLayoutId.Jcuken,
     name: 'Русская — ПК',
-    language: 'russian',
-    system: System.macos,
+    language: LayoutLanguage.Russian,
+    system: System.Macos,
     emulated: true,
   },
 ];

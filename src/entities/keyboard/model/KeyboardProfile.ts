@@ -3,25 +3,24 @@ import { getModelForClass, prop } from '@typegoose/typegoose';
 
 import type { HomeRow } from '@/entities/keyFingerMapping';
 import { DEFAULT_HOME_ROW, HomeRowSchema } from '@/entities/keyFingerMapping';
-import { KeyFingerMapping } from '@/entities/keyFingerMapping/model/KeyFingerMapping';
-import { FormFactor, Format, LayoutId } from '@/entities/keyboard';
+import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping/model/KeyFingerMappingScheme';
+import { KeyboardLayout } from '@/entities/keyboard/model/KeyboardLayout';
+
+import { KeyboardGeometry } from './KeyboardGeometry';
 
 export class KeyboardProfile {
-  @prop({ enum: FormFactor, type: String, required: false, default: FormFactor.SixtyPercent })
-  public formFactor!: FormFactor;
+  @prop({ ref: () => KeyboardGeometry, required: true })
+  public geometry!: Ref<KeyboardGeometry>;
 
-  @prop({ enum: Format, type: String, required: true })
-  public format!: Format;
+  @prop({ ref: () => KeyboardLayout, required: true })
+  public layout!: Ref<KeyboardLayout>;
 
-  @prop({ enum: LayoutId, type: String, required: true })
-  public layout!: LayoutId;
-
-  @prop({ ref: 'KeyFingerMapping', required: true })
-  public keyFingerMappingSchemeId!: Ref<KeyFingerMapping>;
+  @prop({ ref: () => KeyFingerMappingScheme, required: true })
+  public keyFingerMappingScheme!: Ref<KeyFingerMappingScheme>;
 
   @prop({
     type: Object,
-    required: false,
+    required: true,
     validate: {
       validator: (value: unknown) => {
         const result = HomeRowSchema.safeParse(value);
@@ -33,12 +32,6 @@ export class KeyboardProfile {
     default: DEFAULT_HOME_ROW,
   })
   public homeRow!: HomeRow;
-
-  @prop({ type: Boolean, required: false, default: true })
-  public generated!: boolean;
-
-  // @prop({ type: [Types.ObjectId], ref: () => Types.ObjectId })
-  // public exercises!: Ref<Types.ObjectId>[];
 }
 
 const KeyboardProfileModel = getModelForClass(KeyboardProfile, { schemaOptions: { timestamps: true } });

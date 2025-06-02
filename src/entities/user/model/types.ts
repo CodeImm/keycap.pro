@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-import { KeyFingerMappingScheme } from '@/entities/keyFingerMapping';
-import { KeyboardFormat, LayoutId, LayoutLanguage, System } from '@/entities/keyboard';
+import { LayoutLanguage, System } from '@/entities/keyboard';
+import { KeyboardFormat, KeyboardLayoutId } from '@/shared/types';
 
 import { CompleteRegistrationFormRequestSchema } from './schemas';
 
@@ -26,12 +26,12 @@ export interface UpdateUserProfileResponse {
   success: boolean;
   message?: string;
   data?: {
-    keyFingerMappingSchema: KeyFingerMappingScheme;
+    keyFingerMappingSchema: any;
     layout: {
       system: System;
       layoutLanguage: LayoutLanguage;
       keyboardFormat: KeyboardFormat;
-      layoutId: LayoutId;
+      layoutId: KeyboardLayoutId;
     };
   };
 }

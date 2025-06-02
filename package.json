@@ -11,7 +11,12 @@
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "lint:fixall": "npm run lint:fix && npm run prettier:fix",
-    "seed": "npx tsx ./src/shared/seeders/KeyFingerMappingScheme/index.ts"
+    "seed:layouts": "npx tsx ./src/shared/seeders/KeyboardLayout/index.ts",
+    "seed:schemes": "npx tsx ./src/shared//seeders/KeyFingerMappingScheme/index.ts",
+    "seed:geometries": "npx tsx ./src/shared//seeders/KeyboardGeometry/index.ts",
+    "seed:profiles": "npx tsx ./src/shared//seeders/KeyboardProfile/index.ts",
+    "seed:exerciseSets": "npx tsx ./src/shared//seeders/ExerciseSet/index.ts",
+    "seed:all": "npx tsx ./src/shared/seeders/index.ts"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
@@ -31,7 +36,7 @@
     "dotenv": "^16.4.5",
     "ky": "^1.7.1",
     "lodash.isequal": "^4.5.0",
-    "lucia": "^3.2.0",
+    "lucia": "^3.2.2",
     "mongoose": "^8.5.4",
     "next": "^14.2.6",
     "next-intl": "^3.17.6",
