@@ -4,9 +4,12 @@ import { Box, Paper, Typography } from '@mui/material';
 
 import { restoreCharactersFromKeyInputs } from '@/entities/exercise';
 import ExerciseSetExerciseModel from '@/entities/exercise/model/ExerciseSetExercise';
+import { DEFAULT_FINGER_COLOR_MAPPING } from '@/entities/keyFingerMapping';
+import { System } from '@/entities/keyboard';
 import UserKeyboardProfileModel from '@/entities/userKeyboardProfile/model/UserKeyboardProfileModel';
 import { validateRequest } from '@/shared/config/lucia-auth/validateRequest';
 import dbConnect from '@/shared/config/mongodb/dbConnect';
+import { BasicTypingExercise } from '@/widgets/basic-typing-exercise';
 
 type Props = {
   params: { id: string };
@@ -72,6 +75,12 @@ export default async function ExercisePage({ params }: Props) {
   }
   console.log({ response });
 
+  const {
+    userKeyboardProfile: {
+      keyboardProfile: { layout, geometry, keyFingerMappingScheme, homeRow },
+    },
+  } = response.data;
+
   const exerciseText = restoreCharactersFromKeyInputs(
     response.data.exerciseSetExercise.exercise.keyInputs,
     response.data.userKeyboardProfile.keyboardProfile.layout.layoutMap
@@ -87,6 +96,17 @@ export default async function ExercisePage({ params }: Props) {
         <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap' }}>
           {exerciseText}
         </Typography>
+      </Paper>
+
+      <Paper variant="outlined" sx={{ p: 3, mt: 3 }}>
+        <BasicTypingExercise
+          system={System.Windows}
+          layout={layout.layoutMap}
+          keyboardFormat={geometry.format}
+          keyFingerMapping={keyFingerMappingScheme.keyFingerMappingScheme}
+          fingerColorMapping={DEFAULT_FINGER_COLOR_MAPPING}
+          homeRow={[homeRow[3], homeRow[6]]}
+        />
       </Paper>
 
       <Paper variant="outlined" sx={{ p: 3, mt: 3 }}>
