@@ -49,7 +49,7 @@ package "Exercise Module" {
     custom
   }
 
-  entity "ExerciseLog" {
+entity "ExerciseLog" {
     * _id : ObjectId <<PK>>
     --
     * user : Ref<User> <<FK>>
@@ -59,42 +59,56 @@ package "Exercise Module" {
     --
     createdAt : Date
     updatedAt : Date
-  }
+}
 
-  entity "Log" {
+entity "Log" {
     * type : ExerciseLogType
     * timecode : Number
-    reaction : Number
-    target : KeyDefinition
+    -- discriminator for union
+}
+
+entity "ExerciseEventLog" extends "Log" {
+    * type : ExerciseLogType <<EXERCISE_START | EXERCISE_PAUSE | EXERCISE_RESUME | EXERCISE_FINISH>>
+}
+
+entity "KeyActionLog" extends "Log" {
+    * type : ExerciseLogType <<KEY_CORRECT | KEY_INCORRECT | KEY_MISSED>>
+    * targetKey : KeyDefinition
     pressedKey : PressedKey
+    reaction : Number
     isBlindly : Boolean
-  }
+}
 
-  entity "KeyDefinition" {
+entity "UnexpectedKeyLog" extends "Log" {
+    * type : ExerciseLogType <<KEY_UNEXPECTED>>
+    * pressedKey : PressedKey
+}
+
+entity "KeyDefinition" {
+  * code : KeyCode
+  * modifier : ModifierKey
+  * key : String
+  * type : KeyType
+  * finger : Number
+  alternate : KeyboardEvent['key']
+}
+
+entity "PressedKey" {
     * code : KeyCode
     * modifier : ModifierKey
     * key : String
-    * type : KeyType
-    finger : Number
-    alternate : KeyboardEvent['key']
-  }
+}
 
-  entity "PressedKey" {
-    * code : KeyCode
-    * modifier : ModifierKey
-    * key : String
-  }
-
-  enum "ExerciseLogType" {
-    start
-    pause
-    continue
-    finish
-    correctKeystroke
-    wrongKeystroke
-    blot
-  }
-
+enum "ExerciseLogType" {
+  exercise.start
+  exercise.pause
+  exercise.resume
+  exercise.finish
+  key.correct
+  key.incorrect
+  key.missed
+  key.unexpected
+}
 
   enum "ModifierKey" {
     default
@@ -106,7 +120,7 @@ package "Exercise Module" {
     fn
   }
 
-    enum "KeyType" {
+  enum "KeyType" {
     letter
     digit
     symbol
@@ -230,8 +244,6 @@ package "User Module" {
     notifications : Boolean
   }
 
-
-
   entity "KeyboardSettings" {
     ' Embedded user-specific keyboard settings within User entity
     * system: System <<enum>> ' Operating system type (e.g., Windows, macOS)
@@ -307,11 +319,6 @@ KeyFingerMappingScheme::schemeType -- KeyFingerMappingSchemeType
 ExerciseSet ||--o{ ExerciseSetExercise : exerciseSet
 Exercise ||--o{ ExerciseSetExercise : exercise
 
-ExerciseLog ||--o{ Log : contains
-Log ||--o| KeyDefinition : targets
-Log ||--o| PressedKey : presses
-ExerciseLog ||--o| User : performed by
-ExerciseLog ||--o| Exercise : logs
 ExerciseLog ||--o| KeyboardGeometry : uses layout
 
 Exercise::type -- ExerciseType
@@ -321,4 +328,12 @@ KeyDefinition::modifier -- ModifierKey
 PressedKey::modifier -- ModifierKey
 
 Log::type -- ExerciseLogType
+
+ExerciseLog ||--o{ User : user
+ExerciseLog ||--o{ Exercise : exercise
+ExerciseLog ||--o{ KeyboardLayout : layout
+ExerciseLog ||--o{ Log : logs
+KeyActionLog ||--o{ KeyDefinition : target
+KeyActionLog ||--o{ PressedKey : pressedKey
+UnexpectedKeyLog ||--o{ PressedKey : pressedKey
 @enduml

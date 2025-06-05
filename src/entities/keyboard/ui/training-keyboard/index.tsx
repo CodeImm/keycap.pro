@@ -10,7 +10,6 @@ import {
   KeyInput,
   KeyboardFormat,
   KeyboardLayout,
-  KeyboardLayoutId,
 } from '@/shared/types';
 
 import Inner from './Inner';
@@ -18,7 +17,6 @@ import KeyboardRow from './KeyboardRow';
 import Rect from './Rect';
 
 import { ansi, iso } from '../../config';
-import { getLayoutById } from '../../lib';
 import { getKeycapLegends } from '../../lib/getKeycapLegends';
 import type { System } from '../../model/types';
 

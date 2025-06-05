@@ -11,6 +11,8 @@ import {
   ModifierKey,
 } from '@/shared/types';
 
+import { useBasicTypingExercise } from '../lib';
+
 interface Props extends BoxProps {
   system: System;
   layout: KeyboardLayout;
@@ -29,7 +31,25 @@ export function BasicTypingExercise({
   keyFingerMapping,
   fingerColorMapping = DEFAULT_FINGER_COLOR_MAPPING,
 }: Props) {
-  // const { targetKey, pressedKeys, isBlindInput } = useBasicTypingExercise();
+  const {
+    targetKey,
+    pressedKeys,
+    isBlindInput,
+    progress1,
+    progress2,
+    logs,
+    isFinished,
+    isStarted,
+    isPaused,
+    isFocused,
+    reset,
+    handleKeyPress,
+    handleKeyUp,
+    handleKeyDown,
+    handleFocus,
+    handleBlur,
+  } = useBasicTypingExercise({ keyInputs: [{}] });
+
   return (
     <TrainingKeyboard
       targetKey={{ code: 'KeyA', modifier: ModifierKey.SHIFT }}
